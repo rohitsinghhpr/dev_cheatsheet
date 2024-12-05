@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redux Toolkit</title>
+    <link rel="stylesheet" href="../../assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests/css/style.css">
+    <link rel="stylesheet" href="../../assests/css/prism-tomorrow.min.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+        <details>
+            <summary>What is Redux Toolkit?</summary>
+            <div class="content">
+              Redux Toolkit (RTK) is the official, opinionated way to use Redux. It simplifies the setup and management of a Redux store, helps avoid common mistakes, and includes powerful features like the <code>createSlice</code> and <code>createAsyncThunk</code> functions.
+            </div>
+          </details>
+          
+          <details>
+            <summary>Installing Redux Toolkit</summary>
+            <div class="content">
+              Install Redux Toolkit and React-Redux by running:
+              <pre><code class="language-bash">npm install @reduxjs/toolkit react-redux</code></pre>
+            </div>
+          </details>
+          
+          <details>
+            <summary>Setting up the Redux Store</summary>
+            <div class="content">
+              Use the <code>configureStore</code> function to create a Redux store:
+              <pre><code class="language-javascript">
+                import { configureStore } from &#x27;@reduxjs/toolkit&#x27;;
+                import counterReducer from &#x27;./counterSlice&#x27;;
+                
+                const store = configureStore({
+                  reducer: {
+                    counter: counterReducer,
+                  },
+                });
+                
+                export default store;
+              </code></pre>
+            </div>
+          </details>
+          
+          <details>
+            <summary>Creating a Slice</summary>
+            <div class="content">
+              Define a slice with <code>createSlice</code> to manage actions and reducers together:
+              <pre><code class="language-javascript">
+                import { createSlice } from &#x27;@reduxjs/toolkit&#x27;;
+          
+                const counterSlice = createSlice({
+                  name: &#x27;counter&#x27;,
+                  initialState: { value: 0 },
+                  reducers: {
+                    increment: (state) =&#x3E; {
+                      state.value += 1;
+                    },
+                    decrement: (state) =&#x3E; {
+                      state.value -= 1;
+                    },
+                    incrementByAmount: (state, action) =&#x3E; {
+                      state.value += action.payload;
+                    },
+                  },
+                });
+                
+                export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+                export default counterSlice.reducer;
+              </code></pre>
+            </div>
+          </details>
+          
+          <details>
+            <summary>Connecting Redux to React</summary>
+            <div class="content">
+              Wrap your app with the <code>Provider</code> component and pass in the store:
+              <pre><code class="language-javascript">
+                import React from &#x27;react&#x27;;
+                import ReactDOM from &#x27;react-dom&#x27;;
+                import { Provider } from &#x27;react-redux&#x27;;
+                import store from &#x27;./store&#x27;;
+                import App from &#x27;./App&#x27;;
+                
+                ReactDOM.render(
+                  &#x3C;Provider store={store}&#x3E;
+                    &#x3C;App /&#x3E;
+                  &#x3C;/Provider&#x3E;,
+                  document.getElementById(&#x27;root&#x27;)
+                );
+              </code></pre>
+            </div>
+          </details>
+          
+          <details>
+            <summary>Using Redux State in Components</summary>
+            <div class="content">
+              Use the <code>useSelector</code> and <code>useDispatch</code> hooks from React-Redux to interact with the store:
+              <pre><code class="language-javascript">
+                import React from &#x27;react&#x27;;
+                import { useSelector, useDispatch } from &#x27;react-redux&#x27;;
+                import { increment, decrement, incrementByAmount } from &#x27;./counterSlice&#x27;;
+                
+                function Counter() {
+                  const count = useSelector((state) =&#x3E; state.counter.value);
+                  const dispatch = useDispatch();
+                
+                  return (
+                    &#x3C;div&#x3E;
+                      &#x3C;h1&#x3E;{count}&#x3C;/h1&#x3E;
+                      &#x3C;button onClick={() =&#x3E; dispatch(increment())}&#x3E;Increment&#x3C;/button&#x3E;
+                      &#x3C;button onClick={() =&#x3E; dispatch(decrement())}&#x3E;Decrement&#x3C;/button&#x3E;
+                      &#x3C;button onClick={() =&#x3E; dispatch(incrementByAmount(5))}&#x3E;Increment by 5&#x3C;/button&#x3E;
+                    &#x3C;/div&#x3E;
+                  );
+                }
+                
+                export default Counter;
+              </code></pre>
+            </div>
+          </details>
+          
+          <details>
+            <summary>Using createAsyncThunk</summary>
+            <div class="content">
+              Handle async logic with <code>createAsyncThunk</code>:
+              <pre><code class="language-javascript">
+                import { createSlice, createAsyncThunk } from &#x27;@reduxjs/toolkit&#x27;;
+                import axios from &#x27;axios&#x27;;
+                
+                export const fetchUsers = createAsyncThunk(&#x27;users/fetchUsers&#x27;, async () =&#x3E; {
+                  const response = await axios.get(&#x27;/api/users&#x27;);
+                  return response.data;
+                });
+                
+                const usersSlice = createSlice({
+                  name: &#x27;users&#x27;,
+                  initialState: { users: [], status: &#x27;idle&#x27; },
+                  reducers: {},
+                  extraReducers: (builder) =&#x3E; {
+                    builder
+                      .addCase(fetchUsers.pending, (state) =&#x3E; {
+                        state.status = &#x27;loading&#x27;;
+                      })
+                      .addCase(fetchUsers.fulfilled, (state, action) =&#x3E; {
+                        state.status = &#x27;succeeded&#x27;;
+                        state.users = action.payload;
+                      })
+                      .addCase(fetchUsers.rejected, (state) =&#x3E; {
+                        state.status = &#x27;failed&#x27;;
+                      });
+                  },
+                });
+                
+                export default usersSlice.reducer;
+              </code></pre>
+            </div>
+          </details>
+
+          <details>
+            <summary>Using createEntityAdapter</summary>
+            <div class="content">
+              The `createEntityAdapter` utility simplifies managing collections of entities in Redux by providing methods for managing IDs, normalizing data, and updating collections.
+              <pre><code class="language-javascript">
+          import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+          
+          const usersAdapter = createEntityAdapter();
+          
+          const initialState = usersAdapter.getInitialState({
+            status: 'idle',
+          });
+          
+          const usersSlice = createSlice({
+            name: 'users',
+            initialState,
+            reducers: {},
+            extraReducers: (builder) => {
+              builder
+                .addCase(fetchUsers.fulfilled, (state, action) => {
+                  usersAdapter.setAll(state, action.payload);
+                });
+            },
+          });
+          
+          export default usersSlice.reducer;
+              </code></pre>
+            </div>
+          </details>
+          
+          <details>
+            <summary>Immutability with Redux Toolkit</summary>
+            <div class="content">
+              Redux Toolkit uses the `Immer` library to handle immutability for you. You can write "mutating" code inside reducers, and it will be safely converted into immutable updates.
+              <pre><code class="language-javascript">
+          const counterSlice = createSlice({
+            name: 'counter',
+            initialState: { value: 0 },
+            reducers: {
+              increment: (state) => {
+                state.value += 1;  // This is "mutable" code, but Immer will make it immutable
+              },
+              decrement: (state) => {
+                state.value -= 1;
+              },
+            },
+          });
+              </code></pre>
+            </div>
+          </details>
+          
+          <details>
+            <summary>Selector Functions</summary>
+            <div class="content">
+              Selector functions allow you to extract parts of the Redux state in a more reusable and modular way.
+              <pre><code class="language-javascript">
+          const selectCounter = (state) => state.counter.value;
+          
+          function Counter() {
+            const count = useSelector(selectCounter);
+            return <h1>{count}</h1>;
+          }
+              </code></pre>
+            </div>
+          </details>
+          
+          <details>
+            <summary>Redux DevTools</summary>
+            <div class="content">
+              Redux DevTools is a powerful tool to debug your Redux state and actions. It is integrated with Redux Toolkit by default, so you can easily inspect state changes.
+              <pre><code class="language-javascript">
+          const store = configureStore({
+            reducer: {
+              counter: counterReducer,
+            },
+            devTools: process.env.NODE_ENV !== 'production', // Enable DevTools only in development
+          });
+              </code></pre>
+            </div>
+          </details>
+          
+          <details>
+            <summary>Thunk Middleware</summary>
+            <div class="content">
+              Redux Toolkit automatically includes `redux-thunk`, which lets you write action creators that return functions (thunks) instead of just plain objects.
+              <pre><code class="language-javascript">
+          const fetchData = () => {
+            return async (dispatch) => {
+              dispatch({ type: 'loading' });
+              const response = await fetch('/api/data');
+              dispatch({ type: 'dataReceived', payload: await response.json() });
+            };
+          };
+          
+          const store = configureStore({
+            reducer: rootReducer,
+          });
+              </code></pre>
+            </div>
+          </details>
+          
+          <details>
+            <summary>Batching Actions</summary>
+            <div class="content">
+              Redux Toolkit automatically batches action dispatches, which means multiple dispatches within the same event cycle will be handled in a single render cycle for performance optimization.
+              <pre><code class="language-javascript">
+          dispatch(increment());
+          dispatch(decrement());
+          // Both actions will be batched and cause only one re-render.
+              </code></pre>
+            </div>
+          </details>
+          
+          <details>
+            <summary>Creating a Custom Middleware</summary>
+            <div class="content">
+              You can add custom middleware to your Redux store to intercept and modify actions as they are dispatched.
+              <pre><code class="language-javascript">
+          const loggerMiddleware = storeAPI => next => action => {
+            console.log('dispatching', action);
+            return next(action);
+          };
+          
+          const store = configureStore({
+            reducer: rootReducer,
+            middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(loggerMiddleware),
+          });
+              </code></pre>
+            </div>
+          </details>
+          
+          <details>
+            <summary>Using Redux in a TypeScript Project</summary>
+            <div class="content">
+              Redux Toolkit works seamlessly with TypeScript. Here's an example of typing slices and actions:
+              <pre><code class="language-javascript">
+          import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+          
+          interface CounterState {
+            value: number;
+          }
+          
+          const initialState: CounterState = {
+            value: 0,
+          };
+          
+          const counterSlice = createSlice({
+            name: 'counter',
+            initialState,
+            reducers: {
+              increment: (state) => {
+                state.value += 1;
+              },
+              decrement: (state) => {
+                state.value -= 1;
+              },
+              incrementByAmount: (state, action: PayloadAction<number>) => {
+                state.value += action.payload;
+              },
+            },
+          });
+          
+          export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+          export default counterSlice.reducer;
+              </code></pre>
+            </div>
+          </details>
+          
+          <details>
+            <summary>Lazy Loading Slices</summary>
+            <div class="content">
+              Redux Toolkit allows you to load slices dynamically using code splitting. This is useful when you want to load parts of the store only when needed.
+              <pre><code class="language-javascript">
+          import { configureStore } from '@reduxjs/toolkit';
+          
+          const store = configureStore({
+            reducer: {
+              // Dynamically import the user slice when needed
+              users: React.lazy(() => import('./usersSlice')),
+            },
+          });
+              </code></pre>
+            </div>
+          </details>
+          
+          
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+
+    <script src="../../assests/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests/js/script.js"></script>
+    <script src="../../assests/js/prism.min.js"></script>
+    <script src="../../assests/js/prism-java.min.js"></script>
+
+</body>
+
+</html>
