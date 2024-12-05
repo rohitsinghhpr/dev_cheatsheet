@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Testing</title>
+    <link rel="stylesheet" href="../../assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests/css/prism-tomorrow.min.css" />
+    <link rel="stylesheet" href="../../assests/css/style.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+        <details>
+            <summary>What is Rect Testing?</summary>
+            <div class="content">
+                Rect testing is a term commonly associated with testing the layout and visual components of a UI, specifically in React-based applications. It focuses on ensuring that elements render properly in response to different props or state changes, ensuring that the component behaves as expected in the rendered output.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Why is Rect Testing Important?</summary>
+            <div class="content">
+                Rect testing is crucial because UI components need to render and behave correctly when state or props change. This testing ensures that visual aspects like text, color, spacing, and responsiveness function properly under various conditions. It also helps to catch UI regressions that may occur during development, preventing bugs from reaching production.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Types of Rect Testing</summary>
+            <div class="content">
+                1. **Snapshot Testing**: This type of test captures the rendered output of a component and stores it in a snapshot file. When the component renders in the future, the output is compared to the stored snapshot to detect changes.
+                <br>
+                2. **Shallow Rendering**: This technique is used to test components in isolation, ensuring they render correctly without affecting child components.
+                <br>
+                3. **Mounting**: This involves rendering the component along with its children, making it suitable for testing more integrated component behaviors.
+                <br>
+                4. **Integration Testing**: It tests how well a component interacts with other components and services.
+            </div>
+        </details>
+        
+        <details>
+            <summary>How to Write Rect Tests</summary>
+            <div class="content">
+                React tests can be written using tools such as Jest, React Testing Library, and Enzyme. Below is a simple example of a React test using React Testing Library to check if a component renders correctly.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Code Example: React Test using React Testing Library</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        import { render, screen } from '@testing-library/react';
+        import MyComponent from './MyComponent';
+        
+        test('renders MyComponent with text content', () => {
+          render(<MyComponent />);
+          const linkElement = screen.getByText(/hello world/i);
+          expect(linkElement).toBeInTheDocument();
+        });
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Testing with Jest</summary>
+            <div class="content">
+                Jest is often used in combination with React Testing Library or Enzyme for unit testing. It provides methods for assertions like `expect`, `toBeInTheDocument`, and `toHaveClass` to test the rendered UI elements.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Mocking Functions in React Tests</summary>
+            <div class="content">
+                In React testing, mocking is essential for isolating tests and simulating certain behaviors like function calls or API responses. Jest provides powerful mock function utilities.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Code Example: Mocking a Function</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        import { render, fireEvent } from '@testing-library/react';
+        import MyComponent from './MyComponent';
+        
+        test('calls handleClick on button click', () => {
+          const handleClick = jest.fn();
+          render(<MyComponent handleClick={handleClick} />);
+          
+          fireEvent.click(screen.getByText('Click me'));
+          expect(handleClick).toHaveBeenCalledTimes(1);
+        });
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Best Practices for Rect Testing</summary>
+            <div class="content">
+                - Test the component's behavior rather than its implementation.
+                <br>
+                - Use testing libraries like React Testing Library to test user interactions.
+                <br>
+                - Avoid testing internal details like lifecycle methods and state; focus on public APIs.
+                <br>
+                - Mock dependencies to isolate components for unit tests.
+            </div>
+        </details>
+        
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests/js/prism.min.js"></script>
+    <script src="../../assests/js/prism-java.min.js"></script>
+    <script src="../../assests/js/script.js"></script>
+</body>
+
+</html>

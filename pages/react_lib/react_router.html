@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Router</title>
+    <link rel="stylesheet" href="../../assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests/css/prism-tomorrow.min.css" />
+    <link rel="stylesheet" href="../../assests/css/style.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+        <details>
+            <summary>What is React Router 5?</summary>
+            <div class="content">
+                React Router 5 is a popular routing library for React that allows you to implement dynamic routing in your application. It enables navigation between different components without reloading the page, providing a seamless, single-page application (SPA) experience.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Why Use React Router?</summary>
+            <div class="content">
+                React Router simplifies navigation in React applications. With it, you can handle dynamic routes, nested routes, and URL parameters. It helps maintain an application’s state during navigation, ensuring that users can bookmark URLs or reload pages without losing the state or context of the current view.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Core Components of React Router 5</summary>
+            <div class="content">
+                React Router 5 includes several core components:
+                <ul>
+                    <li><strong>BrowserRouter</strong>: A router that uses the HTML5 history API to keep UI in sync with the URL.</li>
+                    <li><strong>Route</strong>: A component that renders UI when its path matches the current URL.</li>
+                    <li><strong>Switch</strong>: Renders the first <code>Route</code> or <code>Redirect</code> that matches the location.</li>
+                    <li><strong>Link</strong>: A component used to create links that navigate to different routes.</li>
+                    <li><strong>Redirect</strong>: Used to navigate to another route programmatically.</li>
+                </ul>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Setting up React Router 5</summary>
+            <div class="content">
+                To use React Router 5, first install it using npm or yarn:
+                <pre><code class="language-javascript">
+        npm install react-router-dom@5
+                </code></pre>
+                Then, you can import and use Router components in your app.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Code Example: Basic Routing Setup</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        import React from 'react';
+        import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+        
+        const Home = () => &lt;h2&gt;Home Page&lt;/h2&gt;;
+        const About = () => &lt;h2&gt;About Page&lt;/h2&gt;;
+        
+        function App() {
+          return (
+            &lt;Router&gt;
+              &lt;nav&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;
+                    &lt;Link to="/"&gt;Home&lt;/Link&gt;
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                    &lt;Link to="/about"&gt;About&lt;/Link&gt;
+                  &lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/nav&gt;
+        
+              &lt;Switch&gt;
+                &lt;Route path="/" exact component={Home} /&gt;
+                &lt;Route path="/about" component={About} /&gt;
+              &lt;/Switch&gt;
+            &lt;/Router&gt;
+          );
+        }
+        
+        export default App;
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Route Matching</summary>
+            <div class="content">
+                React Router uses path matching to determine which component to render. The <code>Route</code> component matches the URL path and renders the specified component.
+                <br>
+                - Exact matching: The <code>exact</code> prop ensures that a route is matched only if the URL is an exact match.
+                <br>
+                - Dynamic matching: Parameters in routes can be defined using colon syntax, such as <code>/user/:id</code>, where <code>:id</code> is a dynamic segment of the path.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Code Example: Dynamic Routes</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        import React from 'react';
+        import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+        
+        const UserProfile = ({ match }) => &lt;h2&gt;User Profile: {match.params.id}&lt;/h2&gt;;
+        
+        function App() {
+          return (
+            &lt;Router&gt;
+              &lt;nav&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;Link to="/user/1"&gt;User 1&lt;/Link&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;Link to="/user/2"&gt;User 2&lt;/Link&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/nav&gt;
+        
+              &lt;Route path="/user/:id" component={UserProfile} /&gt;
+            &lt;/Router&gt;
+          );
+        }
+        
+        export default App;
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Nested Routes</summary>
+            <div class="content">
+                React Router allows for nesting routes. You can define routes within other routes, and each route can render its own set of components, allowing for deep URL structures.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Code Example: Nested Routes</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        import React from 'react';
+        import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+        
+        const Dashboard = () => (
+          &lt;div&gt;
+            &lt;h2&gt;Dashboard&lt;/h2&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;Link to="/dashboard/overview"&gt;Overview&lt;/Link&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;Link to="/dashboard/settings"&gt;Settings&lt;/Link&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        );
+        
+        const Overview = () => &lt;h3&gt;Overview Page&lt;/h3&gt;;
+        const Settings = () => &lt;h3&gt;Settings Page&lt;/h3&gt;;
+        
+        function App() {
+          return (
+            &lt;Router&gt;
+              &lt;Route path="/dashboard" component={Dashboard} /&gt;
+              &lt;Switch&gt;
+                &lt;Route path="/dashboard/overview" component={Overview} /&gt;
+                &lt;Route path="/dashboard/settings" component={Settings} /&gt;
+              &lt;/Switch&gt;
+            &lt;/Router&gt;
+          );
+        }
+        
+        export default App;
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Redirects and Programmatic Navigation</summary>
+            <div class="content">
+                React Router allows navigation to a different route programmatically using the <code>Redirect</code> component or using the <code>history</code> object.
+                <br>
+                - <code>Redirect</code>: Used to redirect the user to a new path.
+                <br>
+                - <code>history.push()</code>: Can be used to navigate without user interaction (e.g., after form submission).
+            </div>
+        </details>
+        
+        <details>
+            <summary>Code Example: Redirect</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        import React from 'react';
+        import { Redirect } from 'react-router-dom';
+        
+        const RedirectExample = () => {
+          const [redirect, setRedirect] = React.useState(false);
+        
+          if (redirect) {
+            return &lt;Redirect to="/dashboard" /&gt;;
+          }
+        
+          return &lt;button onClick={() => setRedirect(true)}&gt;Go to Dashboard&lt;/button&gt;;
+        };
+        
+        export default RedirectExample;
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Best Practices for React Router 5</summary>
+            <div class="content">
+                - Use <code>Switch</code> to ensure that only one route is rendered at a time.
+                <br>
+                - Make routes accessible by adding semantic HTML and ensuring the right accessibility roles.
+                <br>
+                - When dealing with complex nested routes, break components into smaller reusable pieces.
+                <br>
+                - Avoid using <code>window.location</code> for routing; rely on React Router’s <code>Link</code> and <code>history</code> for navigation to maintain a smooth SPA experience.
+            </div>
+        </details>
+
+        <details>
+            <summary>Handling 404 (Not Found) Pages in React Router 5</summary>
+            <div class="content">
+                In React Router 5, to handle 404 pages, you can create a fallback route using the <code>Route</code> component with no path. It will match any undefined path and render a 404 or error page.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Code Example: Handling 404 Page</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        import React from 'react';
+        import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+        
+        const Home = () => &lt;h2&gt;Home Page&lt;/h2&gt;;
+        const About = () => &lt;h2&gt;About Page&lt;/h2&gt;;
+        const NotFound = () => &lt;h2&gt;404 - Page Not Found&lt;/h2&gt;;
+        
+        function App() {
+          return (
+            &lt;Router&gt;
+              &lt;nav&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;Link to="/"&gt;Home&lt;/Link&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;Link to="/about"&gt;About&lt;/Link&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/nav&gt;
+        
+              &lt;Switch&gt;
+                &lt;Route path="/" exact component={Home} /&gt;
+                &lt;Route path="/about" component={About} /&gt;
+                &lt;Route component={NotFound} /&gt;  <!-- Catch-all 404 route -->
+              &lt;/Switch&gt;
+            &lt;/Router&gt;
+          );
+        }
+        
+        export default App;
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Programmatically Navigating with useHistory Hook</summary>
+            <div class="content">
+                React Router 5 introduces the <code>useHistory</code> hook for programmatic navigation. You can use this hook to get the history object, which allows you to navigate between routes dynamically without using a <code>Link</code> component.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Code Example: useHistory Hook</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        import React from 'react';
+        import { useHistory } from 'react-router-dom';
+        
+        const NavigateButton = () => {
+          const history = useHistory();
+        
+          const handleClick = () => {
+            history.push('/about');
+          };
+        
+          return &lt;button onClick={handleClick}&gt;Go to About Page&lt;/button&gt;;
+        };
+        
+        export default NavigateButton;
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>useLocation Hook</summary>
+            <div class="content">
+                The <code>useLocation</code> hook allows you to access the current location object, which contains the pathname, search, and hash. This can be useful when you need to perform actions based on the URL, such as highlighting the active link.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Code Example: useLocation Hook</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        import React from 'react';
+        import { useLocation } from 'react-router-dom';
+        
+        const LocationDisplay = () => {
+          const location = useLocation();
+        
+          return (
+            &lt;div&gt;
+              <strong>Current URL:</strong> {location.pathname}
+            &lt;/div&gt;
+          );
+        };
+        
+        export default LocationDisplay;
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>useParams Hook</summary>
+            <div class="content">
+                The <code>useParams</code> hook allows you to access the URL parameters defined in your routes. It is particularly useful when you have dynamic routes with variables like <code>/user/:id</code> and need to fetch data based on the ID.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Code Example: useParams Hook</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        import React from 'react';
+        import { useParams } from 'react-router-dom';
+        
+        const UserProfile = () => {
+          const { id } = useParams();
+        
+          return &lt;h2&gt;User Profile: {id}&lt;/h2&gt;;
+        };
+        
+        export default UserProfile;
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Redirecting After Form Submission</summary>
+            <div class="content">
+                Redirecting the user after a successful form submission is a common use case. You can use the <code>useHistory</code> hook to push a new route to the history stack and navigate the user.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Code Example: Redirect After Form Submission</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        import React, { useState } from 'react';
+        import { useHistory } from 'react-router-dom';
+        
+        const FormComponent = () => {
+          const [name, setName] = useState('');
+          const history = useHistory();
+        
+          const handleSubmit = (e) => {
+            e.preventDefault();
+            // Handle form submission logic here
+            history.push('/thank-you');
+          };
+        
+          return (
+            &lt;form onSubmit={handleSubmit}&gt;
+              &lt;input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
+              /&gt;
+              &lt;button type="submit"&gt;Submit&lt;/button&gt;
+            &lt;/form&gt;
+          );
+        };
+        
+        export default FormComponent;
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Using Lazy Loading with React Router</summary>
+            <div class="content">
+                React Router supports lazy loading of components. This feature enables components to be loaded only when they are needed, improving the performance of large applications by reducing the initial loading time.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Code Example: Lazy Loading with React Router</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        import React, { Suspense, lazy } from 'react';
+        import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+        
+        const Home = lazy(() => import('./Home'));
+        const About = lazy(() => import('./About'));
+        
+        function App() {
+          return (
+            &lt;Router&gt;
+              &lt;Suspense fallback=&quot;Loading...&quot;&gt;
+                &lt;Switch&gt;
+                  &lt;Route path="/" exact component={Home} /&gt;
+                  &lt;Route path="/about" component={About} /&gt;
+                &lt;/Switch&gt;
+              &lt;/Suspense&gt;
+            &lt;/Router&gt;
+          );
+        }
+        
+        export default App;
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Handling Query Parameters</summary>
+            <div class="content">
+                React Router 5 allows you to handle query parameters in the URL using the <code>useLocation</code> hook. Query parameters are often used for filtering, sorting, or other stateful information.
+            </div>
+        </details>
+        
+        <details>
+            <summary>Code Example: Query Parameters</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        import React from 'react';
+        import { useLocation } from 'react-router-dom';
+        
+        const QueryExample = () => {
+          const location = useLocation();
+          const queryParams = new URLSearchParams(location.search);
+          const searchQuery = queryParams.get('search');
+        
+          return (
+            &lt;div&gt;
+              <strong>Search Query:</strong> {searchQuery}
+            &lt;/div&gt;
+          );
+        };
+        
+        export default QueryExample;
+                </code></pre>
+            </div>
+        </details>
+        
+        
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests/js/prism.min.js"></script>
+    <script src="../../assests/js/prism-java.min.js"></script>
+    <script src="../../assests/js/script.js"></script>
+</body>
+
+</html>
