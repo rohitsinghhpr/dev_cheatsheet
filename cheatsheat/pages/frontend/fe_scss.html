@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCSS</title>
+    <link rel="stylesheet" href="../../assests//css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests//css/prism-tomorrow.min.css" />
+    <link rel="stylesheet" href="../../assests//css/style.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+
+        <details>
+            <summary>Sass Variables</summary>
+            <div class="content">
+                <p>Sass variables are used to store reusable values like colors, font sizes, or any other CSS property
+                    value.
+                    They allow you to keep your code DRY (Don&#39;t Repeat Yourself) and consistent. Variables in Sass
+                    are
+                    declared using the <code>$</code> symbol.</p>
+                <h4 id="usage-example"><strong>Usage Example:</strong></h4>
+                <pre><code class="language-scss">$primary-color: #3498db;
+        $font-stack: &#39;Helvetica, sans-serif&#39;;
+        
+        body {
+          font-family: $font-stack;
+          color: $primary-color;
+        }
+        </code></pre>
+                <ul>
+                    <li><strong>Benefits:</strong>
+                        <ul>
+                            <li>Centralized control: You can change the value in one place, and it updates across your
+                                entire
+                                project.</li>
+                            <li>Readability: Makes your code easier to understand and maintain.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>Sass Nesting</summary>
+            <div class="content">
+                <p>Sass allows you to nest your CSS selectors in a hierarchical way, mimicking the structure of your
+                    HTML. This
+                    makes it easier to read and maintain.</p>
+                <h4 id="usage-example-1"><strong>Usage Example:</strong></h4>
+                <pre><code class="language-scss">nav {
+          ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+          }
+        
+          li {
+            display: inline-block;
+        
+            a {
+              text-decoration: none;
+              color: #333;
+        
+              &amp;:hover {
+                color: #555;
+              }
+            }
+          }
+        }
+        </code></pre>
+                <h4 id="how-it-compiles"><strong>How it compiles:</strong></h4>
+                <p>The above example compiles to:</p>
+                <pre><code class="language-css">nav ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+        
+        nav li {
+          display: inline-block;
+        }
+        
+        nav li a {
+          text-decoration: none;
+          color: #333;
+        }
+        
+        nav li a:hover {
+          color: #555;
+        }
+        </code></pre>
+                <ul>
+                    <li><strong>Benefits:</strong>
+                        <ul>
+                            <li>Better organization: Keeps related styles together.</li>
+                            <li>Less repetitive code.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </details>
+
+
+        <details>
+            <summary>Sass <code>@import</code></summary>
+            <div class="content">
+                <p>The <code>@import</code> directive in Sass allows you to split your styles into smaller, manageable
+                    files and
+                    import them into a main file. Unlike the CSS <code>@import</code>, the Sass version compiles all
+                    files into
+                    a single CSS file, improving performance.</p>
+                <h4 id="usage-example-2"><strong>Usage Example:</strong></h4>
+                <pre><code class="language-scss">// _variables.scss
+        $primary-color: #3498db;
+        
+        // _buttons.scss
+        button {
+          background-color: $primary-color;
+          border: none;
+          color: #fff;
+        }
+        
+        // main.scss
+        @import &#39;variables&#39;;
+        @import &#39;buttons&#39;;
+        </code></pre>
+                <h4 id="how-it-compiles-1"><strong>How it compiles:</strong></h4>
+                <p>All imported files are combined into one CSS file, reducing HTTP requests.</p>
+                <p><strong>Note:</strong> In Dart Sass, <code>@use</code> is now recommended instead of
+                    <code>@import</code> for
+                    better scoping and modularity.
+                </p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Sass <code>@mixin</code></summary>
+            <div class="content">
+                <p>Mixins allow you to create reusable blocks of code. They are similar to functions in programming and
+                    can
+                    accept arguments.</p>
+                <h4 id="usage-example-3"><strong>Usage Example:</strong></h4>
+                <pre><code class="language-scss">@mixin border-radius($radius) {
+          -webkit-border-radius: $radius;
+          -moz-border-radius: $radius;
+          border-radius: $radius;
+        }
+        
+        button {
+          @include border-radius(5px);
+        }
+        </code></pre>
+                <h4 id="how-it-compiles-2"><strong>How it compiles:</strong></h4>
+                <pre><code class="language-css">button {
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          border-radius: 5px;
+        }
+        </code></pre>
+                <ul>
+                    <li><strong>Benefits:</strong>
+                        <ul>
+                            <li>Code reusability: Write the code once, use it anywhere.</li>
+                            <li>Parameters: Customize mixins with arguments for flexible outputs.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>Sass <code>@extend</code></summary>
+            <div class="content">
+                <p>The <code>@extend</code> directive allows you to share styles across selectors without duplicating
+                    code. It’s
+                    great for reducing redundancy and keeping your styles DRY.</p>
+                <h4 id="usage-example-4"><strong>Usage Example:</strong></h4>
+                <pre><code class="language-scss">%button-style {
+          padding: 10px 20px;
+          border: none;
+          color: #fff;
+        }
+        
+        .button-primary {
+          @extend %button-style;
+          background-color: blue;
+        }
+        
+        .button-secondary {
+          @extend %button-style;
+          background-color: gray;
+        }
+        </code></pre>
+                <h4 id="how-it-compiles-3"><strong>How it compiles:</strong></h4>
+                <pre><code class="language-css">.button-primary, .button-secondary {
+          padding: 10px 20px;
+          border: none;
+          color: #fff;
+        }
+        
+        .button-primary {
+          background-color: blue;
+        }
+        
+        .button-secondary {
+          background-color: gray;
+        }
+        </code></pre>
+                <ul>
+                    <li><strong>Benefits:</strong>
+                        <ul>
+                            <li>Avoids duplication: Shares styles efficiently.</li>
+                            <li>Maintains consistency: Ensures related styles look uniform.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>Key Differences Between <code>@mixin</code> and
+                <code>@extend</code>
+            </summary>
+            <div class="content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><strong>Feature</strong></th>
+                            <th><strong>@mixin</strong></th>
+                            <th><strong>@extend</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Usage</strong></td>
+                            <td>Reusable styles with or without arguments</td>
+                            <td>Inherits styles from a placeholder (%)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Output</strong></td>
+                            <td>Copies code wherever used</td>
+                            <td>Combines selectors in compiled CSS</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flexibility</strong></td>
+                            <td>Highly flexible</td>
+                            <td>Limited to shared selectors</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <details>
+            <summary>Sass Functions</summary>
+            <div class="content">
+                Sass provides built-in functions to manipulate values, such as colors, strings, numbers, and more. You
+                can also create custom functions using `@function`.
+
+                <pre><code class="language-scss">
+        // Built-in example
+        $lighten-color: lighten(#3498db, 20%);
+        $darken-color: darken(#3498db, 20%);
+        
+        // Custom function
+        @function double($number) {
+          @return $number * 2;
+        }
+        
+        div {
+          width: double(10px);
+          background-color: $lighten-color;
+        }
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Sass String</summary>
+            <div class="content">
+                Sass provides string manipulation features like concatenation, string length, and substring extraction.
+
+                <pre><code class="language-scss">
+        $font-family: 'Helvetica';
+        $font-weight: 'bold';
+        
+        // String concatenation
+        $font-style: #{$font-family} #{$font-weight};
+        
+        div {
+          font: $font-style;
+        }
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Sass Numeric</summary>
+            <div class="content">
+                Sass supports arithmetic operations on numbers and units, such as addition, subtraction, multiplication,
+                and division.
+
+                <pre><code class="language-scss">
+        $base-size: 16px;
+        
+        // Arithmetic operations
+        $large-size: $base-size * 1.5;
+        
+        h1 {
+          font-size: $large-size;
+        }
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Sass List</summary>
+            <div class="content">
+                Sass lists allow you to group values. You can access, modify, and iterate through lists.
+
+                <pre><code class="language-scss">
+        $colors: red, blue, green;
+        
+        // Accessing list values
+        $first-color: nth($colors, 1);
+        
+        // Loop through list
+        @each $color in $colors {
+          .text-#{$color} {
+            color: $color;
+          }
+        }
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Sass Map</summary>
+            <div class="content">
+                Maps are key-value pairs in Sass, useful for organizing related data.
+
+                <pre><code class="language-scss">
+        $theme-colors: (
+          primary: #3498db,
+          secondary: #2ecc71,
+          danger: #e74c3c
+        );
+        
+        // Accessing map values
+        $primary-color: map-get($theme-colors, primary);
+        
+        // Iterating through maps
+        @each $name, $color in $theme-colors {
+          .btn-#{$name} {
+            background-color: $color;
+          }
+        }
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Sass Selector</summary>
+            <div class="content">
+                Sass provides selector functions to manipulate and query selectors.
+
+                <pre><code class="language-scss">
+        .button {
+          &--primary {
+            color: blue;
+          }
+        }
+        
+        $nested: selector-nest('.parent', '.child');
+        $append: selector-append('.button', '--secondary');
+        
+        // Result
+        // $nested: .parent .child
+        // $append: .button--secondary
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Sass Introspection</summary>
+            <div class="content">
+                Introspection allows you to query information about Sass values, like their type or existence.
+
+                <pre><code class="language-scss">
+        $test: 42;
+        
+        // Check type
+        @if type-of($test) == 'number' {
+          .result {
+            content: "The value is a number";
+          }
+        }
+        
+        // Check variable existence
+        @if variable-exists(test) {
+          .result {
+            content: "Variable exists";
+          }
+        }
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Sass Color</summary>
+            <div class="content">
+                Sass provides many color manipulation functions, like adjusting brightness, saturation, and hue.
+
+                <pre><code class="language-scss">
+        // Adjust color
+        $base-color: #3498db;
+        $lighter: lighten($base-color, 20%);
+        $darker: darken($base-color, 20%);
+        
+        // Resulting styles
+        div {
+          background-color: $lighter;
+          border-color: $darker;
+        }
+                </code></pre>
+            </div>
+        </details>
+
+
+
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests//js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests//js/prism.min.js"></script>
+    <script src="../../assests//js/script.js"></script>
+</body>
+
+</html>

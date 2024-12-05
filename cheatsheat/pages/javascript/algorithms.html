@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm JavaScript</title>
+    <link rel="stylesheet" href="../../assests//css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests//css/prism-tomorrow.min.css" />
+    <link rel="stylesheet" href="../../assests//css/style.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+        <details>
+            <summary>Selection Sort</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Selection Sort Algorithm
+        function selectionSort(arr) {
+            const n = arr.length;
+            // Outer loop to traverse through all elements
+            for (let i = 0; i < n - 1; i++) {
+                let minIndex = i;
+                // Inner loop to find the minimum element in the unsorted part
+                for (let j = i + 1; j < n; j++) {
+                    if (arr[j] < arr[minIndex]) {
+                        minIndex = j;
+                    }
+                }
+                // Swap the found minimum element with the first unsorted element
+                if (minIndex !== i) {
+                    let temp = arr[i];
+                    arr[i] = arr[minIndex];
+                    arr[minIndex] = temp;
+                }
+            }
+            return arr;
+        }
+        
+        // Example usage
+        const arr = [64, 25, 12, 22, 11];
+        console.log(selectionSort(arr)); // Output: [11, 12, 22, 25, 64]
+                </code></pre>
+            </div>
+        </details>
+        <details>
+            <summary>Insertion Sort</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Insertion Sort Algorithm
+        function insertionSort(arr) {
+            const n = arr.length;
+            // Outer loop to go through each element
+            for (let i = 1; i < n; i++) {
+                let current = arr[i];
+                let j = i - 1;
+                
+                // Move elements of arr[0..i-1] that are greater than 'current' to one position ahead
+                while (j >= 0 && arr[j] > current) {
+                    arr[j + 1] = arr[j];
+                    j--;
+                }
+                // Place 'current' at its correct position
+                arr[j + 1] = current;
+            }
+            return arr;
+        }
+        
+        // Example usage
+        const arr = [12, 11, 13, 5, 6];
+        console.log(insertionSort(arr)); // Output: [5, 6, 11, 12, 13]
+                </code></pre>
+            </div>
+        </details>
+        <details>
+            <summary>Bubble Sort</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Bubble Sort Algorithm
+        function bubbleSort(arr) {
+            const n = arr.length;
+            // Outer loop to go through the entire array
+            for (let i = 0; i < n - 1; i++) {
+                // Inner loop to compare adjacent elements
+                for (let j = 0; j < n - i - 1; j++) {
+                    // Swap if the element is greater than the next
+                    if (arr[j] > arr[j + 1]) {
+                        let temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
+                }
+            }
+            return arr;
+        }
+        
+        // Example usage
+        const arr = [5, 3, 8, 4, 2];
+        console.log(bubbleSort(arr)); // Output: [2, 3, 4, 5, 8]
+                </code></pre>
+            </div>
+        </details>
+        <details>
+            <summary>Linear Search</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Linear Search Algorithm
+        function linearSearch(arr, target) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] === target) {
+                    return i; // Return the index of the target element
+                }
+            }
+            return -1; // Return -1 if target is not found
+        }
+        
+        // Example usage
+        const arr = [10, 20, 30, 40, 50];
+        const target = 30;
+        console.log(linearSearch(arr, target)); // Output: 2 (Index of the target element)
+                </code></pre>
+            </div>
+        </details>
+        <details>
+            <summary>Binary Search</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Binary Search Algorithm (Assumes the array is sorted)
+        function binarySearch(arr, target) {
+            let left = 0;
+            let right = arr.length - 1;
+            
+            while (left <= right) {
+                const mid = Math.floor((left + right) / 2);
+                
+                if (arr[mid] === target) {
+                    return mid; // Target found
+                } else if (arr[mid] < target) {
+                    left = mid + 1; // Search in the right half
+                } else {
+                    right = mid - 1; // Search in the left half
+                }
+            }
+            return -1; // Return -1 if target is not found
+        }
+        
+        // Example usage
+        const arr = [10, 20, 30, 40, 50];
+        const target = 40;
+        console.log(binarySearch(arr, target)); // Output: 3 (Index of the target element)
+                </code></pre>
+            </div>
+        </details>
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests//js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests//js/prism.min.js"></script>
+    <script src="../../assests//js/prism-java.min.js"></script>
+    <script src="../../assests//js/script.js"></script>
+</body>
+
+</html>

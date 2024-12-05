@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Program JavaScript</title>
+    <link rel="stylesheet" href="../../assests//css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests//css/prism-tomorrow.min.css" />
+    <link rel="stylesheet" href="../../assests//css/style.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+        <details>
+            <summary>Check if a number is prime</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to check if a number is prime
+        function isPrime(num) {
+            if (num <= 1) return false;
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+        
+        // Example usage
+        console.log(isPrime(7)); // Output: true
+        console.log(isPrime(10)); // Output: false
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find the factorial of a number</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find the factorial of a number
+        function factorial(num) {
+            if (num < 0) return "Not defined for negative numbers";
+            if (num === 0 || num === 1) return 1;
+            return num * factorial(num - 1);
+        }
+        
+        // Example usage
+        console.log(factorial(5)); // Output: 120
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Check if a number is an Armstrong number</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to check if a number is an Armstrong number
+        function isArmstrong(num) {
+            const digits = String(num).split('').map(Number);
+            const sum = digits.reduce((acc, digit) => acc + Math.pow(digit, digits.length), 0);
+            return sum === num;
+        }
+        
+        // Example usage
+        console.log(isArmstrong(153)); // Output: true
+        console.log(isArmstrong(123)); // Output: false
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Generate Fibonacci sequence up to N terms</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to generate Fibonacci sequence up to N terms
+        function fibonacci(n) {
+            const sequence = [0, 1];
+            for (let i = 2; i < n; i++) {
+                sequence.push(sequence[i - 1] + sequence[i - 2]);
+            }
+            return sequence.slice(0, n);
+        }
+        
+        // Example usage
+        console.log(fibonacci(10)); // Output: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Reverse a number using a while loop</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to reverse a number using a while loop
+        function reverseNumberUsingWhile(num) {
+            let reversed = 0;
+            let n = Math.abs(num); // Handle negative numbers
+            while (n > 0) {
+                const digit = n % 10; // Get the last digit
+                reversed = reversed * 10 + digit; // Append the digit to the reversed number
+                n = Math.floor(n / 10); // Remove the last digit from the original number
+            }
+            return reversed * Math.sign(num); // Restore the original sign of the number
+        }
+        
+        // Example usage
+        console.log(reverseNumberUsingWhile(1234)); // Output: 4321
+        console.log(reverseNumberUsingWhile(-567)); // Output: -765
+                </code></pre>
+            </div>
+        </details>
+        
+        
+        <details>
+            <summary>Reverse a number</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to reverse a number
+        function reverseNumber(num) {
+            return parseInt(String(num).split('').reverse().join('')) * Math.sign(num);
+        }
+        
+        // Example usage
+        console.log(reverseNumber(1234)); // Output: 4321
+        console.log(reverseNumber(-567)); // Output: -765
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Check if a number is palindrome</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to check if a number is palindrome
+        function isPalindrome(num) {
+            const str = String(num);
+            return str === str.split('').reverse().join('');
+        }
+        
+        // Example usage
+        console.log(isPalindrome(121)); // Output: true
+        console.log(isPalindrome(123)); // Output: false
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find the greatest common divisor (GCD) of two numbers</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find GCD of two numbers
+        function gcd(a, b) {
+            while (b !== 0) {
+                [a, b] = [b, a % b];
+            }
+            return a;
+        }
+        
+        // Example usage
+        console.log(gcd(54, 24)); // Output: 6
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Count the number of digits in an integer</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to count the number of digits in an integer
+        function countDigits(num) {
+            return Math.abs(num).toString().length;
+        }
+        
+        // Example usage
+        console.log(countDigits(12345)); // Output: 5
+        console.log(countDigits(-987)); // Output: 3
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Check if a number is a perfect number</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to check if a number is a perfect number
+        function isPerfectNumber(num) {
+            let sum = 0;
+            for (let i = 1; i <= num / 2; i++) {
+                if (num % i === 0) sum += i;
+            }
+            return sum === num;
+        }
+        
+        // Example usage
+        console.log(isPerfectNumber(6)); // Output: true
+        console.log(isPerfectNumber(28)); // Output: true
+        console.log(isPerfectNumber(10)); // Output: false
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find the sum of digits of an integer</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find the sum of digits of an integer
+        function sumOfDigits(num) {
+            return String(Math.abs(num)).split('').reduce((sum, digit) => sum + Number(digit), 0);
+        }
+        
+        // Example usage
+        console.log(sumOfDigits(1234)); // Output: 10
+        console.log(sumOfDigits(-567)); // Output: 18
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Find the LCM of two numbers</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find the LCM of two numbers
+        function lcm(a, b) {
+            const gcd = (x, y) => (y === 0 ? x : gcd(y, x % y));
+            return Math.abs(a * b) / gcd(a, b);
+        }
+        
+        // Example usage
+        console.log(lcm(12, 18)); // Output: 36
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Check if a number is a strong number</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to check if a number is a strong number
+        function isStrongNumber(num) {
+            const factorial = (n) => (n <= 1 ? 1 : n * factorial(n - 1));
+            const sum = String(num).split('').reduce((acc, digit) => acc + factorial(Number(digit)), 0);
+            return sum === num;
+        }
+        
+        // Example usage
+        console.log(isStrongNumber(145)); // Output: true
+        console.log(isStrongNumber(123)); // Output: false
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Check if a number is a perfect square</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to check if a number is a perfect square
+        function isPerfectSquare(num) {
+            const sqrt = Math.sqrt(num);
+            return sqrt === Math.floor(sqrt);
+        }
+        
+        // Example usage
+        console.log(isPerfectSquare(16)); // Output: true
+        console.log(isPerfectSquare(20)); // Output: false
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Sum of all prime numbers up to N</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find the sum of all prime numbers up to N
+        function sumOfPrimes(n) {
+            const isPrime = (num) => {
+                if (num <= 1) return false;
+                for (let i = 2; i <= Math.sqrt(num); i++) {
+                    if (num % i === 0) return false;
+                }
+                return true;
+            };
+            let sum = 0;
+            for (let i = 2; i <= n; i++) {
+                if (isPrime(i)) sum += i;
+            }
+            return sum;
+        }
+        
+        // Example usage
+        console.log(sumOfPrimes(10)); // Output: 17 (2 + 3 + 5 + 7)
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find the nth Fibonacci number (recursive)</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Recursive function to find the nth Fibonacci number
+        function fibonacciRecursive(n) {
+            if (n <= 1) return n;
+            return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
+        }
+        
+        // Example usage
+        console.log(fibonacciRecursive(10)); // Output: 55
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find the power of a number (x^y)</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find the power of a number (x^y)
+        function power(x, y) {
+            if (y === 0) return 1;
+            return x * power(x, y - 1);
+        }
+        
+        // Example usage
+        console.log(power(2, 3)); // Output: 8
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Check if a number is a palindrome using recursion</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Recursive function to check if a number is a palindrome
+        function isPalindromeRecursive(num, start = 0, end = String(num).length - 1) {
+            const str = String(num);
+            if (start >= end) return true;
+            if (str[start] !== str[end]) return false;
+            return isPalindromeRecursive(num, start + 1, end - 1);
+        }
+        
+        // Example usage
+        console.log(isPalindromeRecursive(121)); // Output: true
+        console.log(isPalindromeRecursive(123)); // Output: false
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find the sum of squares of first N natural numbers</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find the sum of squares of first N natural numbers
+        function sumOfSquares(n) {
+            return (n * (n + 1) * (2 * n + 1)) / 6;
+        }
+        
+        // Example usage
+        console.log(sumOfSquares(5)); // Output: 55
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find the product of digits of a number</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find the product of digits of a number
+        function productOfDigits(num) {
+            return String(Math.abs(num)).split('').reduce((product, digit) => product * Number(digit), 1);
+        }
+        
+        // Example usage
+        console.log(productOfDigits(1234)); // Output: 24
+        console.log(productOfDigits(-567)); // Output: 210
+                </code></pre>
+            </div>
+        </details>
+        
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests//js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests//js/prism.min.js"></script>
+    <script src="../../assests//js/prism-java.min.js"></script>
+    <script src="../../assests//js/script.js"></script>
+</body>
+
+</html>

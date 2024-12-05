@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agile and SCRUM</title>
+    <link rel="stylesheet" href="../../assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests/css/style.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+        <details>
+            <summary>CORS</summary>
+        <div class="content">
+            <p>CORS, or <strong>Cross-Origin Resource Sharing</strong>, is a mechanism used in web development to
+                control how resources on a web server can be accessed by web pages from a different domain (origin). It
+                is implemented as part of web security standards to prevent unauthorized cross-origin HTTP requests,
+                while still enabling legitimate interactions.</p>
+            <h3 id="what-is-an-origin">What Is an Origin?</h3>
+            <p>An origin is defined by the combination of:</p>
+            <ul>
+                <li><strong>Protocol</strong> (e.g., <code>http</code> or <code>https</code>)</li>
+                <li><strong>Domain</strong> (e.g., <code>example.com</code>)</li>
+                <li><strong>Port</strong> (e.g., <code>:80</code>, <code>:443</code>)</li>
+            </ul>
+            <p>Two URLs have the same origin if all three components are identical. For example:</p>
+            <ul>
+                <li><code>https://example.com/page</code> and <code>https://example.com/data</code> have the same
+                    origin.</li>
+                <li><code>http://example.com</code> and <code>https://example.com</code> have different origins because
+                    of different protocols.</li>
+            </ul>
+            <h3 id="why-cors-is-needed">Why CORS Is Needed</h3>
+            <p>Modern web browsers enforce a security policy called the <strong>Same-Origin Policy (SOP)</strong>, which
+                restricts how a web page loaded from one origin can interact with resources from another origin. SOP
+                helps prevent malicious websites from accessing sensitive data on other sites. However, there are valid
+                use cases where cross-origin requests are required, such as when a web application hosted on
+                <code>example.com</code> needs to fetch resources from an API on <code>api.example.com</code>.</p>
+            <h3 id="how-cors-works">How CORS Works</h3>
+            <p>CORS allows servers to specify which origins are permitted to access their resources. It involves setting
+                specific HTTP headers in the server&#39;s response.</p>
+            <h4 id="key-http-headers-in-cors">Key HTTP Headers in CORS</h4>
+            <ol>
+                <li>
+                    <p><strong><code>Access-Control-Allow-Origin</code></strong></p>
+                    <ul>
+                        <li>Specifies which origin(s) are allowed to access the resource.</li>
+                        <li>Example: <code>Access-Control-Allow-Origin: https://example.com</code></li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong><code>Access-Control-Allow-Methods</code></strong></p>
+                    <ul>
+                        <li>Lists HTTP methods (e.g., <code>GET</code>, <code>POST</code>) permitted for cross-origin
+                            requests.</li>
+                        <li>Example: <code>Access-Control-Allow-Methods: GET, POST</code></li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong><code>Access-Control-Allow-Headers</code></strong></p>
+                    <ul>
+                        <li>Lists headers the client can include in the request.</li>
+                        <li>Example: <code>Access-Control-Allow-Headers: Content-Type, Authorization</code></li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong><code>Access-Control-Allow-Credentials</code></strong></p>
+                    <ul>
+                        <li>Indicates whether credentials (e.g., cookies, authentication tokens) are allowed.</li>
+                        <li>Example: <code>Access-Control-Allow-Credentials: true</code></li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong><code>Access-Control-Expose-Headers</code></strong></p>
+                    <ul>
+                        <li>Lists headers the client can access in the response.</li>
+                        <li>Example: <code>Access-Control-Expose-Headers: X-Custom-Header</code></li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong><code>Access-Control-Max-Age</code></strong></p>
+                    <ul>
+                        <li>Specifies how long the results of a preflight request can be cached.</li>
+                        <li>Example: <code>Access-Control-Max-Age: 600</code> (10 minutes)</li>
+                    </ul>
+                </li>
+            </ol>
+            <h4 id="types-of-cors-requests">Types of CORS Requests</h4>
+            <ol>
+                <li>
+                    <p><strong>Simple Requests</strong></p>
+                    <ul>
+                        <li>Made using methods like <code>GET</code> or <code>POST</code> without custom headers or
+                            complex content types.</li>
+                        <li>CORS headers are validated in a straightforward manner.</li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>Preflight Requests</strong></p>
+                    <ul>
+                        <li>Required for requests that:<ul>
+                                <li>Use methods other than <code>GET</code>, <code>POST</code>, or <code>HEAD</code>.
+                                </li>
+                                <li>Include custom headers.</li>
+                            </ul>
+                        </li>
+                        <li>Before sending the actual request, the browser sends an <code>OPTIONS</code> request to
+                            check if the server permits it.</li>
+                    </ul>
+                </li>
+            </ol>
+            <h3 id="cors-example">CORS Example</h3>
+            <ol>
+                <li>
+                    <p><strong>Client Request</strong>
+                        A browser attempts to fetch a resource from <code>https://api.example.com/data</code> while the
+                        web page is hosted on <code>https://www.example.com</code>.</p>
+                </li>
+                <li>
+                    <p><strong>Server Response</strong>
+                        The server includes appropriate CORS headers, like:</p>
+                    <pre><code class="language-http">HTTP/1.1 200 OK
+Access-Control-Allow-Origin: https://www.example.com
+Access-Control-Allow-Methods: GET, POST
+</code></pre>
+                </li>
+                <li>
+                    <p><strong>Browser Enforcement</strong>
+                        If the headers match the browser&#39;s expectations, the request proceeds. Otherwise, it&#39;s
+                        blocked.</p>
+                </li>
+            </ol>
+            <h3 id="summary">Summary</h3>
+            <p>CORS is an essential web standard that balances security and flexibility. It allows legitimate
+                cross-origin communication while ensuring unauthorized or malicious access is restricted. Proper
+                server-side configuration of CORS headers is critical to avoid security risks while enabling
+                functionality.</p>
+
+        </div>
+        </details>
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests/js/script.js"></script>
+</body>
+
+</html>

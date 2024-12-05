@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Question 1</title>
+    <link rel="stylesheet" href="../../assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests/css/style.css">
+    <link rel="stylesheet" href="../../assests/css/prism-tomorrow.min.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+
+        <details>
+            <summary>1. What is React?</summary>
+            <div class="content">
+                React is an open-source JavaScript library developed by Facebook for building user interfaces. It allows
+                developers to create reusable UI components and efficiently update the UI using a declarative approach.
+                React uses a virtual DOM to optimize rendering performance and provides tools for managing state and
+                side effects in components.
+            </div>
+        </details>
+
+        <details>
+            <summary>2. What are the advantages of using React?</summary>
+            <div class="content">
+                The advantages of React include:
+                <ul>
+                    <li><strong>Component-based architecture</strong>: Components are reusable, making code more modular
+                        and easier to maintain.</li>
+                    <li><strong>Virtual DOM</strong>: React uses a virtual DOM to update only the parts of the UI that
+                        have changed, improving performance.</li>
+                    <li><strong>Declarative UI</strong>: React's declarative syntax makes it easy to describe the UI,
+                        improving readability and maintainability.</li>
+                    <li><strong>Unidirectional data flow</strong>: This simplifies the data flow and makes the
+                        application easier to debug.</li>
+                    <li><strong>Rich ecosystem</strong>: React has a strong ecosystem with tools like React Router,
+                        Redux, and a large community for support.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>3. What are the limitations of React?</summary>
+            <div class="content">
+                Some limitations of React are:
+                <ul>
+                    <li><strong>JSX learning curve</strong>: While JSX is powerful, it may be difficult for beginners to
+                        grasp initially.</li>
+                    <li><strong>SEO challenges</strong>: React is a client-side rendering library, which can present SEO
+                        challenges, though solutions like server-side rendering (SSR) or static site generators can
+                        address this.</li>
+                    <li><strong>Performance issues with large apps</strong>: React's performance may degrade if not
+                        properly optimized in very large applications, especially with a lot of re-renders.</li>
+                    <li><strong>Frequent updates</strong>: React is frequently updated, and keeping up with new features
+                        and best practices may be challenging.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>4. What is useState() in React?</summary>
+            <div class="content">
+                The <code>useState()</code> hook is a built-in hook in React that allows you to add state to functional
+                components. It returns an array with two values: the current state value and a function to update it.
+                <pre><code class="language-java">
+            import { useState } from 'react';
+
+            const Counter = () =&gt; {
+                const [count, setCount] = useState(0);
+
+                return (
+                    &lt;div&gt;
+                        Count: {count}
+                        &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Increment&lt;/button&gt;
+                    &lt;/div&gt;
+                );
+            };
+        </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>5. What are keys in React?</summary>
+            <div class="content">
+                Keys in React are unique identifiers used to track elements in a list of components. They help React
+                efficiently update the user interface when the list changes. Keys are necessary when rendering lists of
+                elements to prevent unnecessary re-renders.
+                <pre><code class="language-java">
+            const listItems = items.map(item =&gt; (
+                &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;
+            ));
+        </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>6. What is JSX?</summary>
+            <div class="content">
+                JSX (JavaScript XML) is a syntax extension for JavaScript that allows you to write HTML-like code within
+                JavaScript. JSX is then compiled to JavaScript at runtime. It makes it easier to define React components
+                and their structure.
+                <pre><code class="language-java">
+            const element = &lt;h1&gt;Hello, world!&lt;/h1&gt;;
+        </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>7. What are the differences between functional and class components?</summary>
+            <div class="content">
+                The differences between functional and class components are:
+                <ul>
+                    <li><strong>Syntax:</strong> Class components use ES6 class syntax, while functional components use
+                        plain JavaScript functions.</li>
+                    <li><strong>State and lifecycle methods:</strong> Class components can hold state and have lifecycle
+                        methods, while functional components need hooks (e.g., <code>useState</code>,
+                        <code>useEffect</code>) to manage state and side effects.</li>
+                    <li><strong>Performance:</strong> Functional components are generally simpler and more lightweight,
+                        but class components may be more appropriate for complex logic.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>8. What is the virtual DOM? How does React use the virtual DOM to render the UI?</summary>
+            <div class="content">
+                The virtual DOM (VDOM) is an in-memory representation of the actual DOM elements. React uses the virtual
+                DOM to optimize rendering by first updating the virtual DOM and then performing a diffing algorithm to
+                compare it with the real DOM. Only the parts of the UI that have changed are re-rendered, improving
+                performance.
+            </div>
+        </details>
+
+        <details>
+            <summary>9. What are the differences between controlled and uncontrolled components?</summary>
+            <div class="content">
+                The differences between controlled and uncontrolled components are:
+                <ul>
+                    <li><strong>Controlled components:</strong> The form element's value is controlled by React state.
+                        Every change to the form value is handled by the component.
+                        <pre><code class="language-java">
+                const [value, setValue] = useState('');
+
+                return &lt;input value={value} onChange={(e) =&gt; setValue(e.target.value)} /&gt;
+            </code></pre>
+                    </li>
+                    <li><strong>Uncontrolled components:</strong> The form element's value is not controlled by React
+                        state, and you use refs to get the value when needed.
+                        <pre><code class="language-java">
+                const inputRef = useRef();
+
+                const handleSubmit = () =&gt; {
+                    alert(inputRef.current.value);
+                };
+
+                return &lt;input ref={inputRef} /&gt;
+            </code></pre>
+                    </li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>10. What are props in React?</summary>
+            <div class="content">
+                Props (short for properties) are read-only data passed from a parent component to a child component.
+                They allow you to pass dynamic values to child components and configure them. Props are immutable within
+                the child component.
+                <pre><code class="language-java">
+            const Welcome = ({ name }) =&gt; &lt;div&gt;Hello, {name}!&lt;/div&gt;;
+
+            const App = () =&gt; {
+                return &lt;Welcome name="Alice" /&gt;
+            };
+        </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>11. Explain React state and props.</summary>
+            <div class="content">
+                - <strong>State:</strong> State refers to data that changes over time and is specific to a component. It
+                can be updated using the <code>useState</code> hook or <code>this.setState()</code> in class components.
+                - <strong>Props:</strong> Props are passed from a parent component to a child component. They are
+                immutable in the child and are used for communication between components.
+            </div>
+        </details>
+
+        <details>
+            <summary>12. Explain about types of side effects in React component.</summary>
+            <div class="content">
+                Types of side effects in React include:
+                <ul>
+                    <li><strong>Data fetching</strong>: Making network requests to load data.</li>
+                    <li><strong>DOM manipulation</strong>: Interacting with the DOM directly outside of React.</li>
+                    <li><strong>Event listeners</strong>: Adding or removing event listeners.</li>
+                    <li><strong>Timers</strong>: Setting intervals or timeouts.</li>
+                </ul>
+                The <code>useEffect</code> hook is commonly used to handle side effects in functional components.
+            </div>
+        </details>
+
+        <details>
+            <summary>13. What is prop drilling in React?</summary>
+            <div class="content">
+                Prop drilling refers to the process of passing props from a parent component to deeply nested child
+                components. This can lead to cumbersome and difficult-to-maintain code, especially in large
+                applications.
+            </div>
+        </details>
+
+        <details>
+            <summary>14. What are error boundaries?</summary>
+            <div class="content">
+                Error boundaries are React components that catch JavaScript errors anywhere in their child component
+                tree, log those errors, and display a fallback UI instead of crashing the component tree.
+                <pre><code class="language-java">
+            class ErrorBoundary extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = { hasError: false };
+                }
+
+                static getDerivedStateFromError(error) {
+                    return { hasError: true };
+                }
+
+                componentDidCatch(error, info) {
+                    console.log(error, info);
+                }
+
+                render() {
+                    if (this.state.hasError) {
+                        return &lt;
+
+h1&gt;Something went wrong.&lt;/h1&gt;
+                    }
+                    return this.props.children;
+                }
+            }
+        </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>15. What is React Hooks?</summary>
+            <div class="content">
+                React Hooks are functions that let you use React features like state and lifecycle methods in functional
+                components. Hooks were introduced in React 16.8 to make it possible to use features like state, side
+                effects, refs, and context without writing class components.
+            </div>
+        </details>
+
+        <details>
+            <summary>16. Explain React Hooks.</summary>
+            <div class="content">
+                React Hooks provide a way to use state and other React features in functional components:
+                <ul>
+                    <li><code>useState</code>: For managing state in functional components.</li>
+                    <li><code>useEffect</code>: For handling side effects like data fetching, subscriptions, or manually
+                        manipulating the DOM.</li>
+                    <li><code>useRef</code>: For accessing and interacting with DOM elements or keeping a mutable
+                        reference.</li>
+                    <li><code>useContext</code>: For consuming context in functional components.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>17. What are the rules that must be followed while using React Hooks?</summary>
+            <div class="content">
+                The rules for using React hooks are:
+                <ul>
+                    <li>Hooks should be called at the top level of a component (not inside loops, conditions, or nested
+                        functions).</li>
+                    <li>Hooks should only be called from React function components or custom hooks.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>18. What is the use of useEffect React Hooks?</summary>
+            <div class="content">
+                The <code>useEffect</code> hook allows you to perform side effects in function components, such as
+                fetching data, updating the DOM, or subscribing to events. It is called after the component renders and
+                can be configured to run on specific state or prop changes.
+                <pre><code class="language-java">
+            useEffect(() =&gt; {
+                fetchData();
+            }, [data]);
+        </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>19. Why do React Hooks make use of refs?</summary>
+            <div class="content">
+                React Hooks use <code>refs</code> (via <code>useRef</code>) to access and modify the DOM directly or to
+                store mutable values that do not trigger re-renders. They can be used for things like focusing an input
+                element or storing the previous state value.
+            </div>
+        </details>
+
+        <details>
+            <summary>20. What are Custom Hooks?</summary>
+            <div class="content">
+                Custom Hooks are user-defined functions that allow you to extract reusable logic from functional
+                components. They enable you to share stateful logic between components without changing the component
+                hierarchy.
+                <pre><code class="language-java">
+            function useCounter(initialValue = 0) {
+                const [count, setCount] = useState(initialValue);
+
+                return { count, increment: () =&gt; setCount(count + 1) };
+            }
+        </code></pre>
+            </div>
+        </details>
+
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+
+    <script src="../../assests/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests/js/script.js"></script>
+    <script src="../../assests/js/prism.min.js"></script>
+    <script src="../../assests/js/prism-java.min.js"></script>
+</body>
+
+</html>

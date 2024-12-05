@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="../../assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests/css/style.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+
+<details>
+    <summary>React.js</summary>
+    <div class="content">
+        React.js is a JavaScript library for building user interfaces, primarily for single-page applications where you need a fast and interactive UI. It allows developers to create large web applications that can update and render efficiently in response to data changes. React components are the building blocks of any React application. React uses a virtual DOM (Document Object Model) to optimize the rendering process and improve performance by only updating the parts of the UI that have changed.
+    </div>
+</details>
+
+<details>
+    <summary>VDOM (Virtual DOM)</summary>
+    <div class="content">
+        The Virtual DOM (VDOM) is a lightweight representation of the actual DOM. It is a concept used by React to improve performance by minimizing direct manipulations of the browser’s DOM. When a component's state or props change, React creates a new Virtual DOM tree, compares it with the previous one (a process called "reconciliation"), and calculates the most efficient way to update the real DOM. This diffing process reduces unnecessary updates, improving the performance of web applications. The Virtual DOM enables React to update only the parts of the UI that have changed, rather than re-rendering the entire page.
+    </div>
+</details>
+
+<details>
+    <summary>Diffing Algorithm</summary>
+    <div class="content">
+        The Diffing Algorithm is the core mechanism behind React's Virtual DOM that determines how to efficiently update the actual DOM. When the state or props of a component change, React creates a new Virtual DOM tree and compares it to the previous one. It then calculates the minimal set of changes (or "diffs") that need to be made to the real DOM to reflect the updated state. React follows a set of optimization heuristics, such as:
+        <ul>
+            <li><strong>Elements with the same type are updated:</strong> If the same element type is found, React compares the new and old elements and only updates the changed parts.</li>
+            <li><strong>Efficient Reconciliation:</strong> React assumes that elements with different types will not produce the same UI output, and thus, React will replace the old element with the new one entirely.</li>
+            <li><strong>Keyed Lists:</strong> In lists, React uses keys to identify elements and track their changes, helping it determine which elements need to be moved, added, or removed.</li>
+        </ul>
+        This approach helps minimize unnecessary re-renders and ensures that React applications are highly performant.
+    </div>
+</details>
+
+<details>
+    <summary>React vs React-DOM</summary>
+    <div class="content">
+        React and React-DOM are two distinct packages used in React applications:
+        <ul>
+            <li><strong>React</strong>: This is the core library that defines the basic building blocks for creating components. It provides the <code>React.createElement</code> function and manages the Virtual DOM, component life cycle, and hooks.</li>
+            <li><strong>React-DOM</strong>: This is a separate package that serves as the bridge between React and the browser's DOM. It is responsible for rendering React components to the actual DOM using methods like <code>ReactDOM.render</code>. It also handles the hydration of server-rendered HTML for applications using server-side rendering (SSR).</li>
+        </ul>
+        In short, React is the core library for building the structure of your application, while React-DOM handles rendering and interacting with the browser's DOM.
+    </div>
+</details>
+
+<details>
+    <summary>Ways to Style a Component</summary>
+    <div class="content">
+        React components can be styled in various ways, each offering different levels of flexibility and scope. Here are some of the most common approaches:
+        <ul>
+            <li><strong>CSS Stylesheets</strong>: You can use traditional external or internal CSS stylesheets by linking them in the <code>&lt;head&gt;</code> of your HTML or importing them into your components. This is the simplest approach but can lead to global styling conflicts if not carefully managed.</li>
+            <li><strong>Inline Styles</strong>: React allows you to apply styles directly to elements using the <code>style</code> attribute. Inline styles are defined as a JavaScript object where the keys are camelCase versions of CSS properties, and values are strings.
+                <pre><code>&lt;div style={{ backgroundColor: 'blue', color: 'white' }}&gt;Hello&lt;/div&gt;</code></pre>
+            </li>
+            <li><strong>CSS Modules</strong>: CSS Modules offer a way to write scoped CSS that is locally scoped to the component. It automatically generates unique class names to avoid conflicts, and you import styles as an object:
+                <pre><code>import styles from './MyComponent.module.css';</code></pre>
+                <pre><code>&lt;div className={styles.myClass}&gt;Styled Text&lt;/div&gt;</code></pre>
+            </li>
+            <li><strong>Styled Components</strong>: A popular CSS-in-JS library that allows you to write actual CSS code within your JavaScript files. It uses tagged template literals to style your components:
+                <pre><code>const Button = styled.button`background-color: blue; color: white;`;</code></pre>
+            </li>
+            <li><strong>Emotion</strong>: Another popular CSS-in-JS library, similar to Styled Components. It allows for writing styles using template literals or the <code>css</code> function, and provides features like auto-prefixing and minification.</li>
+            <li><strong>Tailwind CSS</strong>: A utility-first CSS framework that encourages the use of predefined classes to style components. You apply classes directly in the JSX instead of writing custom CSS:
+                <pre><code>&lt;div className="bg-blue-500 text-white"&gt;Styled with Tailwind&lt;/div&gt;</code></pre>
+            </li>
+        </ul>
+        The method you choose depends on the complexity of your project, the need for reusable styles, and your team's preferences.
+    </div>
+</details>
+
+<details>
+    <summary>Components</summary>
+    <div class="content">
+        Components are the core building blocks of a React application. A React app is essentially a tree of components that manage their own state and render UI based on that state. There are two main types of components: 
+        <ul>
+            <li><strong>Class Components</strong>: Older components that extend React.Component and use lifecycle methods.</li>
+            <li><strong>Functional Components</strong>: Simpler components that use functions and hooks (introduced in React 16.8) to handle state and side effects.</li>
+        </ul>
+        Components allow for the reuse of code and help organize complex UIs by breaking them down into smaller, manageable pieces.
+    </div>
+</details>
+
+<details>
+    <summary>Rendering</summary>
+    <div class="content">
+        Rendering in React refers to the process of generating the UI from components. When React renders a component, it calls the component's render method (for class components) or returns JSX (for functional components), which describes what the UI should look like. React then compares the new rendered output with the previous output (this process is called "reconciliation") and updates the DOM efficiently by only applying the changes that are necessary, making React apps fast and responsive.
+    </div>
+</details>
+
+<details>
+    <summary>Context</summary>
+    <div class="content">
+        React Context is a feature that allows you to share state (or data) across different components in a React application, without having to pass props down manually through every level of the component tree. It is useful for managing global state, such as user authentication, themes, or language settings. Context API consists of three main parts:
+        <ul>
+            <li><strong>React.createContext</strong>: Creates a context object.</li>
+            <li><strong>Provider</strong>: A component that provides the value to be shared.</li>
+            <li><strong>Consumer</strong>: A component that subscribes to the context and consumes the provided value.</li>
+        </ul>
+    </div>
+</details>
+
+<details>
+    <summary>Purity</summary>
+    <div class="content">
+        In the context of React, purity refers to a concept borrowed from functional programming. A pure component is one that always renders the same output given the same input (props and state), without causing any side effects (such as modifying external state or interacting with the browser's environment). Pure components are beneficial because they are predictable, easier to debug, and can be optimized by React’s rendering process (e.g., React.memo) since their output depends only on their props and state.
+    </div>
+</details>
+
+<details>
+    <summary>Boundaries</summary>
+    <div class="content">
+        In React, error boundaries are components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of crashing the entire component tree. Error boundaries are typically used in production applications to prevent a single error from taking down the whole application. They are implemented using the <code>componentDidCatch</code> lifecycle method (in class components) or the <code>useErrorBoundary</code> hook (in functional components).
+    </div>
+</details>
+
+<details>
+    <summary>Refs</summary>
+    <div class="content">
+        Refs (short for references) in React are used to directly interact with DOM elements or class instances in a React application. Refs allow you to bypass React’s typical data flow (state and props) to access or modify a DOM element directly. This is useful for tasks such as managing focus, selecting text, or triggering animations. You can create a ref using <code>React.createRef()</code> in class components or <code>useRef()</code> in functional components. Refs should be used sparingly as they break the declarative nature of React.
+    </div>
+</details>
+
+<details>
+    <summary>Children</summary>
+    <div class="content">
+        In React, <code>children</code> is a special prop that can be passed to a component and represents any nested elements or components within that component’s opening and closing tags. It allows for a flexible, composable structure where you can pass arbitrary content from the parent component to the child component. For example, you can render different sets of children inside a layout component to create reusable UI structures. You can access <code>children</code> using the <code>props.children</code> syntax.
+    </div>
+</details>
+
+<details>
+    <summary>Effects</summary>
+    <div class="content">
+        In React, effects are used to handle side effects in components, such as fetching data, subscribing to external events, or interacting with APIs. The <code>useEffect</code> hook (in functional components) allows you to perform these side effects after the component renders. It can be configured to run on every render, only once on mount, or whenever specific state or props change. For class components, side effects are managed using lifecycle methods like <code>componentDidMount</code>, <code>componentDidUpdate</code>, and <code>componentWillUnmount</code>.
+    </div>
+</details>
+
+<details>
+    <summary>JSX</summary>
+    <div class="content">
+        JSX (JavaScript XML) is a syntax extension for JavaScript, commonly used with React to describe what the UI should look like. It looks similar to HTML but is actually a syntactic sugar for JavaScript function calls. JSX allows you to write elements and components in a declarative way. For example, <code>&lt;div&gt;Hello World&lt;/div&gt;</code> in JSX is transformed into <code>React.createElement('div', null, 'Hello World')</code> behind the scenes. JSX enables a seamless combination of JavaScript and HTML-like syntax, making React code more readable and expressive.
+    </div>
+</details>
+
+<details>
+    <summary>Hooks</summary>
+    <div class="content">
+        Hooks are functions that let you "hook into" React state and lifecycle features from functional components. Introduced in React 16.8, hooks provide a way to manage state, side effects, and context without needing to use class components. Common hooks include:
+        <ul>
+            <li><strong>useState</strong>: For managing state in functional components.</li>
+            <li><strong>useEffect</strong>: For handling side effects like data fetching, subscriptions, or DOM updates.</li>
+            <li><strong>useContext</strong>: For accessing React context in a functional component.</li>
+            <li><strong>useRef</strong>: For referencing DOM elements or keeping mutable values that don't trigger re-renders.</li>
+        </ul>
+        Hooks provide a more concise and readable way to manage component behavior.
+    </div>
+</details>
+
+<details>
+    <summary>Suspense</summary>
+    <div class="content">
+        React Suspense is a feature that allows components to "wait" for something before they render. It is primarily used to handle asynchronous operations, such as data fetching or lazy-loading components. By wrapping a component in a <code>Suspense</code> component, you can provide a fallback UI (like a loading spinner) while waiting for the content to load. Suspense is particularly useful when combined with React's lazy loading (<code>React.lazy()</code>) for code-splitting and improving application performance.
+    </div>
+</details>
+
+<details>
+    <summary>Events and Event Handling</summary>
+    <div class="content">
+        React's event handling system is similar to handling events in plain JavaScript, but it comes with some differences to make it more consistent across browsers. Events in React are wrapped in synthetic events, which normalize the event handling across different environments. Common events include <code>onClick</code>, <code>onChange</code>, <code>onSubmit</code>, etc. Event handlers in React are passed as props and must be written as functions. You can handle events by creating functions and passing them to the relevant element, like so:
+        <pre><code>&lt;button onClick={handleClick}&gt;Click Me&lt;/button&gt;</code></pre>
+        Event handlers in React also support passing parameters by using arrow functions or binding methods in the constructor for class components.
+    </div>
+</details>
+
+<details>
+    <summary>Conditional Rendering</summary>
+    <div class="content">
+        Conditional rendering in React refers to displaying different content or components based on a condition. React provides multiple ways to implement conditional rendering, including using JavaScript operators like <code>if</code>, ternary operators, and logical && operators. For example, you can show different elements based on the user's authentication status or show a loading spinner until data is fetched:
+        <pre><code>{isLoggedIn ? &lt;UserProfile /&gt; : &lt;Login /&gt;}</code></pre>
+        Conditional rendering enables more dynamic and interactive user interfaces, where different content is shown under different circumstances.
+    </div>
+</details>
+
+<details>
+    <summary>Form Handling</summary>
+    <div class="content">
+        Form handling in React involves managing form elements like input fields, checkboxes, and radio buttons, and capturing user input. React uses controlled components to handle forms, where form data is managed by React state. Every time a user types in an input field, the value is updated in the component's state, allowing for real-time changes. To handle form submissions, you can attach an event handler to the <code>onSubmit</code> event of the form. Here’s a simple example:
+        <pre><code>
+            const [value, setValue] = useState('');
+            const handleSubmit = (event) => {
+                event.preventDefault();
+                alert('Form submitted: ' + value);
+            };
+            return (
+                &lt;form onSubmit={handleSubmit}&gt;
+                    &lt;input value={value} onChange={(e) => setValue(e.target.value)} /&gt;
+                    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+                &lt;/form&gt;
+            );
+        </code></pre>
+        This makes it easy to control user inputs, validate data, and submit forms in React.
+    </div>
+</details>
+
+<details>
+    <summary>List and Keys</summary>
+    <div class="content">
+        In React, lists are used to render multiple elements or components dynamically. You can render a list by using JavaScript’s <code>map()</code> method to iterate over an array and return a set of components. When rendering lists, React requires that each list item have a unique "key" prop to efficiently update and reconcile the list. Keys help React identify which items have changed, been added, or removed, improving performance during re-renders. Example:
+        <pre><code>
+            const items = ['Apple', 'Banana', 'Orange'];
+            return (
+                &lt;ul&gt;
+                    {items.map((item, index) =&gt; (
+                        &lt;li key={index}&gt;{item}&lt;/li&gt;
+                    ))}
+                &lt;/ul&gt;
+            );
+        </code></pre>
+        The key should be unique and stable for each item in the list, and not rely on array indexes when possible.
+    </div>
+</details>
+
+<details>
+    <summary>Fragments</summary>
+    <div class="content">
+        A <code>Fragment</code> in React is a special component that allows you to group multiple elements without adding an extra node to the DOM. This is useful when you need to return multiple elements from a component but don’t want to introduce an additional wrapper element (like a <code>&lt;div&gt;</code>) in the DOM. Fragments are lightweight and can improve performance. You can use <code>&lt;React.Fragment&gt;</code> or the shorthand syntax <code>&lt;&gt;&lt;/&gt;</code> to create fragments:
+        <pre><code>
+            return (
+                &lt;React.Fragment&gt;
+                    &lt;h1&gt;Title&lt;/h1&gt;
+                    &lt;p&gt;This is a paragraph.&lt;/p&gt;
+                &lt;/React.Fragment&gt;
+            );
+        </code></pre>
+        Fragments are particularly useful when you want to return adjacent elements without adding unnecessary wrapper elements to the markup.
+    </div>
+</details>
+
+<details>
+    <summary>Props and Type Checking</summary>
+    <div class="content">
+        Props (short for properties) are a mechanism for passing data from parent components to child components in React. They allow components to be reusable and customizable. Type checking helps ensure that the correct types of props are passed to components, reducing errors. You can use libraries like <code>PropTypes</code> to validate the types of props passed into a component. Here’s an example of using PropTypes:
+        <pre><code>
+            import PropTypes from 'prop-types';
+            const MyComponent = ({ name, age }) =&gt; {
+                return &lt;div&gt;Name: {name}, Age: {age}&lt;/div&gt;;
+            };
+            MyComponent.propTypes = {
+                name: PropTypes.string.isRequired,
+                age: PropTypes.number.isRequired,
+            };
+        </code></pre>
+        This helps ensure that the correct type of data is passed and helps avoid runtime errors.
+    </div>
+</details>
+
+<details>
+    <summary>State</summary>
+    <div class="content">
+        State in React refers to an object that holds data or information that influences the behavior or rendering of a component. State is mutable and can change over time, often in response to user input or asynchronous data fetching. React’s state is local to each component, and changes to state cause the component to re-render. State is typically initialized in a constructor (in class components) or with the <code>useState</code> hook (in functional components). Example using the <code>useState</code> hook:
+        <pre><code>
+            const [count, setCount] = useState(0);
+            return (
+                &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Click me! {count}&lt;/button&gt;
+            );
+        </code></pre>
+        State allows React components to be interactive and dynamic, updating based on user actions.
+    </div>
+</details>
+
+<details>
+    <summary>Portal</summary>
+    <div class="content">
+        A <code>Portal</code> in React allows you to render a component’s children into a DOM node that exists outside the parent component’s hierarchy. This is useful for rendering elements like modals, tooltips, or dropdowns, which need to be rendered outside the main DOM flow (e.g., avoiding issues with z-index or overflow). Portals are created using <code>ReactDOM.createPortal()</code>, which takes two arguments: the children to render and the DOM node to render them into. Example:
+        <pre><code>
+            import ReactDOM from 'react-dom';
+            const Modal = ({ children }) =&gt; {
+                return ReactDOM.createPortal(
+                    &lt;div className="modal"&gt;{children}&lt;/div&gt;,
+                    document.getElementById('modal-root')
+                );
+            };
+        </code></pre>
+        This enables rendering outside the typical component tree, while maintaining React's rendering lifecycle and state management.
+    </div>
+</details>
+
+<h1>Hooks</h1>
+
+<details>
+    <summary>useState</summary>
+    <div class="content">
+        The <code>useState</code> hook is used to manage state in functional components. It returns an array with two elements: the current state value and a function to update it. The state is preserved between renders, and when the state is updated, the component re-renders to reflect the changes.
+        <pre><code>
+            import { useState } from 'react';
+
+            const Counter = () => {
+                const [count, setCount] = useState(0);
+                
+                return (
+                    &lt;div&gt;
+                        <strong>Count:</strong> {count}
+                        &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Increase&lt;/button&gt;
+                    &lt;/div&gt;
+                );
+            };
+        </code></pre>
+        In the example above, <code>count</code> is the state, and <code>setCount</code> is the function used to update it.
+    </div>
+</details>
+
+<details>
+    <summary>useEffect</summary>
+    <div class="content">
+        The <code>useEffect</code> hook allows you to perform side effects in your components. It is similar to lifecycle methods like <code>componentDidMount</code> and <code>componentDidUpdate</code> in class components. It runs after every render by default, but you can control its behavior by passing a dependency array.
+        <pre><code>
+            import { useState, useEffect } from 'react';
+
+            const Timer = () => {
+                const [seconds, setSeconds] = useState(0);
+
+                useEffect(() => {
+                    const interval = setInterval(() =&gt; {
+                        setSeconds(prev => prev + 1);
+                    }, 1000);
+
+                    // Cleanup function to clear the interval when the component unmounts
+                    return () =&gt; clearInterval(interval);
+                }, []); // Empty array means this runs only once (componentDidMount)
+
+                return (
+                    &lt;div&gt;
+                        <strong>Seconds:</strong> {seconds}
+                    &lt;/div&gt;
+                );
+            };
+        </code></pre>
+        In this example, <code>useEffect</code> is used to set up a timer, and the cleanup function clears the interval when the component is unmounted.
+    </div>
+</details>
+
+<details>
+    <summary>useLayoutEffect</summary>
+    <div class="content">
+        The <code>useLayoutEffect</code> hook is similar to <code>useEffect</code>, but it is triggered synchronously after all DOM mutations. This makes it suitable for operations that require reading and writing to the DOM immediately after the changes, such as measuring DOM elements or applying layout changes.
+        <pre><code>
+            import { useState, useLayoutEffect, useRef } from 'react';
+
+            const LayoutEffectExample = () =&gt; {
+                const [width, setWidth] = useState(0);
+                const divRef = useRef(null);
+
+                useLayoutEffect(() =&gt; {
+                    // Measure the DOM element's width after the render
+                    setWidth(divRef.current.offsetWidth);
+                });
+
+                return (
+                    &lt;div ref={divRef}&gt;
+                        <strong>Width:</strong> {width}
+                    &lt;/div&gt;
+                );
+            };
+        </code></pre>
+        <code>useLayoutEffect</code> runs synchronously after the DOM is painted, ensuring that any DOM mutations or layout changes are reflected before the browser paints the updated UI.
+    </div>
+</details>
+
+<details>
+    <summary>useRef</summary>
+    <div class="content">
+        The <code>useRef</code> hook is used to persist values across renders without causing a re-render when the value changes. It can also be used to access and manipulate DOM elements directly. It returns a mutable object with a <code>current</code> property.
+        <pre><code>
+            import { useRef } from 'react';
+
+            const FocusInput = () =&gt; {
+                const inputRef = useRef(null);
+
+                const handleFocus = () =&gt; {
+                    inputRef.current.focus(); // Focus the input element
+                };
+
+                return (
+                    &lt;div&gt;
+                        &lt;input ref={inputRef} /&gt;
+                        &lt;button onClick={handleFocus}&gt;Focus the Input&lt;/button&gt;
+                    &lt;/div&gt;
+                );
+            };
+        </code></pre>
+        In this example, <code>useRef</code> is used to create a reference to the input element and programmatically focus it when the button is clicked.
+    </div>
+</details>
+
+<details>
+    <summary>useCallback</summary>
+    <div class="content">
+        The <code>useCallback</code> hook returns a memoized version of a function that only changes if one of the dependencies has changed. This is useful for optimizing performance, especially in child components that rely on functions passed as props. Without <code>useCallback</code>, the function would be recreated on every render.
+        <pre><code>
+            import { useState, useCallback } from 'react';
+
+            const Parent = () =&gt; {
+                const [count, setCount] = useState(0);
+
+                const memoizedCallback = useCallback(() =&gt; {
+                    console.log('Count is', count);
+                }, [count]); // Only recreate memoizedCallback if count changes
+
+                return (
+                    &lt;div&gt;
+                        <strong>Count:</strong> {count}
+                        &lt;button onClick={memoizedCallback}&gt;Log Count&lt;/button&gt;
+                    &lt;/div&gt;
+                );
+            };
+        </code></pre>
+        In this example, <code>useCallback</code> ensures that the function <code>memoizedCallback</code> is only recreated if the <code>count</code> state changes, improving performance by preventing unnecessary re-creations of the function.
+    </div>
+</details>
+
+<details>
+    <summary>useMemo</summary>
+    <div class="content">
+        The <code>useMemo</code> hook is used to memoize expensive calculations so that they are only recomputed when the relevant dependencies change. This can help optimize performance by avoiding recalculations on every render.
+        <pre><code>
+            import { useState, useMemo } from 'react';
+
+            const ExpensiveComponent = () =&gt; {
+                const [count, setCount] = useState(0);
+
+                const expensiveValue = useMemo(() =&gt; {
+                    console.log('Expensive calculation');
+                    return count * 2;
+                }, [count]); // Recalculate only when count changes
+
+                return (
+                    &lt;div&gt;
+                        <strong>Expensive Value:</strong> {expensiveValue}
+                        &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Increment Count&lt;/button&gt;
+                    &lt;/div&gt;
+                );
+            };
+        </code></pre>
+        Here, <code>useMemo</code> ensures that the expensive calculation only happens when the <code>count</code> changes, avoiding unnecessary recalculations on each render.
+    </div>
+</details>
+
+<details>
+    <summary>useContext</summary>
+    <div class="content">
+        The <code>useContext</code> hook allows you to access the value of a context without needing to pass it down through props manually. This is especially useful for sharing global state or functions (like theme or authentication) throughout your component tree.
+        <pre><code>
+            import { createContext, useContext, useState } from 'react';
+
+            const ThemeContext = createContext();
+
+            const ThemeProvider = ({ children }) =&gt; {
+                const [isDarkMode, setIsDarkMode] = useState(false);
+
+                return (
+                    <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
+                        {children}
+                    </ThemeContext.Provider>
+                );
+            };
+
+            const ThemedComponent = () =&gt; {
+                const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
+
+                return (
+                    &lt;div style={{ background: isDarkMode ? 'black' : 'white', color: isDarkMode ? 'white' : 'black' }}&gt;
+                        <strong>Theme:</strong> {isDarkMode ? 'Dark' : 'Light'}
+                        &lt;button onClick={() =&gt; setIsDarkMode(!isDarkMode)}&gt;Toggle Theme&lt;/button&gt;
+                    &lt;/div&gt;
+                );
+            };
+
+            const App = () =&gt; (
+                &lt;ThemeProvider&gt;
+                    &lt;ThemedComponent /&gt;
+                &lt;/ThemeProvider&gt;
+            );
+        </code></pre>
+        In this example, <code>useContext</code> is used to access the theme context value and update the theme of the component.
+    </div>
+</details>
+
+<h1>Lifecycle Methods</h1>
+
+<details>
+    <summary>componentDidMount</summary>
+    <div class="content">
+        The <code>componentDidMount</code> lifecycle method is called once after the component is initially rendered to the screen. It is typically used for operations that need to be performed once after the component is mounted, such as fetching data, setting up subscriptions, or interacting with external libraries. This method is not called during server-side rendering.
+        <pre><code>
+            import React, { Component } from 'react';
+
+            class MyComponent extends Component {
+                componentDidMount() {
+                    console.log('Component mounted');
+                    // Perform side effects like data fetching here
+                }
+
+                render() {
+                    return &lt;div&gt;Hello, World!&lt;/div&gt;;
+                }
+            }
+
+            export default MyComponent;
+        </code></pre>
+        In the example above, <code>componentDidMount</code> is called once when the component is rendered for the first time. It can be used for actions like data fetching.
+    </div>
+</details>
+
+<details>
+    <summary>componentWillUnmount</summary>
+    <div class="content">
+        The <code>componentWillUnmount</code> lifecycle method is called just before the component is removed from the DOM. This is where you should clean up resources like timers, subscriptions, or event listeners to avoid memory leaks.
+        <pre><code>
+            import React, { Component } from 'react';
+
+            class MyComponent extends Component {
+                componentDidMount() {
+                    this.interval = setInterval(() =&gt; {
+                        console.log('Interval running');
+                    }, 1000);
+                }
+
+                componentWillUnmount() {
+                    clearInterval(this.interval);
+                    console.log('Component will unmount');
+                }
+
+                render() {
+                    return &lt;div&gt;This is the component&lt;/div&gt;;
+                }
+            }
+
+            export default MyComponent;
+        </code></pre>
+        In this example, <code>componentDidMount</code> sets up an interval, and <code>componentWillUnmount</code> clears it when the component is about to unmount, preventing memory leaks.
+    </div>
+</details>
+
+<details>
+    <summary>componentDidUpdate</summary>
+    <div class="content">
+        The <code>componentDidUpdate</code> lifecycle method is called after the component's updates are flushed to the DOM. This method is useful for reacting to prop or state changes and performing side effects (e.g., fetching data or updating the DOM). It is called after every update, except for the initial render. You can access the previous props and state by passing them as arguments to this method.
+        <pre><code>
+            import React, { Component } from 'react';
+
+            class MyComponent extends Component {
+                constructor(props) {
+                    super(props);
+                    this.state = { count: 0 };
+                }
+
+                componentDidUpdate(prevProps, prevState) {
+                    if (prevState.count !== this.state.count) {
+                        console.log('Count updated from', prevState.count, 'to', this.state.count);
+                    }
+                }
+
+                render() {
+                    return (
+                        &lt;div&gt;
+                            <strong>Count:</strong> {this.state.count}
+                            &lt;button onClick={() =&gt; this.setState({ count: this.state.count + 1 })}&gt;Increment Count&lt;/button&gt;
+                        &lt;/div&gt;
+                    );
+                }
+            }
+
+            export default MyComponent;
+        </code></pre>
+        In the example above, <code>componentDidUpdate</code> logs a message when the <code>count</code> state changes. It compares the current state with the previous state to check for changes.
+    </div>
+</details>
+
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests/js/script.js"></script>
+</body>
+
+</html>

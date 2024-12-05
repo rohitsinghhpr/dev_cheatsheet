@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Question 2</title>
+    <link rel="stylesheet" href="../../assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests/css/style.css">
+    <link rel="stylesheet" href="../../assests/css/prism-tomorrow.min.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+
+        <details>
+            <summary>1. How to perform automatic redirect after login?</summary>
+            <div class="content">
+                You can perform an automatic redirect after login in React using React Router's <code>useNavigate</code>
+                hook or the <code>history.push()</code> method if using class components. After successful login, you
+                can redirect the user to another page (like the home page) as follows:
+                <pre><code class="language-java">
+            import { useNavigate } from 'react-router-dom';
+
+            const Login = () =&gt; {
+                const navigate = useNavigate();
+
+                const handleLogin = () =&gt; {
+                    // Perform login logic (e.g., authenticate user)
+                    navigate('/home'); // Redirect after login
+                };
+
+                return (
+                    &lt;button onClick={handleLogin}&gt;Login&lt;/button&gt;
+                );
+            };
+        </code></pre>
+                In this example, the <code>navigate('/home')</code> call redirects the user to the `/home` route after a
+                successful login.
+            </div>
+        </details>
+
+        <details>
+            <summary>2. How to pass data between sibling components using React router?</summary>
+            <div class="content">
+                To pass data between sibling components, you can use React Router's URL parameters, or use a shared
+                state via a parent component. Here's an example using URL parameters:
+                <pre><code class="language-java">
+            import { BrowserRouter as Router, Route, Link, useParams } from 'react-router-dom';
+
+            const ParentComponent = () =&gt; (
+                &lt;div&gt;
+                    &lt;Link to="/sibling/42"&gt;Go to Sibling 42&lt;/Link&gt;
+                &lt;/div&gt;
+            );
+
+            const SiblingComponent = () =&gt; {
+                const { id } = useParams(); // Fetching data from URL parameter
+                return &lt;div&gt;Sibling ID: {id}&lt;/div&gt;
+            };
+
+            const App = () =&gt; (
+                &lt;Router&gt;
+                    &lt;Route path="/" component={ParentComponent} /&gt;
+                    &lt;Route path="/sibling/:id" component={SiblingComponent} /&gt;
+                &lt;/Router&gt;
+            );
+        </code></pre>
+                Here, the sibling component can access the data passed in the URL (`/sibling/42`) using
+                <code>useParams</code>.
+            </div>
+        </details>
+
+        <details>
+            <summary>3. How to re-render the view when the browser is resized?</summary>
+            <div class="content">
+                You can use the <code>useState</code> hook to store the window dimensions and the <code>useEffect</code>
+                hook to listen for window resize events. Here's an example:
+                <pre><code class="language-java">
+            import { useState, useEffect } from 'react';
+
+            const ResizeListener = () =&gt; {
+                const [windowSize, setWindowSize] = useState({
+                    width: window.innerWidth,
+                    height: window.innerHeight
+                });
+
+                useEffect(() =&gt; {
+                    const handleResize = () =&gt; {
+                        setWindowSize({
+                            width: window.innerWidth,
+                            height: window.innerHeight
+                        });
+                    };
+
+                    window.addEventListener('resize', handleResize);
+                    return () =&gt; window.removeEventListener('resize', handleResize);
+                }, []); // Empty dependency means this runs only once after initial render
+
+                return (
+                    &lt;div&gt;
+                        Window Size: {windowSize.width}x{windowSize.height}
+                    &lt;/div&gt;
+                );
+            };
+        </code></pre>
+                In this example, the component will re-render whenever the window is resized.
+            </div>
+        </details>
+
+        <details>
+            <summary>4. How to create a switching component for displaying different pages?</summary>
+            <div class="content">
+                You can create a switching component by using <code>React Router</code> with <code>Route</code> elements
+                to display different components based on the URL path. Here's an example:
+                <pre><code class="language-java">
+            import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
+            const PageOne = () =&gt; <div>Page 1</div>;
+            const PageTwo = () =&gt; <div>Page 2</div>;
+
+            const SwitchComponent = () =&gt; (
+                &lt;Router&gt;
+                    &lt;nav&gt;
+                        &lt;Link to="/page1"&gt;Go to Page 1&lt;/Link&gt; | 
+                        &lt;Link to="/page2"&gt;Go to Page 2&lt;/Link&gt;
+                    &lt;/nav&gt;
+                    &lt;Route path="/page1" component={PageOne} /&gt;
+                    &lt;Route path="/page2" component={PageTwo} /&gt;
+                &lt;/Router&gt;
+            );
+        </code></pre>
+                The routing switch is managed by React Router, which will render the appropriate page based on the path.
+            </div>
+        </details>
+
+        <details>
+            <summary>5. Explain how to create a simple React Hooks example program.</summary>
+            <div class="content">
+                Here's an example program using React Hooks to create a simple counter:
+                <pre><code class="language-java">
+            import React, { useState } from 'react';
+
+            const Counter = () =&gt; {
+                const [count, setCount] = useState(0);
+
+                return (
+                    &lt;div&gt;
+                        <strong>Count:</strong> {count}
+                        &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Increment&lt;/button&gt;
+                    &lt;/div&gt;
+                );
+            };
+
+            export default Counter;
+        </code></pre>
+                This program uses the <code>useState</code> hook to manage state and renders a button to increment the
+                count.
+            </div>
+        </details>
+
+        <details>
+            <summary>6. Explain conditional rendering in React.</summary>
+            <div class="content">
+                Conditional rendering in React is achieved using JavaScript conditions, such as <code>if</code>
+                statements, ternary operators, or logical operators, to determine which component or element should be
+                rendered.
+                <pre><code class="language-java">
+            const Greeting = ({ isLoggedIn }) =&gt; {
+                return isLoggedIn ? (
+                    &lt;div&gt;Welcome Back!&lt;/div&gt;
+                ) : (
+                    &lt;div&gt;Please Log In&lt;/div&gt;
+                );
+            };
+        </code></pre>
+                In this example, the <code>Greeting</code> component conditionally renders different content based on
+                the <code>isLoggedIn</code> prop.
+            </div>
+        </details>
+
+        <details>
+            <summary>7. Can React Hook replace Redux?</summary>
+            <div class="content">
+                React Hooks can replace some use cases of Redux, especially with the introduction of
+                <code>useState</code> and <code>useReducer</code> hooks. For simpler state management within a
+                component, React Hooks can handle local state, but for complex, global state management, Redux or a
+                context-based solution may still be more appropriate.
+            </div>
+        </details>
+
+        <details>
+            <summary>8. What is React Router?</summary>
+            <div class="content">
+                React Router is a library for handling routing in React applications. It allows you to navigate between
+                different components (or pages) based on the URL path, making it easy to build single-page applications
+                (SPAs).
+            </div>
+        </details>
+
+        <details>
+            <summary>9. Do Hooks cover all the functionalities provided by the classes?</summary>
+            <div class="content">
+                Hooks provide an alternative to class components and cover most of the functionality, including state
+                management, side effects, refs, context, etc. However, class components still offer lifecycle methods
+                like <code>componentDidCatch</code> and certain use cases where class-based architecture may be more
+                appropriate for larger codebases.
+            </div>
+        </details>
+
+        <details>
+            <summary>10. How does the performance of using Hooks differ from using classes?</summary>
+            <div class="content">
+                The performance between Hooks and class components is generally similar. However, React Hooks provide a
+                cleaner and more modular approach to component logic, which may lead to better optimization
+                opportunities. With hooks like <code>useMemo</code> and <code>useCallback</code>, React can avoid
+                unnecessary re-renders more effectively.
+            </div>
+        </details>
+
+        <details>
+            <summary>11. Differentiate React Hooks vs Classes.</summary>
+            <div class="content">
+                <ul>
+                    <li><strong>Hooks</strong>: Offer a more functional programming approach, allow the use of state and
+                        lifecycle methods in functional components, and promote code reuse with custom hooks.</li>
+                    <li><strong>Classes</strong>: Use object-oriented concepts, require more boilerplate code, and
+                        manage state and lifecycle methods within a class component.</li>
+                </ul>
+                Hooks are generally simpler and more flexible, whereas class components are more verbose and use a
+                traditional object-oriented approach.
+            </div>
+        </details>
+
+        <details>
+            <summary>12. Explain about types of Hooks in React.</summary>
+            <div class="content">
+                The most commonly used hooks in React are:
+                <ul>
+                    <li><code>useState</code>: Manages local component state.</li>
+                    <li><code>useEffect</code>: Performs side effects
+
+                        like fetching data or updating the DOM.</li>
+                    <li><code>useContext</code>: Accesses global state using React Context.</li>
+                    <li><code>useReducer</code>: An alternative to <code>useState</code> for complex state logic.</li>
+                    <li><code>useMemo</code>: Memorizes expensive calculations to prevent unnecessary re-computations.
+                    </li>
+                    <li><code>useCallback</code>: Memorizes a function to prevent unnecessary re-creations.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>13. Does React Hook work with static typing?</summary>
+            <div class="content">
+                Yes, React Hooks work well with static typing. You can use TypeScript with React to statically type your
+                hook values and components. For instance, you can type the state managed by <code>useState</code> and
+                other hooks.
+            </div>
+        </details>
+
+        <details>
+            <summary>14. What are the lifecycle methods of React?</summary>
+            <div class="content">
+                In class components, the main lifecycle methods are:
+                <ul>
+                    <li><code>componentDidMount</code></li>
+                    <li><code>componentDidUpdate</code></li>
+                    <li><code>componentWillUnmount</code></li>
+                </ul>
+                These allow you to perform operations at different points in the component's life cycle.
+            </div>
+        </details>
+
+        <details>
+            <summary>15. What are the different phases of the component lifecycle?</summary>
+            <div class="content">
+                The React component lifecycle consists of three main phases:
+                <ul>
+                    <li><strong>Mounting</strong>: When the component is being created and inserted into the DOM.</li>
+                    <li><strong>Updating</strong>: When the component is being re-rendered as a result of changes to
+                        props or state.</li>
+                    <li><strong>Unmounting</strong>: When the component is being removed from the DOM.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>16. What are Higher Order Components?</summary>
+            <div class="content">
+                Higher Order Components (HOCs) are functions that take a component and return a new component with
+                additional props or behavior. They are used for code reuse and logic abstraction.
+            </div>
+        </details>
+
+        <details>
+            <summary>17. How to pass data between react components?</summary>
+            <div class="content">
+                You can pass data between components via props in React. The parent component can pass data to its child
+                component by specifying props, and the child component can access this data through
+                <code>this.props</code> in class components or directly as props in function components.
+            </div>
+        </details>
+
+        <details>
+            <summary>18. Name a few techniques to optimize React app performance.</summary>
+            <div class="content">
+                A few optimization techniques include:
+                <ul>
+                    <li><code>React.memo</code> for memoizing functional components to prevent unnecessary re-renders.
+                    </li>
+                    <li>Code-splitting using <code>React.lazy</code> and <code>Suspense</code>.</li>
+                    <li>Using <code>useMemo</code> and <code>useCallback</code> to avoid unnecessary computations and
+                        re-creations.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>19. What are the different ways to style a React component?</summary>
+            <div class="content">
+                There are several ways to style React components:
+                <ul>
+                    <li>Inline styles using the <code>style</code> attribute.</li>
+                    <li>External CSS files.</li>
+                    <li>CSS Modules for scoped styles.</li>
+                    <li>Styled-components (CSS-in-JS) for dynamic styling.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>20. How to prevent re-renders in React?</summary>
+            <div class="content">
+                You can prevent unnecessary re-renders in React by using:
+                <ul>
+                    <li><code>React.memo</code> to memoize functional components.</li>
+                    <li><code>shouldComponentUpdate</code> lifecycle method in class components.</li>
+                    <li><code>useMemo</code> and <code>useCallback</code> hooks to memoize values and functions.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>21. Explain Strict Mode in React.</summary>
+            <div class="content">
+                Strict Mode is a development tool in React that highlights potential problems in an application. It
+                helps catch unsafe lifecycle methods, deprecated APIs, and other issues that might not be obvious. It
+                does not affect the production build of your app.
+            </div>
+        </details>
+
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests/js/script.js"></script>
+    <script src="../../assests/js/prism.min.js"></script>
+    <script src="../../assests/js/prism-java.min.js"></script>
+</body>
+
+</html>

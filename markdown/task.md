@@ -1,0 +1,28 @@
+# Frontend
+- html
+- css
+- scss
+- javascript 
+- react 
+- redux
+- fromik 
+- axios
+- react router
+- npm
+- babel
+- webpack
+- mocha, jest
+- react testing 
+- bootstrap and tailwind 
+- dev tools and debugging 
+- restapi
+- sql
+- mongodb
+- git 
+- next js 
+- prettier
+- eslint
+- JSON Web Token
+- pattern
+- programs 
+

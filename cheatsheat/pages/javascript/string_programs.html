@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Program JavaScript</title>
+    <link rel="stylesheet" href="../../assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests/css/prism-tomorrow.min.css" />
+    <link rel="stylesheet" href="../../assests/css/style.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+        <details>
+            <summary>Reverse a String Using Loop</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to reverse a string using a loop
+        function reverseString(str) {
+            let reversedStr = '';
+            for (let i = str.length - 1; i >= 0; i--) {
+                reversedStr += str[i];
+            }
+            return reversedStr;
+        }
+        
+        // Example usage
+        const str = "hello world";
+        console.log(reverseString(str)); // Output: "dlrow olleh"
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Reverse a string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to reverse a string
+        function reverseString(str) {
+            return str.split('').reverse().join('');
+        }
+        
+        // Example usage
+        const str = "hello";
+        console.log(reverseString(str)); // Output: "olleh"
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Check if a string is a palindrome</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to check if a string is a palindrome
+        function isPalindrome(str) {
+            const reversed = str.split('').reverse().join('');
+            return str === reversed;
+        }
+        
+        // Example usage
+        const str = "madam";
+        console.log(isPalindrome(str)); // Output: true
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Count vowels and consonants in a string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to count vowels and consonants in a string
+        function countVowelsAndConsonants(str) {
+            let vowels = 0, consonants = 0;
+            for (let char of str.toLowerCase()) {
+                if ('aeiou'.includes(char)) vowels++;
+                else if (/[a-z]/.test(char)) consonants++;
+            }
+            return { vowels, consonants };
+        }
+        
+        // Example usage
+        const str = "hello world";
+        console.log(countVowelsAndConsonants(str)); // Output: { vowels: 3, consonants: 7 }
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find the frequency of characters in a string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find the frequency of characters in a string
+        function charFrequency(str) {
+            const freqMap = {};
+            for (let char of str) {
+                freqMap[char] = (freqMap[char] || 0) + 1;
+            }
+            return freqMap;
+        }
+        
+        // Example usage
+        const str = "hello";
+        console.log(charFrequency(str)); // Output: { h: 1, e: 1, l: 2, o: 1 }
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Check if two strings are anagrams</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to check if two strings are anagrams
+        function areAnagrams(str1, str2) {
+            const sortedStr1 = str1.split('').sort().join('');
+            const sortedStr2 = str2.split('').sort().join('');
+            return sortedStr1 === sortedStr2;
+        }
+        
+        // Example usage
+        const str1 = "listen";
+        const str2 = "silent";
+        console.log(areAnagrams(str1, str2)); // Output: true
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find all permutations of a string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find all permutations of a string
+        function permute(str) {
+            const results = [];
+            if (str.length === 1) return [str];
+            for (let i = 0; i < str.length; i++) {
+                const char = str[i];
+                const remainingChars = str.slice(0, i) + str.slice(i + 1);
+                const remainingPermutations = permute(remainingChars);
+                for (const perm of remainingPermutations) {
+                    results.push(char + perm);
+                }
+            }
+            return results;
+        }
+        
+        // Example usage
+        const str = "abc";
+        console.log(permute(str)); // Output: ["abc", "acb", "bac", "bca", "cab", "cba"]
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Remove duplicate characters from a string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to remove duplicate characters from a string
+        function removeDuplicates(str) {
+            return [...new Set(str)].join('');
+        }
+        
+        // Example usage
+        const str = "hello";
+        console.log(removeDuplicates(str)); // Output: "helo"
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find the longest word in a sentence</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find the longest word in a sentence
+        function longestWord(sentence) {
+            const words = sentence.split(' ');
+            let longest = '';
+            for (let word of words) {
+                if (word.length > longest.length) longest = word;
+            }
+            return longest;
+        }
+        
+        // Example usage
+        const sentence = "The quick brown fox jumps over the lazy dog";
+        console.log(longestWord(sentence)); // Output: "jumps"
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Count the occurrence of each word in a sentence</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to count the occurrence of each word in a sentence
+        function wordFrequency(sentence) {
+            const words = sentence.split(' ');
+            const freqMap = {};
+            for (let word of words) {
+                freqMap[word] = (freqMap[word] || 0) + 1;
+            }
+            return freqMap;
+        }
+        
+        // Example usage
+        const sentence = "hello world hello";
+        console.log(wordFrequency(sentence)); // Output: { hello: 2, world: 1 }
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Check if a string contains only digits</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to check if a string contains only digits
+        function isDigitsOnly(str) {
+            return /^\d+$/.test(str);
+        }
+        
+        // Example usage
+        const str1 = "12345";
+        const str2 = "123a45";
+        console.log(isDigitsOnly(str1)); // Output: true
+        console.log(isDigitsOnly(str2)); // Output: false
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Convert a string to title case</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to convert a string to title case
+        function toTitleCase(str) {
+            return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+        }
+        
+        // Example usage
+        const str = "the quick brown fox";
+        console.log(toTitleCase(str)); // Output: "The Quick Brown Fox"
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Remove all whitespace from a string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to remove all whitespace from a string
+        function removeWhitespace(str) {
+            return str.replace(/\s+/g, '');
+        }
+        
+        // Example usage
+        const str = "hello world";
+        console.log(removeWhitespace(str)); // Output: "helloworld"
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Count the number of words in a string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to count the number of words in a string
+        function wordCount(str) {
+            return str.split(' ').filter(word => word !== '').length;
+        }
+        
+        // Example usage
+        const str = "Hello world, how are you?";
+        console.log(wordCount(str)); // Output: 5
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find all substrings of a string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find all substrings of a string
+        function getAllSubstrings(str) {
+            const substrings = [];
+            for (let i = 0; i < str.length; i++) {
+                for (let j = i + 1; j <= str.length; j++) {
+                    substrings.push(str.slice(i, j));
+                }
+            }
+            return substrings;
+        }
+        
+        // Example usage
+        const str = "abc";
+        console.log(getAllSubstrings(str)); // Output: ["a", "ab", "abc", "b", "bc", "c"]
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Replace a character in a string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to replace a character in a string
+        function replaceChar(str, oldChar, newChar) {
+            return str.split(oldChar).join(newChar);
+        }
+        
+        // Example usage
+        const str = "hello";
+        console.log(replaceChar(str, "e", "a")); // Output: "hallo"
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Check if a string is a valid palindrome ignoring case and non-alphanumeric characters</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to check if a string is a valid palindrome ignoring case and non-alphanumeric characters
+        function isValidPalindrome(str) {
+            const cleanedStr = str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+            const reversedStr = cleanedStr.split('').reverse().join('');
+            return cleanedStr === reversedStr;
+        }
+        
+        // Example usage
+        const str = "A man, a plan, a canal, Panama!";
+        console.log(isValidPalindrome(str)); // Output: true
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Reverse each word in a sentence</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to reverse each word in a sentence
+        function reverseEachWord(sentence) {
+            return sentence.split(' ').map(word => word.split('').reverse().join('')).join(' ');
+        }
+        
+        // Example usage
+        const sentence = "hello world";
+        console.log(reverseEachWord(sentence)); // Output: "olleh dlrow"
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find the first non-repeating character in a string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find the first non-repeating character in a string
+        function firstNonRepeating(str) {
+            const freqMap = {};
+            for (let char of str) {
+                freqMap[char] = (freqMap[char] || 0) + 1;
+            }
+            for (let char of str) {
+                if (freqMap[char] === 1) return char;
+            }
+            return null;
+        }
+        
+        // Example usage
+        const str = "swiss";
+        console.log(firstNonRepeating(str)); // Output: "w"
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Remove a given character from a string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to remove a given character from a string
+        function removeCharacter(str, charToRemove) {
+            return str.split(charToRemove).join('');
+        }
+        
+        // Example usage
+        const str = "hello world";
+        console.log(removeCharacter(str, "o")); // Output: "hell wrld"
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Replace all spaces in a string with a given character</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to replace all spaces in a string with a given character
+        function replaceSpaces(str, char) {
+            return str.replace(/\s+/g, char);
+        }
+        
+        // Example usage
+        const str = "hello world";
+        console.log(replaceSpaces(str, "_")); // Output: "hello_world"
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find the longest substring without repeating characters</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find the longest substring without repeating characters
+        function longestSubstring(str) {
+            let map = new Map();
+            let start = 0, maxLength = 0;
+            
+            for (let end = 0; end < str.length; end++) {
+                if (map.has(str[end])) {
+                    start = Math.max(map.get(str[end]) + 1, start);
+                }
+                map.set(str[end], end);
+                maxLength = Math.max(maxLength, end - start + 1);
+            }
+            return maxLength;
+        }
+        
+        // Example usage
+        const str = "abcabcbb";
+        console.log(longestSubstring(str)); // Output: 3 (The longest substring is "abc")
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Count the occurrence of a given character in a string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to count the occurrence of a given character in a string
+        function countCharacter(str, char) {
+            return str.split(char).length - 1;
+        }
+        
+        // Example usage
+        const str = "hello world";
+        console.log(countCharacter(str, "o")); // Output: 2
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find the most frequent character in a string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find the most frequent character in a string
+        function mostFrequentCharacter(str) {
+            const freqMap = {};
+            let maxCount = 0;
+            let mostFrequentChar = '';
+            
+            for (let char of str) {
+                freqMap[char] = (freqMap[char] || 0) + 1;
+                if (freqMap[char] > maxCount) {
+                    maxCount = freqMap[char];
+                    mostFrequentChar = char;
+                }
+            }
+            return mostFrequentChar;
+        }
+        
+        // Example usage
+        const str = "hello";
+        console.log(mostFrequentCharacter(str)); // Output: "l"
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Check if a string is a rotation of another string</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to check if a string is a rotation of another string
+        function isRotation(str1, str2) {
+            if (str1.length !== str2.length) return false;
+            return (str1 + str1).includes(str2);
+        }
+        
+        // Example usage
+        const str1 = "abcde";
+        const str2 = "deabc";
+        console.log(isRotation(str1, str2)); // Output: true
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Capitalize the first letter of each word in a sentence</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to capitalize the first letter of each word in a sentence
+        function capitalizeFirstLetter(sentence) {
+            return sentence.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+        }
+        
+        // Example usage
+        const sentence = "hello world";
+        console.log(capitalizeFirstLetter(sentence)); // Output: "Hello World"
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Find the length of the longest palindromic substring</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to find the length of the longest palindromic substring
+        function longestPalindromicSubstring(str) {
+            let maxLength = 1;
+        
+            function expandAroundCenter(left, right) {
+                while (left >= 0 && right < str.length && str[left] === str[right]) {
+                    maxLength = Math.max(maxLength, right - left + 1);
+                    left--;
+                    right++;
+                }
+            }
+        
+            for (let i = 0; i < str.length; i++) {
+                expandAroundCenter(i, i); // Odd length palindrome
+                expandAroundCenter(i, i + 1); // Even length palindrome
+            }
+        
+            return maxLength;
+        }
+        
+        // Example usage
+        const str = "babad";
+        console.log(longestPalindromicSubstring(str)); // Output: 3 (The longest palindrome is "aba")
+                </code></pre>
+            </div>
+        </details>
+        
+        <details>
+            <summary>Check if a string has all unique characters</summary>
+            <div class="content">
+                <pre><code class="language-javascript">
+        // Function to check if a string has all unique characters
+        function hasUniqueCharacters(str) {
+            const charSet = new Set();
+            for (let char of str) {
+                if (charSet.has(char)) return false;
+                charSet.add(char);
+            }
+            return true;
+        }
+        
+        // Example usage
+        const str = "abcdef";
+        console.log(hasUniqueCharacters(str)); // Output: true
+        const str2 = "aabbcc";
+        console.log(hasUniqueCharacters(str2)); // Output: false
+                </code></pre>
+            </div>
+        </details>
+        
+        
+        
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests/js/prism.min.js"></script>
+    <script src="../../assests/js/prism-java.min.js"></script>
+    <script src="../../assests/js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS</title>
+    <link rel="stylesheet" href="../../assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests/css/style.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+        <details>
+            <summary>CSS Syntax</summary>
+            <div class="content">
+                <p><b>CSS Syntax</b> refers to the set of rules that define how styles are applied to HTML elements. It
+                    consists of selectors, properties, and values.</p>
+                <p><b>Basic Syntax:</b></p>
+                <pre>
+        selector {
+            property: value;
+        }
+                </pre>
+                <p><b>Example:</b></p>
+                <pre>
+        h1 {
+            color: blue; /* Selects all h1 elements and sets their text color to blue */
+        }
+                </pre>
+                <p><b>Explanation:</b> The <code>selector</code> is the HTML element you want to style,
+                    <code>property</code> defines what aspect of the element you want to modify (e.g., color,
+                    font-size), and <code>value</code> specifies the actual style to apply.
+                </p>
+            </div>
+        </details>
+
+        <details>
+            <summary>CSS Selectors</summary>
+            <div class="content">
+                <p><b>CSS Selectors</b> are patterns used to select and style HTML elements. They target elements based
+                    on their type, attributes, or relationships in the DOM.</p>
+                <p><b>Types of Selectors:</b></p>
+                <ul>
+                    <li><b>Universal Selector:</b> <code>*</code> selects all elements.</li>
+                    <pre>
+        * {
+            color: red;
+        }
+                    </pre>
+                    <li><b>Type Selector:</b> Selects elements by their tag name.</li>
+                    <pre>
+        h1 {
+            font-size: 24px;
+        }
+                    </pre>
+                    <li><b>Class Selector:</b> Selects elements with a specific class attribute.</li>
+                    <pre>
+        .my-class {
+            color: green;
+        }
+                    </pre>
+                    <li><b>ID Selector:</b> Selects an element with a specific ID.</li>
+                    <pre>
+        #my-id {
+            margin: 10px;
+        }
+                    </pre>
+                    <li><b>Attribute Selector:</b> Selects elements based on an attribute or its value.</li>
+                    <pre>
+        input[type="text"] {
+            border: 1px solid black;
+        }
+                    </pre>
+                    <li><b>Descendant Selector:</b> Selects elements that are inside a specific parent element.</li>
+                    <pre>
+        div p {
+            color: blue;
+        }
+                    </pre>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>CSS Pseudo-Classes</summary>
+            <div class="content">
+                <p><b>CSS Pseudo-Classes</b> are used to define the special state of an element, like when it’s hovered
+                    over, focused, or visited. They are prefixed with a colon (<code>:</code>) and target dynamic
+                    states.</p>
+                <p><b>Examples of Pseudo-Classes:</b></p>
+                <ul>
+                    <li><code>:hover</code> — Applied when an element is hovered over by the user.</li>
+                    <pre>
+        a:hover {
+            color: red;
+        }
+                    </pre>
+                    <li><code>:focus</code> — Applied when an element gains focus (like an input field).</li>
+                    <pre>
+        input:focus {
+            border: 2px solid blue;
+        }
+                    </pre>
+                    <li><code>:nth-child()</code> — Targets an element based on its position in a parent element.</li>
+                    <pre>
+        li:nth-child(2) {
+            color: green;
+        }
+                    </pre>
+                    <li><code>:first-child</code> — Targets the first child element of a parent.</li>
+                    <pre>
+        ul li:first-child {
+            font-weight: bold;
+        }
+                    </pre>
+                    <li><code>:last-child</code> — Targets the last child element of a parent.</li>
+                    <pre>
+        ul li:last-child {
+            font-size: 20px;
+        }
+                    </pre>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>CSS Pseudo-Elements</summary>
+            <div class="content">
+                <p><b>CSS Pseudo-Elements</b> are used to style specific parts of an element, such as the first letter
+                    or first line of text, or to insert content before or after an element. They are prefixed with two
+                    colons (<code>::</code>) in modern browsers.</p>
+                <p><b>Examples of Pseudo-Elements:</b></p>
+                <ul>
+                    <li><code>::before</code> — Inserts content before an element's content.</li>
+                    <pre>
+        p::before {
+            content: "Note: ";
+            font-weight: bold;
+        }
+                    </pre>
+                    <li><code>::after</code> — Inserts content after an element's content.</li>
+                    <pre>
+        p::after {
+            content: " (Read more)";
+            color: blue;
+        }
+                    </pre>
+                    <li><code>::first-letter</code> — Styles the first letter of a block-level element's content.</li>
+                    <pre>
+        p::first-letter {
+            font-size: 2em;
+            color: red;
+        }
+                    </pre>
+                    <li><code>::first-line</code> — Styles the first line of text in a block-level element.</li>
+                    <pre>
+        p::first-line {
+            font-weight: bold;
+        }
+                    </pre>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>CSS Units</summary>
+            <div class="content">
+                <p><b>CSS Units</b> define the measurement of properties like width, height, margin, padding, etc. Units
+                    can be divided into two main types:</p>
+                <ul>
+                    <li><b>Absolute Units:</b> These units are fixed and do not change according to the screen size or
+                        the user's settings.</li>
+                    <ul>
+                        <li><code>px</code> — Pixels, the most common unit for screen design.</li>
+                        <pre>
+        div {
+            width: 200px;
+        }
+                        </pre>
+                        <li><code>cm</code> — Centimeters, used for print-based designs.</li>
+                        <li><code>mm</code> — Millimeters, also used in print-based designs.</li>
+                        <li><code>in</code> — Inches, another print-related unit.</li>
+                        <li><code>pt</code> — Points, used in typography, 1pt = 1/72 of an inch.</li>
+                        <li><code>pc</code> — Picas, used in print, 1pc = 12pt.</li>
+                    </ul>
+                    <li><b>Relative Units:</b> These units are based on other elements, such as the size of the parent
+                        element or the viewport.</li>
+                    <ul>
+                        <li><code>%</code> — Percentage, relative to the parent element's size.</li>
+                        <pre>
+        div {
+            width: 50%;
+        }
+                        </pre>
+                        <li><code>em</code> — Relative to the font-size of the element or parent element.</li>
+                        <pre>
+        p {
+            font-size: 2em; /* 2 times the size of the parent font */
+        }
+                        </pre>
+                        <li><code>rem</code> — Relative to the font-size of the root (html) element.</li>
+                        <pre>
+        html {
+            font-size: 16px;
+        }
+        p {
+            font-size: 2rem; /* 32px */
+        }
+                        </pre>
+                        <li><code>vw</code> — Viewport width, relative to 1% of the viewport's width.</li>
+                        <li><code>vh</code> — Viewport height, relative to 1% of the viewport's height.</li>
+                        <li><code>vmin</code> — The smaller of the viewport's width or height.</li>
+                        <li><code>vmax</code> — The larger of the viewport's width or height.</li>
+                    </ul>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>CSS Box Model</summary>
+            <div class="content">
+                <p><b>CSS Box Model</b> describes the rectangular boxes generated for elements, consisting of content,
+                    padding, border, and margin areas.</p>
+                <p>The components of the Box Model are:</p>
+                <ul>
+                    <li><b>Content:</b> The actual content of the element, such as text or images.</li>
+                    <li><b>Padding:</b> The space between the content and the border. It is transparent.</li>
+                    <li><b>Border:</b> The boundary surrounding the padding (if any), which can be styled.</li>
+                    <li><b>Margin:</b> The space outside the border, separating the element from other elements. It is
+                        also transparent.</li>
+                </ul>
+                <p><b>Box Model Calculation:</b> The total width of an element is the sum of its content, padding,
+                    border, and margin.</p>
+                <pre>
+        element {
+            width: 100px;
+            padding: 10px;
+            border: 2px solid black;
+            margin: 5px;
+        }
+                </pre>
+                <p><b>box-sizing:</b> The <code>box-sizing</code> property defines whether the width and height
+                    properties include the padding and border.</p>
+                <pre>
+        element {
+            box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+        }
+                </pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>CSS Positions</summary>
+            <div class="content">
+                <p><b>CSS Positioning</b> determines how an element is positioned within the document. There are several
+                    positioning schemes:</p>
+                <ul>
+                    <li><b>static:</b> Default value. Elements are positioned according to the normal flow of the
+                        document.</li>
+                    <pre>
+        div {
+            position: static;
+        }
+                    </pre>
+                    <li><b>relative:</b> The element is positioned relative to its normal position, using the
+                        <code>top</code>, <code>right</code>, <code>bottom</code>, or <code>left</code> properties.
+                    </li>
+                    <pre>
+        div {
+            position: relative;
+            top: 10px;
+            left: 20px;
+        }
+                    </pre>
+                    <li><b>absolute:</b> The element is positioned relative to its nearest positioned ancestor (instead
+                        of the viewport), or the <code>body</code> element if there is no positioned ancestor.</li>
+                    <pre>
+        div {
+            position: absolute;
+            top: 50px;
+            left: 100px;
+        }
+                    </pre>
+                    <li><b>fixed:</b> The element is positioned relative to the viewport, and remains in place even when
+                        the page is scrolled.</li>
+                    <pre>
+        div {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+                    </pre>
+                    <li><b>sticky:</b> The element is positioned relative to the viewport until a specified scroll
+                        position is reached, at which point it "sticks" to that position.</li>
+                    <pre>
+        div {
+            position: sticky;
+            top: 0;
+        }
+                    </pre>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>CSS Media Queries</summary>
+            <div class="content">
+                <p><b>CSS Media Queries</b> are used to apply different styles based on the characteristics of the
+                    device or viewport, such as its width, height, or resolution. They enable responsive design.</p>
+                <p><b>Example:</b> Changing styles based on the screen width:</p>
+                <pre>
+        @media (max-width: 600px) {
+            body {
+                background-color: lightblue;
+            }
+        }
+                </pre>
+                <p><b>Common Media Query Breakpoints:</b></p>
+                <ul>
+                    <li><code>@media (max-width: 768px)</code> — Target tablets and smaller devices.</li>
+                    <li><code>@media (max-width: 480px)</code> — Target mobile phones.</li>
+                    <li><code>@media (min-width: 1024px)</code> — Target larger screens like desktops.</li>
+                </ul>
+                <p><b>Example of multiple media queries:</b></p>
+                <pre>
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+            }
+        }
+        @media (min-width: 769px) {
+            .container {
+                width: 80%;
+            }
+        }
+                </pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>CSS Flexbox</summary>
+            <div class="content">
+                <p><b>CSS Flexbox</b> is a layout model that allows you to design complex layouts with ease,
+                    distributing space within a container and aligning items in various directions.</p>
+                <p><b>Flexbox container:</b> The element with <code>display: flex</code> defines a flex container.</p>
+                <pre>
+        .container {
+            display: flex;
+        }
+                </pre>
+                <p><b>Flex properties for the container:</b></p>
+                <ul>
+                    <li><code>flex-direction</code>: Defines the direction of the flex items (row, column, etc.).</li>
+                    <pre>
+        .container {
+            flex-direction: row; /* default: items arranged horizontally */
+        }
+                    </pre>
+                    <li><code>justify-content</code>: Aligns items horizontally along the main axis (left to right or
+                        top to bottom).</li>
+                    <pre>
+        .container {
+            justify-content: center; /* Center items horizontally */
+        }
+                    </pre>
+                    <li><code>align-items</code>: Aligns items vertically along the cross axis (perpendicular to the
+                        main axis).</li>
+                    <pre>
+        .container {
+            align-items: flex-start; /* Align items to the top */
+        }
+                    </pre>
+                    <li><code>flex-wrap</code>: Allows items to wrap onto the next line if necessary.</li>
+                    <pre>
+        .container {
+            flex-wrap: wrap; /* Allow items to wrap */
+        }
+                    </pre>
+                </ul>
+                <p><b>Flex properties for the items:</b></p>
+                <ul>
+                    <li><code>flex-grow</code>: Defines how much a flex item should grow relative to the rest.</li>
+                    <pre>
+        .item {
+            flex-grow: 1; /* This item will grow to fill available space */
+        }
+                    </pre>
+                    <li><code>flex-shrink</code>: Defines how much a flex item should shrink relative to the rest.</li>
+                    <pre>
+        .item {
+            flex-shrink: 1; /* This item will shrink if there is not enough space */
+        }
+                    </pre>
+                    <li><code>flex-basis</code>: Defines the initial size of a flex item before growing or shrinking.
+                    </li>
+                    <pre>
+        .item {
+            flex-basis: 200px; /* The item will start with a width of 200px */
+        }
+                    </pre>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>CSS Grid</summary>
+            <div class="content">
+                <p><b>CSS Grid</b> is a two-dimensional layout system for the web that allows you to create complex
+                    layouts using rows and columns.</p>
+                <p><b>Grid Container:</b> To create a grid layout, you set the display property to <code>grid</code>.
+                </p>
+                <pre>
+        .container {
+            display: grid;
+        }
+                </pre>
+                <p><b>Grid Template Columns and Rows:</b> Define the number of columns and rows in the grid.</p>
+                <pre>
+        .container {
+            grid-template-columns: repeat(3, 1fr); /* 3 equal-width columns */
+            grid-template-rows: 100px 200px; /* 2 rows with different heights */
+        }
+                </pre>
+                <p><b>Grid Gap:</b> Defines the space between grid items.</p>
+                <pre>
+        .container {
+            gap: 10px; /* Adds space between rows and columns */
+        }
+                </pre>
+                <p><b>Placing Items:</b> Items can be placed explicitly by specifying the row and column lines.</p>
+                <pre>
+        .item {
+            grid-column: 1 / 3; /* The item spans from column 1 to column 3 */
+            grid-row: 2 / 4;    /* The item spans from row 2 to row 4 */
+        }
+                </pre>
+                <p><b>Other Common Grid Properties:</b></p>
+                <ul>
+                    <li><code>grid-template-areas</code>: Allows you to name grid areas for better readability.</li>
+                    <pre>
+        .container {
+            grid-template-areas: "header header header"
+                                 "sidebar main main"
+                                 "footer footer footer";
+        }
+                    </pre>
+                    <li><code>align-items</code>: Aligns grid items along the vertical (column) axis.</li>
+                    <li><code>justify-items</code>: Aligns grid items along the horizontal (row) axis.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>CSS Animations</summary>
+            <div class="content">
+                <p><b>CSS Animations</b> allow you to create smooth transitions from one style to another over a
+                    specified duration.</p>
+                <p><b>Basic Syntax:</b> CSS animations are defined with two key components: keyframes and the animation
+                    property.</p>
+                <pre>
+        @keyframes animation-name {
+            from {
+                /* Initial styles */
+            }
+            to {
+                /* Final styles */
+            }
+        }
+        
+        element {
+            animation: animation-name duration timing-function delay iteration-count direction;
+        }
+                </pre>
+                <p><b>Example:</b> A simple animation that changes the background color from red to blue:</p>
+                <pre>
+        @keyframes changeColor {
+            from {
+                background-color: red;
+            }
+            to {
+                background-color: blue;
+            }
+        }
+        
+        div {
+            animation: changeColor 2s ease-in-out infinite;
+        }
+                </pre>
+                <p><b>Properties used in animations:</b></p>
+                <ul>
+                    <li><code>animation-name</code>: The name of the keyframe animation.</li>
+                    <li><code>animation-duration</code>: Specifies how long the animation lasts.</li>
+                    <li><code>animation-timing-function</code>: Defines the speed curve of the animation (e.g.,
+                        <code>ease</code>, <code>linear</code>, <code>ease-in</code>, etc.).</li>
+                    <li><code>animation-delay</code>: Sets the delay before the animation starts.</li>
+                    <li><code>animation-iteration-count</code>: Specifies the number of times the animation will play
+                        (e.g., <code>infinite</code> for an infinite loop).</li>
+                    <li><code>animation-direction</code>: Defines whether the animation runs forward, backward, or
+                        alternates.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>CSS Transitions</summary>
+            <div class="content">
+                <p><b>CSS Transitions</b> allow you to change property values smoothly (over a given duration) when a
+                    certain event occurs, like hovering over an element.</p>
+                <p><b>Basic Syntax:</b> To create a transition, you need to define the <code>transition</code> property
+                    on an element and specify the property, duration, timing function, and delay.</p>
+                <pre>
+        element {
+            transition: property duration timing-function delay;
+        }
+                </pre>
+                <p><b>Example:</b> Changing the background color when the mouse hovers over an element:</p>
+                <pre>
+        div {
+            background-color: red;
+            transition: background-color 0.5s ease-in-out;
+        }
+        
+        div:hover {
+            background-color: blue;
+        }
+                </pre>
+                <p><b>Properties used in transitions:</b></p>
+                <ul>
+                    <li><code>transition-property</code>: Specifies which property the transition will affect.</li>
+                    <li><code>transition-duration</code>: Defines the duration of the transition.</li>
+                    <li><code>transition-timing-function</code>: Determines the speed curve (e.g., <code>linear</code>,
+                        <code>ease-in-out</code>). </li>
+                    <li><code>transition-delay</code>: Specifies the delay before the transition starts.</li>
+                </ul>
+                <p><b>Note:</b> Transitions only work when a property value changes, so they are commonly used for hover
+                    effects or focus states.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>CSS Functions</summary>
+            <div class="content">
+                <p><b>CSS Functions</b> are built-in functions that allow you to perform calculations or other
+                    operations within CSS properties.</p>
+                <p><b>Common CSS Functions:</b></p>
+                <ul>
+                    <li><b>calc():</b> Performs calculations to determine property values, such as adding or subtracting
+                        lengths, percentages, etc.</li>
+                    <pre>
+        div {
+            width: calc(100% - 20px);
+        }
+                    </pre>
+                    <li><b>rgb() and rgba():</b> Defines colors using the RGB color model. <code>rgba()</code> allows
+                        you to set an alpha (opacity) value.</li>
+                    <pre>
+        div {
+            background-color: rgb(255, 0, 0); /* Red */
+        }
+        div {
+            background-color: rgba(255, 0, 0, 0.5); /* Semi-transparent Red */
+        }
+                    </pre>
+                    <li><b>var():</b> Used to insert the value of a CSS custom property (variable) into other CSS
+                        properties.</li>
+                    <pre>
+        :root {
+            --main-color: blue;
+        }
+        
+        div {
+            color: var(--main-color);
+        }
+                    </pre>
+                    <li><b>url():</b> Specifies the URL of a resource, like an image, for background images or other
+                        properties.</li>
+                    <pre>
+        div {
+            background-image: url('image.jpg');
+        }
+                    </pre>
+                    <li><b>rotate(), scale(), translate(), skew():</b> Used for transformations on elements. These
+                        functions can modify the element's position, size, and orientation.</li>
+                    <pre>
+        div {
+            transform: rotate(45deg);
+        }
+                    </pre>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>CSS Variables</summary>
+            <div class="content">
+                <p><b>CSS Variables</b> (also known as custom properties) allow you to store reusable values that can be
+                    referenced throughout your CSS. They help to make code more maintainable and flexible.</p>
+                <p><b>Basic Syntax:</b> You define a CSS variable using the <code>--</code> prefix and can use it with
+                    the <code>var()</code> function.</p>
+                <pre>
+        :root {
+            --primary-color: #3498db;
+            --font-size: 16px;
+        }
+        
+        div {
+            color: var(--primary-color);
+            font-size: var(--font-size);
+        }
+                </pre>
+                <p><b>Key Points:</b></p>
+                <ul>
+                    <li><b>Scope:</b> Variables defined in <code>:root</code> are globally accessible, while those
+                        defined within specific elements are scoped to those elements.</li>
+                    <pre>
+        .container {
+            --secondary-color: #e74c3c;
+        }
+        div {
+            color: var(--secondary-color);
+        }
+                    </pre>
+                    <li><b>Fallback values:</b> You can define fallback values for variables in case they are not
+                        defined.</li>
+                    <pre>
+        div {
+            color: var(--undefined-color, black); /* If --undefined-color is not set, use black */
+        }
+                    </pre>
+                    <li><b>Inheritance:</b> CSS variables inherit values from their parent elements, making them easy to
+                        apply consistently throughout the DOM.</li>
+                </ul>
+            </div>
+        </details>
+
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests/js/script.js"></script>
+</body>
+
+</html>

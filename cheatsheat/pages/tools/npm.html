@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPM</title>
+    <link rel="stylesheet" href="../../assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests/css/style.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+        <h3 id="package-management">Package management</h3>
+        <ul>
+            <li><code>npm i</code> Alias for npm install</li>
+            <li><code>npm install</code> Install everything in package.json</li>
+            <li><code>npm install --production</code> Install everything in package.json, except</li>
+        </ul>
+        <h3 id="listing">Listing</h3>
+        <ul>
+            <li><code>npm list</code> Lists the installed versions of all dependencies in this software</li>
+            <li><code>npm list -g --depth 0</code> Lists the installed versions of all globally installed packages</li>
+            <li><code>npm view</code> Lists the latest versions of all dependencies in this software</li>
+            <li><code>npm outdated</code> Lists only the dependencies in this software which are outdated</li>
+        </ul>
+        <h3 id="adding-packages">Adding packages</h3>
+        <ul>
+            <li><code>npm install lodash</code> Install a package</li>
+            <li><code>npm install --save-dev lodash</code> Install as devDependency</li>
+            <li><code>npm install --save-exact lodash</code> Install with exact</li>
+        </ul>
+        <h3 id="updating">Updating</h3>
+        <ul>
+            <li><code>npm update</code> Update production packages</li>
+            <li><code>npm update --dev</code> Update dev packages</li>
+            <li><code>npm update -g</code> Update global packages</li>
+            <li><code>npm update lodash</code> Update a package</li>
+        </ul>
+        <h3 id="removing">Removing</h3>
+        <ul>
+            <li><code>npm rm lodash</code> Remove package production packages</li>
+        </ul>
+
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests/js/script.js"></script>
+</body>
+
+</html>

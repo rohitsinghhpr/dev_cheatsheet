@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redux Questions</title>
+    <link rel="stylesheet" href="../assests/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assests/css/prism-tomorrow.min.css" />
+    <link rel="stylesheet" href="../assests/css/style.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+        <details>
+            <summary>What is Redux and how does it work?</summary>
+            <div>
+              <p>Redux is a state management library for JavaScript applications, commonly used with React. It helps manage the state of an application in a predictable way. Redux operates on the principle of having a single source of truth, which is the "store". The store holds the application's state, and this state can only be changed through actions and reducers.</p>
+              <p>Here’s how Redux works:</p>
+              <ol>
+                <li><strong>Store:</strong> The store holds the entire state of the application. It is a plain JavaScript object and is read-only.</li>
+                <li><strong>Actions:</strong> Actions are plain JavaScript objects that describe an event or action that occurred. They have a <code>type</code> field and can also have a <code>payload</code> to provide additional data.</li>
+                <li><strong>Reducers:</strong> Reducers are pure functions that specify how the state should change based on an action. A reducer takes the current state and an action as arguments, then returns a new state object.</li>
+                <li><strong>Dispatch:</strong> To trigger an action, the <code>dispatch</code> function is used. Dispatch sends an action to the store, which is then processed by the reducers to update the state.</li>
+              </ol>
+              <p>To summarize, Redux provides a predictable state container where state is updated in a consistent way using actions and reducers, ensuring that applications are easier to debug and maintain.</p>
+            </div>
+          </details>
+          
+          <details>
+            <summary>What is the difference between state and props in React?</summary>
+            <div>
+              <p>In React, both <code>state</code> and <code>props</code> are used to manage and pass data within components, but they serve different purposes:</p>
+              <ul>
+                <li><strong>State:</strong> State is local to a component and is managed within the component itself. It can be modified by the component through the <code>setState()</code> method. State changes trigger re-renders of the component to reflect the new values. State is typically used to handle interactive data, such as form inputs or UI states.</li>
+                <li><strong>Props:</strong> Props (short for "properties") are used to pass data from a parent component to a child component. Props are immutable in the child component, meaning the child cannot modify them directly. Props allow components to communicate with each other and share information.</li>
+              </ul>
+              <p>In short, state is used to store local data that can change over time, while props are used to pass data down the component tree and cannot be modified by the receiving component.</p>
+            </div>
+          </details>
+          
+          <details>
+            <summary>What are Redux middleware and give an example?</summary>
+            <div>
+              <p>Redux middleware provides a way to extend Redux's capabilities by allowing custom logic to run between the action dispatching and the action being processed by the reducers. Middleware can be used for tasks like logging, handling asynchronous actions, or modifying the dispatched action.</p>
+              <p>Common examples of middleware in Redux include:</p>
+              <ul>
+                <li><strong>Redux Thunk:</strong> Allows you to write action creators that return functions instead of actions. This is useful for handling asynchronous logic, like fetching data from an API before dispatching actions.</li>
+                <li><strong>Redux Logger:</strong> A middleware that logs every action dispatched and the resulting state changes to the console, which is helpful for debugging.</li>
+              </ul>
+              <p>For example, using Redux Thunk to handle an asynchronous action:</p>
+              <pre>
+                <code>
+                  function fetchData() {
+                    return (dispatch) => {
+                      dispatch({ type: 'FETCH_DATA_REQUEST' });
+                      fetch('/data')
+                        .then(response => response.json())
+                        .then(data => dispatch({ type: 'FETCH_DATA_SUCCESS', payload: data }))
+                        .catch(error => dispatch({ type: 'FETCH_DATA_FAILURE', error }));
+                    };
+                  }
+                </code>
+              </pre>
+              <p>In this example, the <code>fetchData</code> action creator returns a function instead of a plain action object. The function can then perform asynchronous operations before dispatching the appropriate success or failure actions.</p>
+            </div>
+          </details>
+          
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../index.html">Home</a>
+    </div>
+    <script src="../assests/js/bootstrap.bundle.min.js"></script>
+    <script src="../assests/js/prism.min.js"></script>
+    <script src="../assests/js/prism-java.min.js"></script>
+    <script src="../assests/js/script.js"></script>
+</body>
+
+</html>

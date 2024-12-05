@@ -1,0 +1,3344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="../../assests//css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assests//css/prism-tomorrow.min.css" />
+    <link rel="stylesheet" href="../../assests//css/style.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+        <details>
+            <summary>Execution Context</summary>
+            <div class="content">
+                <p>The <b>Execution Context</b> is the environment where JavaScript code is executed. There are two main
+                    types:</p>
+                <ul>
+                    <li><b>Global Execution Context:</b> Created when the program starts, containing global variables
+                        and functions.</li>
+                    <li><b>Function Execution Context:</b> Created when a function is invoked. Each function has its own
+                        execution context.</li>
+                </ul>
+                <p><b>Components of Execution Context:</b></p>
+                <ul>
+                    <li><b>Variable Environment:</b> Stores variables and function declarations.</li>
+                    <li><b>Lexical Environment:</b> Defines the scope of variables/functions and their accessibility.
+                    </li>
+                    <li><b>This Binding:</b> Refers to the current value of the <code>this</code> keyword.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>Call Stack</summary>
+            <div class="content">
+                <p>The <b>Call Stack</b> is a data structure that tracks function calls in JavaScript.</p>
+                <p>It's like a stack of books:</p>
+                <ul>
+                    <li>When a function is called, it's added to the stack.</li>
+                    <li>When a function completes, it's removed from the stack.</li>
+                </ul>
+                <p>Example:</p>
+                <pre><code class="language-java">
+        function first() {
+            second();
+        }
+        function second() {
+            console.log("Second function");
+        }
+        first(); // The Call Stack processes "first" and "second"
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Hoisting</summary>
+            <div class="content">
+                <p><b>Hoisting</b> is JavaScript's behavior of moving declarations to the top of their scope during the
+                    execution phase.</p>
+                <p>This means you can use functions or variables before declaring them:</p>
+                <pre><code class="language-java">
+        // Example of Hoisting
+        console.log(x); // undefined (variable declared but not initialized)
+        var x = 10;
+        
+        sayHello(); // Works because function declarations are hoisted
+        function sayHello() {
+            console.log("Hello!");
+        }
+                </code></pre>
+                <p>Note: Only declarations are hoisted, not initializations or assignments.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Scope, Scope Chain, and Lexical Environment</summary>
+            <div class="content">
+                <p><b>Scope:</b> Defines where variables and functions can be accessed.</p>
+                <p><b>Types of Scope:</b></p>
+                <ul>
+                    <li><b>Global Scope:</b> Variables declared outside any function.</li>
+                    <li><b>Local Scope:</b> Variables declared within a function.</li>
+                    <li><b>Block Scope:</b> Variables declared with <code>let</code> or <code>const</code> inside
+                        blocks.</li>
+                </ul>
+                <p><b>Scope Chain:</b> Determines the order in which scopes are checked for variables (inner to outer).
+                </p>
+                <p><b>Lexical Environment:</b> The structure that stores variable and function references during code
+                    execution.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Temporal Dead Zone</summary>
+            <div class="content">
+                <p>The <b>Temporal Dead Zone (TDZ)</b> is the period between when a variable is declared and when it is
+                    initialized.</p>
+                <p>During this period, accessing the variable will throw a <code>ReferenceError</code>.</p>
+                <p><b>Example:</b></p>
+                <pre><code class="language-java">
+        console.log(x); // ReferenceError: Cannot access 'x' before initialization
+        let x = 5;
+                </code></pre>
+                <p>This behavior ensures variables declared with <code>let</code> and <code>const</code> are not
+                    accessed before they are initialized.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Shadowing</summary>
+            <div class="content">
+                <p><b>Shadowing</b> occurs when a variable in a local scope (e.g., inside a function or block) has the
+                    same name as a variable in an outer scope.</p>
+                <p>The inner variable "shadows" the outer variable, making the outer one inaccessible within the current
+                    scope.</p>
+                <p><b>Example:</b></p>
+                <pre><code class="language-java">
+let x = 10; // Global variable
+
+function test() {
+    let x = 20; // Shadows the global variable
+    console.log(x); // Output: 20
+}
+test();
+console.log(x); // Output: 10
+        </code></pre>
+                <p><b>Note:</b> Shadowing can also occur in block scope with <code>let</code> or <code>const</code>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Shallow Copy and Deep Copy</summary>
+            <div class="content">
+                <p><b>Shallow Copy:</b> Creates a new object that copies the references of nested objects rather than
+                    duplicating them. Changes to nested objects in the copy affect the original.</p>
+                <p><b>Deep Copy:</b> Creates a new object and recursively duplicates all nested objects, ensuring
+                    changes to the copy don’t affect the original.</p>
+                <p><b>Example:</b></p>
+                <pre><code class="language-java">
+// Shallow Copy Example
+let original = { name: "John", details: { age: 30 } };
+let shallowCopy = { ...original };
+shallowCopy.details.age = 40;
+console.log(original.details.age); // Output: 40 (affected)
+
+// Deep Copy Example
+let deepCopy = JSON.parse(JSON.stringify(original));
+deepCopy.details.age = 50;
+console.log(original.details.age); // Output: 30 (unaffected)
+        </code></pre>
+                <p><b>Note:</b> Deep copy using <code>JSON.stringify</code> has limitations (e.g., doesn't work with
+                    functions or circular references).</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Closures</summary>
+            <div class="content">
+                <p>A <b>closure</b> is a function that retains access to variables from its parent scope even after the
+                    parent function has finished executing.</p>
+                <p>Closures are created automatically in JavaScript and are commonly used in callbacks, event listeners,
+                    and function factories.</p>
+                <p><b>Example:</b></p>
+                <pre><code class="language-java">
+function outerFunction() {
+    let counter = 0; // Variable in parent scope
+    return function innerFunction() {
+        counter++; // Accessing parent variable
+        console.log(counter);
+    };
+}
+const increment = outerFunction();
+increment(); // Output: 1
+increment(); // Output: 2
+        </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Currying</summary>
+            <div class="content">
+                <h3>Currying</h3>
+                <p>Currying is a technique in functional programming where a function is transformed into a series of
+                    functions, each taking a single argument. Instead of taking all arguments at once, the function
+                    takes them one at a time, returning a new function for the next argument.</p>
+
+                <h4>Example:</h4>
+                <pre><code class="language-java">
+        function add(a) {
+            return function(b) {
+                return function(c) {
+                    return a + b + c;
+                };
+            };
+        }
+        
+        const result = add(1)(2)(3);
+        console.log(result); // Output: 6
+                </code></pre>
+
+                <h4>Benefits of Currying:</h4>
+                <ul>
+                    <li><strong>Reusability:</strong> You can create specialized functions by fixing some arguments.
+                    </li>
+                    <li><strong>Composability:</strong> Currying helps in breaking down functions into smaller units,
+                        making them easier to test and reuse.</li>
+                </ul>
+
+                <h4>Real-world Usage:</h4>
+                <p>It is commonly used in libraries like <code>Lodash</code> or in frameworks like <code>React</code>
+                    for creating modular and reusable functions.</p>
+
+                <h4>Modern Syntax with Arrow Functions:</h4>
+                <pre><code class="language-java">
+        const add = a => b => c => a + b + c;
+        
+        const result = add(5)(10)(15);
+        console.log(result); // Output: 30
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Event Loop</summary>
+            <div class="content">
+                <p>The <b>Event Loop</b> ensures that JavaScript executes tasks from the call stack and processes
+                    asynchronous tasks from the task queue.</p>
+                <p>JavaScript is single-threaded, but it handles asynchronous operations (e.g., <code>setTimeout</code>,
+                    promises) using the event loop.</p>
+                <p><b>How it works:</b></p>
+                <ul>
+                    <li>Synchronous code is executed directly from the call stack.</li>
+                    <li>Asynchronous tasks are moved to the task queue.</li>
+                    <li>The event loop checks the call stack, and when it's empty, it processes tasks from the queue.
+                    </li>
+                </ul>
+                <p><b>Example:</b></p>
+                <pre><code class="language-java">
+console.log("Start");
+
+setTimeout(() => {
+    console.log("Timeout callback");
+}, 1000);
+
+console.log("End");
+// Output: Start, End, Timeout callback (after 1 second)
+        </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Promises</summary>
+            <div class="content">
+                <p>A <b>Promise</b> is an object that represents the eventual completion (or failure) of an asynchronous
+                    operation.</p>
+                <p>Promises have three states:</p>
+                <ul>
+                    <li><b>Pending:</b> The initial state, operation is not complete.</li>
+                    <li><b>Fulfilled:</b> The operation completed successfully.</li>
+                    <li><b>Rejected:</b> The operation failed.</li>
+                </ul>
+                <p><b>Example:</b></p>
+                <pre><code class="language-java">
+let promise = new Promise((resolve, reject) => {
+    let success = true;
+    if (success) {
+        resolve("Operation succeeded!");
+    } else {
+        reject("Operation failed!");
+    }
+});
+
+promise
+    .then((message) => console.log(message)) // Output: "Operation succeeded!"
+    .catch((error) => console.error(error)); // Handles errors
+        </code></pre>
+                <p>Promises are often used for handling asynchronous operations like API calls.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Error Handling</summary>
+            <div class="content">
+                <p><b>Error Handling</b> in JavaScript is done using <code>try</code>, <code>catch</code>,
+                    <code>finally</code>, and <code>throw</code>.
+                </p>
+                <p><b>How it works:</b></p>
+                <ul>
+                    <li><code>try</code>: Wraps code that might throw an error.</li>
+                    <li><code>catch</code>: Handles the error if one occurs in the <code>try</code> block.</li>
+                    <li><code>finally</code>: Executes code regardless of an error occurring or not.</li>
+                    <li><code>throw</code>: Manually throw an error.</li>
+                </ul>
+                <p><b>Example:</b></p>
+                <pre><code class="language-java">
+        try {
+            let result = 10 / 0;
+            console.log("Result:", result);
+            throw new Error("Custom error");
+        } catch (error) {
+            console.error("Error caught:", error.message);
+        } finally {
+            console.log("Execution finished.");
+        }
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Destructuring</summary>
+            <div class="content">
+                <p><b>Destructuring</b> is a syntax for extracting values from arrays or properties from objects into
+                    distinct variables.</p>
+                <p><b>Array Destructuring:</b></p>
+                <pre><code class="language-java">
+        const [a, b] = [1, 2];
+        console.log(a); // Output: 1
+        console.log(b); // Output: 2
+                </code></pre>
+                <p><b>Object Destructuring:</b></p>
+                <pre><code class="language-java">
+        const { name, age } = { name: "John", age: 30 };
+        console.log(name); // Output: John
+        console.log(age);  // Output: 30
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Rest Operator and Spread Operator</summary>
+            <div class="content">
+                <p><b>Rest Operator:</b> Collects multiple elements into a single array or object.</p>
+                <p><b>Example:</b></p>
+                <pre><code class="language-java">
+        function sum(...numbers) {
+            return numbers.reduce((acc, curr) => acc + curr, 0);
+        }
+        console.log(sum(1, 2, 3)); // Output: 6
+                </code></pre>
+                <p><b>Spread Operator:</b> Expands arrays or objects into individual elements.</p>
+                <p><b>Example:</b></p>
+                <pre><code class="language-java">
+        const arr1 = [1, 2, 3];
+        const arr2 = [...arr1, 4, 5];
+        console.log(arr2); // Output: [1, 2, 3, 4, 5]
+        
+        const obj1 = { name: "John" };
+        const obj2 = { ...obj1, age: 30 };
+        console.log(obj2); // Output: { name: "John", age: 30 }
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Ajax and Fetch API</summary>
+            <div class="content">
+                <p><b>Ajax:</b> (Asynchronous JavaScript and XML) allows for asynchronous communication with a server
+                    without reloading the page.</p>
+                <p><b>Example (Using XMLHttpRequest):</b></p>
+                <pre><code class="language-java">
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://api.example.com/data", true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                console.log("Response:", xhr.responseText);
+            }
+        };
+        xhr.send();
+                </code></pre>
+                <p><b>Fetch API:</b> A modern way to make network requests.</p>
+                <p><b>Example:</b></p>
+                <pre><code class="language-java">
+        fetch("https://api.example.com/data")
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error("Error:", error));
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Modules</summary>
+            <div class="content">
+                <p><b>Modules</b> in JavaScript allow you to break your code into separate files, improving reusability
+                    and maintainability.</p>
+                <p>Modules are imported and exported using <code>export</code> and <code>import</code> keywords.</p>
+                <p><b>Example (Exporting):</b></p>
+                <pre><code class="language-java">
+        // file: math.js
+        export function add(a, b) {
+            return a + b;
+        }
+        export const PI = 3.14;
+                </code></pre>
+                <p><b>Example (Importing):</b></p>
+                <pre><code class="language-java">
+        // file: main.js
+        import { add, PI } from './math.js';
+        console.log(add(2, 3)); // Output: 5
+        console.log(PI);        // Output: 3.14
+                </code></pre>
+                <p><b>Note:</b> Modules must be loaded with <code>type="module"</code> in HTML:</p>
+                <pre><code class="language-java">
+        &lt;script type="module" src="main.js"&gt;&lt;/script&gt;
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Function Types of Function</summary>
+            <div class="content">
+                <p>In JavaScript, functions can be classified into different types:</p>
+                <ul>
+                    <li><b>Function Declaration:</b> A standard function declaration that is hoisted to the top of its
+                        scope.</li>
+                    <pre><code class="language-java">
+            function greet() {
+                console.log("Hello!");
+            }
+            greet(); // Output: Hello!
+                        </code></pre>
+                    <li><b>Function Expression:</b> A function assigned to a variable. It is not hoisted.</li>
+                    <pre><code class="language-java">
+            const greet = function() {
+                console.log("Hello!");
+            };
+            greet(); // Output: Hello!
+                        </code></pre>
+                    <li><b>Arrow Functions:</b> A shorter syntax for function expressions that does not bind its own
+                        <code>this</code>.
+                    </li>
+                    <pre><code class="language-java">
+            const greet = () => {
+                console.log("Hello!");
+            };
+            greet(); // Output: Hello!
+                        </code></pre>
+                    <li><b>Anonymous Functions:</b> Functions that do not have a name, typically used in expressions.
+                    </li>
+                    <pre><code class="language-java">
+            setTimeout(function() {
+                console.log("Executed after 1 second");
+            }, 1000);
+                        </code></pre>
+                    <li><b>Immediately Invoked Function Expression (IIFE):</b> A function that is executed immediately
+                        after being defined.</li>
+                    <pre><code class="language-java">
+            (function() {
+                console.log("Executed immediately");
+            })(); // Output: Executed immediately
+                        </code></pre>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>map(), filter(), and reduce() methods</summary>
+            <div class="content">
+                <p><b>map(), filter(),</b> and <b>reduce()</b> are array methods used to iterate over arrays and
+                    manipulate or return values.</p>
+                <ul>
+                    <li><b>map():</b> Creates a new array by applying a function to every element in the original array.
+                    </li>
+                    <pre><code class="language-java">
+            const arr = [1, 2, 3];
+            const doubled = arr.map(x => x * 2);
+            console.log(doubled); // Output: [2, 4, 6]
+                        </code></pre>
+                    <li><b>filter():</b> Creates a new array with all elements that pass the test implemented by the
+                        provided function.</li>
+                    <pre><code class="language-java">
+            const arr = [1, 2, 3, 4, 5];
+            const evenNumbers = arr.filter(x => x % 2 === 0);
+            console.log(evenNumbers); // Output: [2, 4]
+                        </code></pre>
+                    <li><b>reduce():</b> Executes a reducer function (accumulator) on each element of the array,
+                        returning a single value.</li>
+                    <pre><code class="language-java">
+            const arr = [1, 2, 3, 4];
+            const sum = arr.reduce((acc, curr) => acc + curr, 0);
+            console.log(sum); // Output: 10
+                        </code></pre>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>Call, Apply, Bind methods in JavaScript</summary>
+            <div class="content">
+                <h3>Call</h3>
+                <p>The <code>call()</code> method is used to invoke a function with a specified <code>this</code>
+                    context and
+                    arguments. It allows you to pass arguments one by one.</p>
+                <pre><code class="language-java">
+        function greet(greeting, punctuation) {
+            console.log(greeting + ', ' + this.name + punctuation);
+        }
+        
+        const person = { name: 'Alice' };
+        greet.call(person, 'Hello', '!');
+                </code></pre>
+                <p>Output: <code>Hello, Alice!</code></p>
+
+                <h3>Apply</h3>
+                <p>The <code>apply()</code> method is similar to <code>call()</code>, but it takes an array of arguments
+                    instead
+                    of listing them individually.</p>
+                <pre><code class="language-java">
+        function greet(greeting, punctuation) {
+            console.log(greeting + ', ' + this.name + punctuation);
+        }
+        
+        const person = { name: 'Bob' };
+        greet.apply(person, ['Hi', '?']);
+                </code></pre>
+                <p>Output: <code>Hi, Bob?</code></p>
+
+                <h3>Bind</h3>
+                <p>The <code>bind()</code> method returns a new function with a specified <code>this</code> context and
+                    optionally preset arguments. The new function can be invoked later.</p>
+                <pre><code class="language-java">
+        function greet(greeting, punctuation) {
+            console.log(greeting + ', ' + this.name + punctuation);
+        }
+        
+        const person = { name: 'Charlie' };
+        const boundGreet = greet.bind(person, 'Hey');
+        boundGreet('!!');
+                </code></pre>
+                <p>Output: <code>Hey, Charlie!!</code></p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Event Propagation</summary>
+            <div class="content">
+                <p><b>Event Propagation</b> is the way events are handled in the DOM. It consists of two main phases:
+                </p>
+                <ul>
+                    <li><b>Bubbling:</b> The event starts from the target element and bubbles up to the parent elements.
+                    </li>
+                    <li><b>Capturing (Trickling):</b> The event starts from the root of the DOM and trickles down to the
+                        target element.</li>
+                </ul>
+                <p>By default, JavaScript uses <b>bubbling</b> for event propagation, but you can choose to handle
+                    events in the <b>capturing</b> phase as well.</p>
+                <p><b>Example:</b></p>
+                <pre><code class="language-java">
+            document.querySelector("button").addEventListener("click", function() {
+                alert("Button clicked!");
+            });
+            
+            document.body.addEventListener("click", function() {
+                alert("Body clicked!");
+            });
+            
+            // When the button is clicked, the event bubbles up to the body and triggers both event listeners.
+                    </code></pre>
+                <p><b>Stopping Propagation:</b> You can stop event propagation using the <code>stopPropagation()</code>
+                    method.</p>
+                <pre><code class="language-java">
+            document.querySelector("button").addEventListener("click", function(event) {
+                alert("Button clicked!");
+                event.stopPropagation(); // Prevents the event from bubbling up to the body
+            });
+                    </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Memoization and How to Memoize in JavaScript</summary>
+            <div class="content">
+                <h3>What is Memoization?</h3>
+                <p>Memoization is a programming technique used to optimize functions by caching their results. When a
+                    memoized function is called with a set of arguments, it checks the cache for a previously computed
+                    result. If the result is found, it returns it; otherwise, it computes the result and stores it in
+                    the cache for future use.</p>
+
+                <h4>Benefits of Memoization:</h4>
+                <ul>
+                    <li>Reduces redundant calculations.</li>
+                    <li>Improves performance, especially for expensive or recursive computations.</li>
+                    <li>Efficient use of resources.</li>
+                </ul>
+
+                <h3>How to Memoize a Function</h3>
+                <p>You can create a memoized function using a JavaScript object as a cache. Here’s an example:</p>
+
+                <pre><code class="language-java">
+        // Basic example of memoization
+        function memoize(fn) {
+            const cache = {};
+            return function(...args) {
+                const key = JSON.stringify(args);
+                if (cache[key]) {
+                    console.log("Fetching from cache:", key);
+                    return cache[key];
+                }
+                console.log("Computing result for:", key);
+                const result = fn(...args);
+                cache[key] = result;
+                return result;
+            };
+        }
+        
+        // Function to memoize
+        function add(a, b) {
+            return a + b;
+        }
+        
+        // Create a memoized version of the function
+        const memoizedAdd = memoize(add);
+        
+        console.log(memoizedAdd(2, 3)); // Computing result for: [2,3] => Output: 5
+        console.log(memoizedAdd(2, 3)); // Fetching from cache: [2,3] => Output: 5
+                </code></pre>
+
+                <h3>Real-World Usage Example</h3>
+                <p>Memoization is particularly useful for functions with heavy computations, such as recursive
+                    algorithms like Fibonacci:</p>
+
+                <pre><code class="language-java">
+        // Memoized Fibonacci function
+        function memoizedFibonacci(n, cache = {}) {
+            if (n <= 1) return n;
+            if (cache[n]) return cache[n];
+            cache[n] = memoizedFibonacci(n - 1, cache) + memoizedFibonacci(n - 2, cache);
+            return cache[n];
+        }
+        
+        console.log(memoizedFibonacci(10)); // Output: 55
+        console.log(memoizedFibonacci(50)); // Output: 12586269025 (Fast due to memoization)
+                </code></pre>
+
+                <h3>Advanced: Using Built-in Libraries</h3>
+                <p>Libraries like <code>Lodash</code> provide utility functions for memoization. For example,
+                    <code>_.memoize</code> can simplify the process:</p>
+
+                <pre><code class="language-java">
+        const _ = require('lodash');
+        const memoizedFactorial = _.memoize(function factorial(n) {
+            return n <= 1 ? 1 : n * factorial(n - 1);
+        });
+        
+        console.log(memoizedFactorial(5)); // Output: 120
+        console.log(memoizedFactorial(5)); // Fetches from cache
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Debouncing in JavaScript</summary>
+            <div class="content">
+                <h3>What is Debouncing?</h3>
+                <p>Debouncing is a programming technique used to control the rate at which a function executes. It
+                    ensures that a function is only invoked after a specified delay, and only if no additional calls are
+                    made during that delay. This is particularly useful for optimizing performance when dealing with
+                    frequent events like resizing, scrolling, or typing.</p>
+
+                <h4>How it Works:</h4>
+                <p>When a debounced function is called, it clears the existing timer (if any) and starts a new one. The
+                    function only executes after the timer expires without being reset.</p>
+
+                <h3>Example: Implementing a Debounce Function</h3>
+                <pre><code class="language-java">
+        // Debounce implementation
+        function debounce(func, delay) {
+            let timer;
+            return function(...args) {
+                clearTimeout(timer);
+                timer = setTimeout(() => func.apply(this, args), delay);
+            };
+        }
+        
+        // Example usage: Logging on window resize
+        function onResize() {
+            console.log("Resized at:", new Date().toISOString());
+        }
+        
+        const debouncedResize = debounce(onResize, 300);
+        
+        window.addEventListener("resize", debouncedResize);
+                </code></pre>
+
+                <h3>Benefits of Debouncing:</h3>
+                <ul>
+                    <li><strong>Improved Performance:</strong> Reduces the frequency of function calls, preventing
+                        expensive operations from being executed repeatedly in rapid succession.</li>
+                    <li><strong>Resource Efficiency:</strong> Optimizes resource usage by limiting unnecessary
+                        operations.</li>
+                    <li><strong>Better User Experience:</strong> Creates smoother interactions, especially in UI
+                        components.</li>
+                </ul>
+
+                <h3>Real-World Use Cases:</h3>
+                <ul>
+                    <li>Search bars with suggestions (waiting for user to stop typing).</li>
+                    <li>Scroll event handlers (to improve scrolling performance).</li>
+                    <li>Window resize events (prevent continuous execution).</li>
+                </ul>
+
+                <h3>Modern Syntax with Arrow Functions:</h3>
+                <pre><code class="language-java">
+        const debounce = (func, delay) => {
+            let timer;
+            return (...args) => {
+                clearTimeout(timer);
+                timer = setTimeout(() => func(...args), delay);
+            };
+        };
+        
+        // Example: Debouncing a button click
+        const onClick = () => console.log("Button clicked!");
+        
+        const debouncedClick = debounce(onClick, 500);
+        
+        document.getElementById("myButton").addEventListener("click", debouncedClick);
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Throttling in JavaScript</summary>
+            <div class="content">
+                <h3>What is Throttling?</h3>
+                <p>Throttling is a technique in JavaScript used to limit the execution of a function to at most once
+                    every specified time interval, even if the event that triggers the function occurs frequently.
+                    Unlike debouncing, which waits for a pause in events, throttling ensures that the function is called
+                    at regular intervals.</p>
+
+                <h3>How it Works:</h3>
+                <p>When a throttled function is invoked, it will execute immediately (or after the first interval) and
+                    then ignore subsequent calls for the specified duration. Once the duration has elapsed, it allows
+                    another invocation.</p>
+
+                <h3>Example: Implementing a Throttle Function</h3>
+                <pre><code class="language-java">
+        // Throttle implementation
+        function throttle(func, interval) {
+            let lastTime = 0;
+            return function(...args) {
+                const now = Date.now();
+                if (now - lastTime >= interval) {
+                    lastTime = now;
+                    func.apply(this, args);
+                }
+            };
+        }
+        
+        // Example usage: Logging on window scroll
+        function onScroll() {
+            console.log("Scrolled at:", new Date().toISOString());
+        }
+        
+        const throttledScroll = throttle(onScroll, 1000);
+        
+        window.addEventListener("scroll", throttledScroll);
+                </code></pre>
+
+                <h3>Benefits of Throttling:</h3>
+                <ul>
+                    <li><strong>Performance Optimization:</strong> Reduces the frequency of function execution during
+                        high-frequency events like scrolling or resizing.</li>
+                    <li><strong>Consistent Execution:</strong> Ensures functions are called at regular intervals, making
+                        them predictable and easier to handle.</li>
+                    <li><strong>Improved Responsiveness:</strong> Prevents overloading the browser with too many
+                        function calls, leading to a smoother user experience.</li>
+                </ul>
+
+                <h3>Real-World Use Cases:</h3>
+                <ul>
+                    <li>Tracking scroll position for infinite scrolling.</li>
+                    <li>Updating UI elements on window resize events.</li>
+                    <li>Monitoring mouse movements in drag-and-drop interactions.</li>
+                </ul>
+
+                <h3>Modern Syntax with Arrow Functions:</h3>
+                <pre><code class="language-java">
+        const throttle = (func, interval) => {
+            let lastTime = 0;
+            return (...args) => {
+                const now = Date.now();
+                if (now - lastTime >= interval) {
+                    lastTime = now;
+                    func(...args);
+                }
+            };
+        };
+        
+        // Example: Throttling button clicks
+        const onClick = () => console.log("Button clicked!");
+        
+        const throttledClick = throttle(onClick, 2000);
+        
+        document.getElementById("myButton").addEventListener("click", throttledClick);
+                </code></pre>
+            </div>
+        </details>
+
+        <details>
+            <summary>Drag and Drop in JavaScript (Pure JS)</summary>
+            <div class="content">
+                <h3>What is Drag and Drop?</h3>
+                <p>Drag and Drop is a common feature in web development that allows users to click on an element, drag
+                    it to a different location, and drop it. This functionality can be implemented using HTML5 Drag and
+                    Drop API in pure JavaScript.</p>
+
+                <h3>Key Steps in Implementing Drag and Drop:</h3>
+                <ol>
+                    <li><strong>Make an element draggable:</strong> Set the <code>draggable</code> attribute to
+                        <code>true</code>.</li>
+                    <li><strong>Handle drag events:</strong> Use event listeners for <code>dragstart</code>,
+                        <code>dragover</code>, <code>drop</code>, etc.</li>
+                    <li><strong>Define drop zones:</strong> Specify where the element can be dropped by handling
+                        <code>dragover</code> and <code>drop</code> events.</li>
+                </ol>
+
+                <h3>Example: Simple Drag and Drop</h3>
+                <pre><code class="language-java">
+                    &#x3C;!DOCTYPE html&#x3E;
+                    &#x3C;html lang=&#x22;en&#x22;&#x3E;
+                    &#x3C;head&#x3E;
+                        &#x3C;meta charset=&#x22;UTF-8&#x22;&#x3E;
+                        &#x3C;meta name=&#x22;viewport&#x22; content=&#x22;width=device-width, initial-scale=1.0&#x22;&#x3E;
+                        &#x3C;title&#x3E;Drag and Drop&#x3C;/title&#x3E;
+                        &#x3C;style&#x3E;
+                            #draggable {
+                                width: 100px;
+                                height: 100px;
+                                background-color: #3498db;
+                                color: white;
+                                text-align: center;
+                                line-height: 100px;
+                                border-radius: 8px;
+                                cursor: grab;
+                            }
+                    
+                            #dropzone {
+                                width: 200px;
+                                height: 200px;
+                                border: 2px dashed #3498db;
+                                text-align: center;
+                                line-height: 200px;
+                                margin-top: 20px;
+                            }
+                        &#x3C;/style&#x3E;
+                    &#x3C;/head&#x3E;
+                    &#x3C;body&#x3E;
+                        &#x3C;div id=&#x22;draggable&#x22; draggable=&#x22;true&#x22;&#x3E;Drag Me&#x3C;/div&#x3E;
+                        &#x3C;div id=&#x22;dropzone&#x22;&#x3E;Drop Here&#x3C;/div&#x3E;
+                    
+                        &#x3C;script&#x3E;
+                            const draggable = document.getElementById(&#x27;draggable&#x27;);
+                            const dropzone = document.getElementById(&#x27;dropzone&#x27;);
+                    
+                            // When dragging starts
+                            draggable.addEventListener(&#x27;dragstart&#x27;, (e) =&#x3E; {
+                                e.dataTransfer.setData(&#x27;text/plain&#x27;, e.target.id);
+                                draggable.style.opacity = 0.5;
+                            });
+                    
+                            // When dragging ends
+                            draggable.addEventListener(&#x27;dragend&#x27;, () =&#x3E; {
+                                draggable.style.opacity = 1;
+                            });
+                    
+                            // Prevent default behavior to allow drop
+                            dropzone.addEventListener(&#x27;dragover&#x27;, (e) =&#x3E; {
+                                e.preventDefault();
+                                dropzone.style.borderColor = &#x27;#2ecc71&#x27;;
+                            });
+                    
+                            // When item is dropped
+                            dropzone.addEventListener(&#x27;drop&#x27;, (e) =&#x3E; {
+                                e.preventDefault();
+                                const draggedElementId = e.dataTransfer.getData(&#x27;text/plain&#x27;);
+                                const draggedElement = document.getElementById(draggedElementId);
+                                dropzone.appendChild(draggedElement);
+                                dropzone.style.borderColor = &#x27;#3498db&#x27;;
+                            });
+                    
+                            // Reset border on drag leave
+                            dropzone.addEventListener(&#x27;dragleave&#x27;, () =&#x3E; {
+                                dropzone.style.borderColor = &#x27;#3498db&#x27;;
+                            });
+                        &#x3C;/script&#x3E;
+                    &#x3C;/body&#x3E;
+                    &#x3C;/html&#x3E;
+                </code></pre>
+
+                <h3>Explanation:</h3>
+                <ul>
+                    <li><strong>Drag Events:</strong> The <code>dragstart</code> and <code>dragend</code> events handle
+                        the start and end of the drag operation.</li>
+                    <li><strong>Data Transfer:</strong> The <code>dataTransfer</code> object is used to pass data
+                        between the dragged element and the drop target.</li>
+                    <li><strong>Drop Zone:</strong> The <code>dragover</code> event must call
+                        <code>preventDefault()</code> to allow the drop.</li>
+                </ul>
+
+                <h3>Benefits of Pure JS Drag and Drop:</h3>
+                <ul>
+                    <li>No dependencies on external libraries.</li>
+                    <li>Customizable and lightweight solution.</li>
+                    <li>Works across modern browsers with the HTML5 API.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>JavaScript OOP</summary>
+            <div class="content">
+                <h3>Introduction to OOP in JavaScript</h3>
+                <p>Object-Oriented Programming (OOP) is a programming paradigm that uses objects to represent real-world
+                    entities and their behavior. JavaScript supports OOP concepts, allowing developers to write clean,
+                    reusable, and modular code. OOP in JavaScript revolves around the use of objects and classes.</p>
+
+                <h3>Core Concepts of OOP</h3>
+                <ul>
+                    <li><strong>Encapsulation:</strong> Bundling data (properties) and methods (functions) that operate
+                        on the data within a single unit (object).</li>
+                    <li><strong>Inheritance:</strong> Enabling an object to inherit properties and methods from another
+                        object or class.</li>
+                    <li><strong>Polymorphism:</strong> The ability of different objects to respond to the same method in
+                        their own way.</li>
+                    <li><strong>Abstraction:</strong> Hiding the complex implementation details and exposing only the
+                        essential features.</li>
+                </ul>
+
+                <h3>Creating Objects</h3>
+                <h4>1. Object Literals</h4>
+                <pre><code class="language-java">
+        const person = {
+            name: "Alice",
+            age: 25,
+            greet: function() {
+                console.log(`Hello, my name is ${this.name}`);
+            }
+        };
+        
+        person.greet(); // Output: Hello, my name is Alice
+                </code></pre>
+
+                <h4>2. Constructor Functions</h4>
+                <pre><code class="language-java">
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+            this.greet = function() {
+                console.log(`Hello, my name is ${this.name}`);
+            };
+        }
+        
+        const person1 = new Person("Bob", 30);
+        person1.greet(); // Output: Hello, my name is Bob
+                </code></pre>
+
+                <h4>3. Classes (ES6 Syntax)</h4>
+                <pre><code class="language-java">
+        class Person {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+        
+            greet() {
+                console.log(`Hello, my name is ${this.name}`);
+            }
+        }
+        
+        const person2 = new Person("Charlie", 35);
+        person2.greet(); // Output: Hello, my name is Charlie
+                </code></pre>
+
+                <h3>Inheritance in JavaScript</h3>
+                <p>Inheritance allows one class to inherit properties and methods from another class.</p>
+                <pre><code class="language-java">
+        class Animal {
+            constructor(name) {
+                this.name = name;
+            }
+        
+            speak() {
+                console.log(`${this.name} makes a noise.`);
+            }
+        }
+        
+        class Dog extends Animal {
+            speak() {
+                console.log(`${this.name} barks.`);
+            }
+        }
+        
+        const dog = new Dog("Rex");
+        dog.speak(); // Output: Rex barks.
+                </code></pre>
+
+                <h3>Polymorphism in JavaScript</h3>
+                <p>Polymorphism allows methods in derived classes to override methods in their parent class.</p>
+                <pre><code class="language-java">
+        class Shape {
+            area() {
+                console.log("Calculating area...");
+            }
+        }
+        
+        class Circle extends Shape {
+            constructor(radius) {
+                super();
+                this.radius = radius;
+            }
+        
+            area() {
+                return Math.PI * this.radius ** 2;
+            }
+        }
+        
+        const circle = new Circle(5);
+        console.log(circle.area()); // Output: 78.53981633974483
+                </code></pre>
+
+                <h3>Encapsulation</h3>
+                <p>Encapsulation is achieved by defining private fields and methods (introduced in ES2022).</p>
+                <pre><code class="language-java">
+        class BankAccount {
+            #balance = 0; // Private field
+        
+            deposit(amount) {
+                if (amount > 0) {
+                    this.#balance += amount;
+                }
+            }
+        
+            getBalance() {
+                return this.#balance;
+            }
+        }
+        
+        const account = new BankAccount();
+        account.deposit(100);
+        console.log(account.getBalance()); // Output: 100
+        // console.log(account.#balance); // Error: Private field '#balance' must be accessed via getter
+                </code></pre>
+
+                <h3>Key Features of JavaScript OOP</h3>
+                <ul>
+                    <li>JavaScript is prototype-based, meaning objects can inherit directly from other objects.</li>
+                    <li>Classes are syntactical sugar over JavaScript's existing prototype-based inheritance.</li>
+                    <li>Functions can act as constructors, enabling object creation without classes.</li>
+                </ul>
+
+                <h3>Benefits of OOP</h3>
+                <ul>
+                    <li>Modularity: Code is organized into reusable objects and classes.</li>
+                    <li>Scalability: Easier to maintain and scale large applications.</li>
+                    <li>Reusability: Inheritance and encapsulation promote code reuse.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>Full DOM API Explained</summary>
+            <div class="content">
+                <h3>What is the DOM?</h3>
+                <p>The <strong>Document Object Model (DOM)</strong> is a programming interface for web documents. It
+                    represents the structure of a webpage as a tree of nodes, allowing JavaScript to dynamically access
+                    and manipulate HTML and CSS.</p>
+                <p>The DOM provides methods, properties, and events to interact with elements, attributes, styles, and
+                    the document itself.</p>
+
+                <h3>Key Components of the DOM</h3>
+                <ul>
+                    <li><strong>Document:</strong> Represents the entire HTML document as the root of the DOM tree.</li>
+                    <li><strong>Element Nodes:</strong> Represent individual HTML elements such as
+                        <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, or <code>&lt;input&gt;</code>.</li>
+                    <li><strong>Attributes:</strong> Represent the attributes of elements (e.g., <code>id</code>,
+                        <code>class</code>, <code>src</code>).</li>
+                    <li><strong>Text Nodes:</strong> Contain the text content within an element.</li>
+                </ul>
+
+                <h3>DOM API Features</h3>
+                <h4>1. Accessing Elements</h4>
+                <ul>
+                    <li><code>document.getElementById(id)</code>: Selects an element by its ID.</li>
+                    <li><code>document.querySelector(selector)</code>: Selects the first element that matches a CSS
+                        selector.</li>
+                    <li><code>document.querySelectorAll(selector)</code>: Selects all elements that match a CSS
+                        selector.</li>
+                    <li><code>document.getElementsByClassName(className)</code>: Selects elements by class name.</li>
+                    <li><code>document.getElementsByTagName(tagName)</code>: Selects elements by tag name.</li>
+                </ul>
+                <pre><code class="language-java">
+        const elementById = document.getElementById('myId');
+        const elementsByClass = document.getElementsByClassName('myClass');
+        const firstElement = document.querySelector('.myClass');
+        const allElements = document.querySelectorAll('.myClass');
+                </code></pre>
+
+                <h4>2. Manipulating Elements</h4>
+                <ul>
+                    <li><code>element.innerHTML</code>: Sets or gets the HTML content inside an element.</li>
+                    <li><code>element.textContent</code>: Sets or gets the text content inside an element.</li>
+                    <li><code>element.setAttribute(attr, value)</code>: Adds or modifies an attribute.</li>
+                    <li><code>element.removeAttribute(attr)</code>: Removes an attribute.</li>
+                    <li><code>element.style.property</code>: Dynamically changes the CSS style.</li>
+                </ul>
+                <pre><code class="language-java">
+        const element = document.getElementById('myElement');
+        element.textContent = "Hello, DOM!";
+        element.setAttribute('data-custom', 'value');
+        element.style.color = 'blue';
+                </code></pre>
+
+                <h4>3. Creating and Appending Elements</h4>
+                <ul>
+                    <li><code>document.createElement(tag)</code>: Creates a new element.</li>
+                    <li><code>parent.appendChild(child)</code>: Appends a child to a parent node.</li>
+                    <li><code>parent.insertBefore(newNode, referenceNode)</code>: Inserts a node before a reference
+                        node.</li>
+                </ul>
+                <pre><code class="language-java">
+        const newDiv = document.createElement('div');
+        newDiv.textContent = "I'm a new div!";
+        document.body.appendChild(newDiv);
+                </code></pre>
+
+                <h4>4. Removing Elements</h4>
+                <ul>
+                    <li><code>parent.removeChild(child)</code>: Removes a child node from its parent.</li>
+                    <li><code>element.remove()</code>: Removes an element directly (modern method).</li>
+                </ul>
+                <pre><code class="language-java">
+        const element = document.getElementById('toRemove');
+        element.remove(); // Removes the element directly
+                </code></pre>
+
+                <h4>5. Event Handling</h4>
+                <p>The DOM allows adding event listeners to elements for user interactions.</p>
+                <ul>
+                    <li><code>element.addEventListener(event, callback)</code>: Adds an event listener.</li>
+                    <li><code>element.removeEventListener(event, callback)</code>: Removes an event listener.</li>
+                </ul>
+                <pre><code class="language-java">
+        const button = document.getElementById('myButton');
+        button.addEventListener('click', () => alert('Button clicked!'));
+                </code></pre>
+
+                <h4>6. Traversing the DOM</h4>
+                <ul>
+                    <li><code>element.parentNode</code>: Gets the parent node.</li>
+                    <li><code>element.childNodes</code>: Gets all child nodes, including text nodes.</li>
+                    <li><code>element.children</code>: Gets only element children.</li>
+                    <li><code>element.nextSibling</code>: Gets the next sibling node.</li>
+                    <li><code>element.previousSibling</code>: Gets the previous sibling node.</li>
+                </ul>
+                <pre><code class="language-java">
+        const parent = document.getElementById('childElement').parentNode;
+        const children = parent.children;
+        const firstChild = children[0];
+                </code></pre>
+
+                <h3>Additional DOM Features</h3>
+                <ul>
+                    <li><strong>Document Fragments:</strong> Lightweight containers for manipulating DOM nodes before
+                        attaching them to the document.</li>
+                    <li><strong>Selectors API:</strong> <code>querySelector</code> and <code>querySelectorAll</code> for
+                        flexible element selection.</li>
+                    <li><strong>Mutation Observers:</strong> Monitor changes to the DOM in real-time.</li>
+                </ul>
+
+                <h3>Advantages of Using the DOM API</h3>
+                <ul>
+                    <li>Enables dynamic content updates.</li>
+                    <li>Provides control over the structure, style, and behavior of web pages.</li>
+                    <li>Facilitates interactive and responsive user interfaces.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>JavaScript BOM</summary>
+            <div class="content">
+                <p>In JavaScript, the <strong>Browser Object Model (BOM)</strong> provides a way to interact with the
+                    web browser&#39;s environment, allowing you to manipulate the browser window, screen, location,
+                    history, navigator, and more. The BOM does not have a formal specification but consists of various
+                    objects that allow you to manage and interact with the browser environment. Below is an explanation
+                    of key BOM objects and their usage.</p>
+                <hr>
+                <h3 id="1-javascript-window-object">1. <strong>JavaScript Window Object</strong></h3>
+                <p>The <code>window</code> object represents the browser&#39;s window and is the global object in
+                    JavaScript, meaning all global variables and functions are properties of the <code>window</code>
+                    object.</p>
+                <h4 id="key-methods-and-properties">Key Methods and Properties:</h4>
+                <ul>
+                    <li>
+                        <p><strong><code>window.alert()</code></strong>: Displays a simple alert box with a message.</p>
+                        <pre><code class="language-javascript">window.alert(&quot;Hello, world!&quot;);
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>window.confirm()</code></strong>: Displays a dialog box with OK and Cancel
+                            buttons. Returns <code>true</code> if OK is pressed, <code>false</code> if Cancel is
+                            pressed.</p>
+                        <pre><code class="language-javascript">const result = window.confirm(&quot;Are you sure?&quot;);
+console.log(result);  // true or false
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>window.prompt()</code></strong>: Displays a dialog box that asks for user
+                            input. Returns the value entered or <code>null</code> if the user cancels.</p>
+                        <pre><code class="language-javascript">const name = window.prompt(&quot;Enter your name:&quot;);
+console.log(name);  // User input or null
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>window.open()</code></strong>: Opens a new browser window or tab.</p>
+                        <pre><code class="language-javascript">const newWindow = window.open(&quot;https://www.example.com&quot;, &quot;_blank&quot;);
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>window.close()</code></strong>: Closes the current window. Only works for
+                            windows opened by JavaScript.</p>
+                        <pre><code class="language-javascript">window.close();
+</code></pre>
+                    </li>
+                </ul>
+                <hr>
+                <h3 id="2-javascript-screen-object">2. <strong>JavaScript Screen Object</strong></h3>
+                <p>The <code>screen</code> object provides information about the user&#39;s screen, such as its size and
+                    color depth.</p>
+                <h4 id="key-properties">Key Properties:</h4>
+                <ul>
+                    <li>
+                        <p><strong><code>screen.width</code></strong>: The width of the screen in pixels.</p>
+                        <pre><code class="language-javascript">console.log(screen.width);  // e.g., 1920
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>screen.height</code></strong>: The height of the screen in pixels.</p>
+                        <pre><code class="language-javascript">console.log(screen.height);  // e.g., 1080
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>screen.availWidth</code></strong>: The available width of the screen, excluding
+                            system toolbars (e.g., taskbar).</p>
+                        <pre><code class="language-javascript">console.log(screen.availWidth);
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>screen.availHeight</code></strong>: The available height of the screen,
+                            excluding system toolbars.</p>
+                        <pre><code class="language-javascript">console.log(screen.availHeight);
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>screen.colorDepth</code></strong>: The color depth of the screen in bits.</p>
+                        <pre><code class="language-javascript">console.log(screen.colorDepth);  // e.g., 24 (bits)
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>screen.pixelDepth</code></strong>: The pixel depth of the screen (same as
+                            <code>colorDepth</code>).</p>
+                        <pre><code class="language-javascript">console.log(screen.pixelDepth);  // e.g., 24
+</code></pre>
+                    </li>
+                </ul>
+                <hr>
+                <h3 id="3-javascript-location-object">3. <strong>JavaScript Location Object</strong></h3>
+                <p>The <code>location</code> object is used to get and set the current URL of the browser. It allows
+                    navigation and manipulation of the browser’s location bar.</p>
+                <h4 id="key-properties-and-methods">Key Properties and Methods:</h4>
+                <ul>
+                    <li>
+                        <p><strong><code>location.href</code></strong>: The full URL of the current page.</p>
+                        <pre><code class="language-javascript">console.log(location.href);  // e.g., &quot;https://www.example.com&quot;
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>location.protocol</code></strong>: The protocol used (e.g., &quot;http:&quot;
+                            or &quot;https:&quot;).</p>
+                        <pre><code class="language-javascript">console.log(location.protocol);  // &quot;https:&quot;
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>location.hostname</code></strong>: The domain name or IP address.</p>
+                        <pre><code class="language-javascript">console.log(location.hostname);  // e.g., &quot;www.example.com&quot;
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>location.pathname</code></strong>: The path of the current page (after the
+                            domain name).</p>
+                        <pre><code class="language-javascript">console.log(location.pathname);  // e.g., &quot;/index.html&quot;
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>location.search</code></strong>: The query string of the URL (includes the
+                            &quot;?&quot; character).</p>
+                        <pre><code class="language-javascript">console.log(location.search);  // e.g., &quot;?id=123&quot;
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>location.reload()</code></strong>: Reloads the current page.</p>
+                        <pre><code class="language-javascript">location.reload();  // Reload the page
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>location.assign()</code></strong>: Loads a new document.</p>
+                        <pre><code class="language-javascript">location.assign(&quot;https://www.example.com&quot;);
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>location.replace()</code></strong>: Replaces the current document with a new
+                            one (doesn&#39;t keep the previous page in the session history).</p>
+                        <pre><code class="language-javascript">location.replace(&quot;https://www.example.com&quot;);
+</code></pre>
+                    </li>
+                </ul>
+                <hr>
+                <h3 id="4-javascript-history-object">4. <strong>JavaScript History Object</strong></h3>
+                <p>The <code>history</code> object allows manipulation of the browser&#39;s history, letting you go
+                    forward and backward through the user&#39;s navigation history.</p>
+                <h4 id="key-methods">Key Methods:</h4>
+                <ul>
+                    <li>
+                        <p><strong><code>history.back()</code></strong>: Navigates back one page in the browser&#39;s
+                            history.</p>
+                        <pre><code class="language-javascript">history.back();  // Go back to the previous page
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>history.forward()</code></strong>: Navigates forward one page in the
+                            browser&#39;s history.</p>
+                        <pre><code class="language-javascript">history.forward();  // Go forward to the next page
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>history.go()</code></strong>: Moves forward or backward by a specified number
+                            of pages. Pass a negative number to go back.</p>
+                        <pre><code class="language-javascript">history.go(-1);  // Go back one page
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>history.length</code></strong>: Returns the number of entries in the
+                            browser&#39;s history list.</p>
+                        <pre><code class="language-javascript">console.log(history.length);  // e.g., 5
+</code></pre>
+                    </li>
+                </ul>
+                <hr>
+                <h3 id="5-javascript-navigator-object">5. <strong>JavaScript Navigator Object</strong></h3>
+                <p>The <code>navigator</code> object provides information about the browser and the operating system.
+                </p>
+                <h4 id="key-properties-1">Key Properties:</h4>
+                <ul>
+                    <li>
+                        <p><strong><code>navigator.userAgent</code></strong>: Returns the user agent string, which
+                            contains information about the browser and OS.</p>
+                        <pre><code class="language-javascript">console.log(navigator.userAgent);  // e.g., &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36&quot;
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>navigator.language</code></strong>: Returns the language of the browser (e.g.,
+                            &quot;en-US&quot;).</p>
+                        <pre><code class="language-javascript">console.log(navigator.language);  // e.g., &quot;en-US&quot;
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>navigator.platform</code></strong>: Returns the platform on which the browser
+                            is running (e.g., &quot;Win32&quot;, &quot;MacIntel&quot;).</p>
+                        <pre><code class="language-javascript">console.log(navigator.platform);  // e.g., &quot;Win32&quot;
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>navigator.cookieEnabled</code></strong>: Returns <code>true</code> if cookies
+                            are enabled, otherwise <code>false</code>.</p>
+                        <pre><code class="language-javascript">console.log(navigator.cookieEnabled);  // true or false
+</code></pre>
+                    </li>
+                </ul>
+                <hr>
+                <h3 id="6-javascript-popup-alert">6. <strong>JavaScript Popup Alert</strong></h3>
+                <p>A popup alert can be triggered using the <code>alert()</code> method. This method displays a message
+                    and an OK button.</p>
+                <pre><code class="language-javascript">alert(&quot;This is a simple alert!&quot;);
+</code></pre>
+                <h4 id="other-popup-methods">Other Popup Methods:</h4>
+                <ul>
+                    <li>
+                        <p><strong><code>confirm()</code></strong>: Displays a confirmation box with OK and Cancel
+                            buttons. Returns <code>true</code> if OK is clicked, <code>false</code> if Cancel is
+                            clicked.</p>
+                        <pre><code class="language-javascript">const isConfirmed = confirm(&quot;Do you want to proceed?&quot;);
+console.log(isConfirmed);  // true or false
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>prompt()</code></strong>: Displays a prompt box asking for input. Returns the
+                            input value or <code>null</code> if canceled.</p>
+                        <pre><code class="language-javascript">const name = prompt(&quot;What is your name?&quot;);
+console.log(name);  // User input or null
+</code></pre>
+                    </li>
+                </ul>
+                <hr>
+                <h3 id="7-javascript-timing-settimeout-and-setinterval">7. <strong>JavaScript Timing (setTimeout and
+                        setInterval)</strong></h3>
+                <h4 id="settimeout"><strong><code>setTimeout()</code></strong></h4>
+                <p>Sets a delay for executing a function once after a specified number of milliseconds.</p>
+                <pre><code class="language-javascript">setTimeout(function() {
+  alert(&quot;This alert is delayed by 2 seconds.&quot;);
+}, 2000);  // Delay of 2 seconds
+</code></pre>
+                <h4 id="setinterval"><strong><code>setInterval()</code></strong></h4>
+                <p>Sets an interval for repeatedly executing a function at specified intervals in milliseconds.</p>
+                <pre><code class="language-javascript">setInterval(function() {
+  console.log(&quot;This message is shown every 2 seconds.&quot;);
+}, 2000);  // Repeat every 2 seconds
+</code></pre>
+                <h4 id="cleartimeout"><strong><code>clearTimeout()</code></strong></h4>
+                <p>Cancels a timeout set with <code>setTimeout()</code>.</p>
+                <pre><code class="language-javascript">const timeoutID = setTimeout(function() {
+  console.log(&quot;This won&#39;t be shown.&quot;);
+}, 2000);
+clearTimeout(timeoutID);  // Cancels the timeout
+</code></pre>
+                <h4 id="clearinterval"><strong><code>clearInterval()</code></strong></h4>
+                <p>Cancels an interval set with <code>setInterval()</code>.</p>
+                <pre><code class="language-javascript">const intervalID = setInterval(function() {
+  console.log(&quot;This won&#39;t be shown.&quot;);
+}, 2000);
+clearInterval(intervalID);  // Cancels the interval
+</code></pre>
+                <hr>
+                <h3 id="8-javascript-cookies">8. <strong>JavaScript Cookies</strong></h3>
+                <p>Cookies are small pieces of data stored by the browser and can be used for saving user preferences or
+                    session information.</p>
+                <h4 id="key-methods-1">Key Methods:</h4>
+                <ul>
+                    <li><strong><code>document.cookie</code></strong>: Used to get or set cookies.</li>
+                </ul>
+                <p>To set a cookie:</p>
+                <pre><code class="language-javascript">document.cookie = &quot;username=JohnDoe; expires=Thu, 01 Jan 2025 12:00:00 UTC; path=/&quot;;
+</code></pre>
+                <p>To get cookies:</p>
+                <pre><code class="language-javascript">console.log(document.cookie);  // &quot;username=JohnDoe&quot;
+</code></pre>
+                <p>To delete a cookie (set its expiry date to the past):</p>
+                <pre><code class="language-javascript">document.cookie = &quot;username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/&quot;;
+</code></pre>
+                <hr>
+                <h3 id="conclusion">Conclusion</h3>
+                <p>The <strong>Browser Object Model (BOM)</strong> in JavaScript allows you to interact with and
+                    manipulate various browser components such as the window, screen, location, history, navigator, and
+                    cookies. By understanding these objects, you can create more interactive and dynamic web
+                    applications.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Cookies, Local Storage, and Session Storage API in JavaScript</summary>
+            <div class="content">
+                <h3>Introduction</h3>
+                <p>Web browsers provide three common ways to store data on the client-side: <strong>Cookies</strong>,
+                    <strong>Local Storage</strong>, and <strong>Session Storage</strong>. These storage methods allow
+                    web applications to store and retrieve data between page reloads, sessions, or even across browser
+                    sessions.</p>
+
+                <h3>1. Cookies</h3>
+                <p><strong>Cookies</strong> are small pieces of data stored in the user's browser that are sent to the
+                    server with each HTTP request. Cookies have an expiration date and can be used to store stateful
+                    information like user preferences or session identifiers.</p>
+
+                <h4>Creating and Managing Cookies</h4>
+                <ul>
+                    <li><code>document.cookie</code> is used to read, create, and modify cookies in JavaScript.</li>
+                    <li>Cookies are stored as key-value pairs with optional attributes like <code>expires</code>,
+                        <code>path</code>, <code>domain</code>, and <code>secure</code>.</li>
+                </ul>
+                <pre><code class="language-java">
+        // Creating a cookie
+        document.cookie = "username=JohnDoe; expires=Fri, 31 Dec 2024 23:59:59 GMT; path=/";
+        
+        // Retrieving a cookie
+        let cookies = document.cookie; // "username=JohnDoe"
+        
+        // Setting a cookie with expiration date
+        document.cookie = "sessionId=123456; expires=Thu, 01 Jan 2025 00:00:00 UTC; path=/";
+                </code></pre>
+
+                <h4>Cookie Attributes:</h4>
+                <ul>
+                    <li><code>expires</code>: The date when the cookie will expire. If not set, the cookie becomes a
+                        session cookie (expires when the browser is closed).</li>
+                    <li><code>path</code>: Defines the URL path for which the cookie is valid.</li>
+                    <li><code>domain</code>: Defines the domain for which the cookie is valid.</li>
+                    <li><code>secure</code>: Ensures the cookie is only sent over HTTPS.</li>
+                </ul>
+
+                <h3>2. Local Storage</h3>
+                <p><strong>Local Storage</strong> is a persistent key-value storage mechanism that allows web
+                    applications to store data in the browser with no expiration date. Data stored in Local Storage is
+                    available even after the browser is closed and reopened.</p>
+
+                <h4>Key Characteristics of Local Storage:</h4>
+                <ul>
+                    <li>Data persists even after the browser is closed.</li>
+                    <li>Each domain has its own storage, and data is isolated to that domain.</li>
+                    <li>The storage limit is around 5-10MB per domain (depending on the browser).</li>
+                </ul>
+
+                <h4>Using Local Storage API</h4>
+                <ul>
+                    <li><code>localStorage.setItem(key, value)</code>: Stores a key-value pair.</li>
+                    <li><code>localStorage.getItem(key)</code>: Retrieves the value of a key.</li>
+                    <li><code>localStorage.removeItem(key)</code>: Removes a specific key-value pair.</li>
+                    <li><code>localStorage.clear()</code>: Clears all data stored in Local Storage.</li>
+                </ul>
+                <pre><code class="language-java">
+        // Setting a value in localStorage
+        localStorage.setItem('username', 'JohnDoe');
+        
+        // Retrieving a value from localStorage
+        let username = localStorage.getItem('username'); // "JohnDoe"
+        
+        // Removing an item
+        localStorage.removeItem('username');
+        
+        // Clearing all items
+        localStorage.clear();
+                </code></pre>
+
+                <h4>Use Cases for Local Storage:</h4>
+                <ul>
+                    <li>Storing user preferences, settings, or themes.</li>
+                    <li>Saving data that should persist across sessions (e.g., shopping cart contents).</li>
+                </ul>
+
+                <h3>3. Session Storage</h3>
+                <p><strong>Session Storage</strong> is similar to Local Storage, but the data stored in Session Storage
+                    is only available for the duration of the page session. The data is cleared when the browser or tab
+                    is closed.</p>
+
+                <h4>Key Characteristics of Session Storage:</h4>
+                <ul>
+                    <li>Data is available only for the duration of the page session.</li>
+                    <li>Data is isolated to the browser tab, meaning different tabs will have separate session storage.
+                    </li>
+                    <li>The storage limit is usually around 5MB per domain (similar to Local Storage).</li>
+                </ul>
+
+                <h4>Using Session Storage API</h4>
+                <ul>
+                    <li><code>sessionStorage.setItem(key, value)</code>: Stores a key-value pair for the current
+                        session.</li>
+                    <li><code>sessionStorage.getItem(key)</code>: Retrieves the value of a key for the current session.
+                    </li>
+                    <li><code>sessionStorage.removeItem(key)</code>: Removes a specific key-value pair for the current
+                        session.</li>
+                    <li><code>sessionStorage.clear()</code>: Clears all data stored in Session Storage for the current
+                        session.</li>
+                </ul>
+                <pre><code class="language-java">
+        // Setting a value in sessionStorage
+        sessionStorage.setItem('sessionId', 'ABC123');
+        
+        // Retrieving a value from sessionStorage
+        let sessionId = sessionStorage.getItem('sessionId'); // "ABC123"
+        
+        // Removing an item
+        sessionStorage.removeItem('sessionId');
+        
+        // Clearing all items
+        sessionStorage.clear();
+                </code></pre>
+
+                <h4>Use Cases for Session Storage:</h4>
+                <ul>
+                    <li>Storing data for a single session (e.g., a one-time login session).</li>
+                    <li>Temporarily storing data such as form inputs or user interactions during a session.</li>
+                </ul>
+
+                <h3>Comparison Between Cookies, Local Storage, and Session Storage</h3>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Cookies</th>
+                            <th>Local Storage</th>
+                            <th>Session Storage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Data Persistence</td>
+                            <td>Expires based on the set expiry date or session end.</td>
+                            <td>Persistent until explicitly removed or browser data is cleared.</td>
+                            <td>Persistent only for the duration of the page session (until the tab is closed).</td>
+                        </tr>
+                        <tr>
+                            <td>Storage Capacity</td>
+                            <td>4KB</td>
+                            <td>5MB–10MB</td>
+                            <td>5MB–10MB</td>
+                        </tr>
+                        <tr>
+                            <td>Data Transmission</td>
+                            <td>Sent with every HTTP request.</td>
+                            <td>Not sent with HTTP requests (client-side only).</td>
+                            <td>Not sent with HTTP requests (client-side only).</td>
+                        </tr>
+                        <tr>
+                            <td>Scope</td>
+                            <td>Domain-wide, available to all pages within the same domain.</td>
+                            <td>Domain-wide, but only accessible from the same domain and same browser.</td>
+                            <td>Tab-specific, isolated across tabs.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Conclusion</h3>
+                <ul>
+                    <li><strong>Cookies:</strong> Best for small pieces of data (e.g., session IDs) and when you need
+                        data to be sent with each HTTP request.</li>
+                    <li><strong>Local Storage:</strong> Ideal for storing large amounts of data that should persist
+                        across sessions and don't need to be sent to the server.</li>
+                    <li><strong>Session Storage:</strong> Useful for storing data temporarily for a single session, such
+                        as form inputs or page state.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>Async vs Defer Attributes in JavaScript</summary>
+            <div class="content">
+                <h3>Introduction to <code>async</code> and <code>defer</code> Attributes</h3>
+                <p>In HTML, the <code>async</code> and <code>defer</code> attributes are used to manage how external
+                    JavaScript files are loaded and executed in relation to the rest of the webpage. They are applied to
+                    <code>&lt;script&gt;</code> tags and can significantly impact page loading performance.</p>
+
+                <h3>Key Differences</h3>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th><code>async</code></th>
+                            <th><code>defer</code></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Execution Timing</td>
+                            <td>Executes as soon as the script is downloaded, without waiting for the HTML parsing to
+                                complete.</td>
+                            <td>Executes after the HTML document has been fully parsed.</td>
+                        </tr>
+                        <tr>
+                            <td>Order of Execution</td>
+                            <td>Scripts may execute in any order, depending on which finishes downloading first.</td>
+                            <td>Scripts execute in the order they appear in the document.</td>
+                        </tr>
+                        <tr>
+                            <td>Use Case</td>
+                            <td>Best for independent scripts that don’t depend on other scripts or the DOM.</td>
+                            <td>Best for scripts that depend on the DOM or need to maintain execution order.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>How <code>async</code> Works</h3>
+                <p>The <code>async</code> attribute allows the script to download in parallel with the HTML parsing.
+                    Once the script is downloaded, it is executed immediately, potentially interrupting the parsing
+                    process.</p>
+                <pre><code class="language-html">
+                    &#x3C;!-- Example: Async script --&#x3E;
+                    &#x3C;script src=&#x22;example.js&#x22; async&#x3E;&#x3C;/script&#x3E;
+                </code></pre>
+
+                <h4>Diagram:</h4>
+                <p><strong>1.</strong> HTML parsing starts.</p>
+                <p><strong>2.</strong> Script downloads asynchronously.</p>
+                <p><strong>3.</strong> Script executes as soon as it finishes downloading, pausing HTML parsing
+                    temporarily.</p>
+
+                <h3>How <code>defer</code> Works</h3>
+                <p>The <code>defer</code> attribute also allows the script to download in parallel with HTML parsing,
+                    but it ensures that the script is executed only after the HTML parsing is complete. This ensures
+                    that scripts are executed in the order they appear in the document.</p>
+                <pre><code class="language-html">
+                    &#x3C;!-- Example: Defer script --&#x3E;
+                    &#x3C;script src=&#x22;example.js&#x22; defer&#x3E;&#x3C;/script&#x3E;
+                </code></pre>
+
+                <h4>Diagram:</h4>
+                <p><strong>1.</strong> HTML parsing starts.</p>
+                <p><strong>2.</strong> Script downloads asynchronously.</p>
+                <p><strong>3.</strong> Script executes only after the HTML document has been fully parsed.</p>
+
+                <h3>When to Use</h3>
+                <ul>
+                    <li><strong>Use <code>async</code>:</strong> For scripts that do not depend on other scripts or the
+                        DOM, such as analytics or tracking scripts.</li>
+                    <li><strong>Use <code>defer</code>:</strong> For scripts that interact with or depend on the DOM or
+                        must maintain execution order.</li>
+                </ul>
+
+                <h3>Example: Comparison</h3>
+                <pre><code class="language-html">
+                    &#x3C;!-- Async script --&#x3E;
+                    &#x3C;script src=&#x22;independent-script.js&#x22; async&#x3E;&#x3C;/script&#x3E;
+                    
+                    &#x3C;!-- Defer script --&#x3E;
+                    &#x3C;script src=&#x22;dom-dependent-script.js&#x22; defer&#x3E;&#x3C;/script&#x3E;
+                </code></pre>
+
+                <h3>Default Behavior</h3>
+                <p>If neither <code>async</code> nor <code>defer</code> is specified, scripts are loaded and executed
+                    immediately in the order they appear, blocking HTML parsing.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>JavaScript Regular Expressions</summary>
+            <div class="content">
+                <p>It seems like you&#39;re asking for an explanation of how to use regular expressions (regex) in
+                    JavaScript, possibly in a format similar to one you&#39;ve used previously. I&#39;ll provide a basic
+                    overview of regex usage in JavaScript, with examples, to help clarify how it works.</p>
+                <h3 id="javascript-regular-expressions">JavaScript Regular Expressions</h3>
+                <p>A regular expression is a pattern that can match character combinations in strings. Regular
+                    expressions are used to perform pattern-matching and search-and-replace functions on text.</p>
+                <h3 id="creating-a-regular-expression-in-javascript">Creating a Regular Expression in JavaScript</h3>
+                <p>In JavaScript, regular expressions can be created in two ways:</p>
+                <ol>
+                    <li><strong>Using a regular expression literal:</strong>
+                        <pre><code class="language-javascript">const regex = /pattern/;
+</code></pre>
+                    </li>
+                    <li><strong>Using the <code>RegExp</code> constructor:</strong>
+                        <pre><code class="language-javascript">const regex = new RegExp(&#39;pattern&#39;);
+</code></pre>
+                    </li>
+                </ol>
+                <p>Both methods are valid, and the main difference is that with the <code>RegExp</code> constructor, you
+                    can dynamically create patterns (i.e., using variables), which is not possible with the literal.</p>
+                <h3 id="common-regular-expression-syntax-in-javascript">Common Regular Expression Syntax in JavaScript
+                </h3>
+                <ol>
+                    <li>
+                        <p><strong>Matching Characters:</strong></p>
+                        <ul>
+                            <li><code>a</code> – matches the character &#39;a&#39;</li>
+                            <li><code>.</code> – matches any character except newline</li>
+                            <li><code>\d</code> – matches any digit (0-9)</li>
+                            <li><code>\D</code> – matches any non-digit character</li>
+                            <li><code>\w</code> – matches any word character (alphanumeric + underscore)</li>
+                            <li><code>\W</code> – matches any non-word character</li>
+                            <li><code>\s</code> – matches any whitespace character (space, tab, newline)</li>
+                            <li><code>\S</code> – matches any non-whitespace character</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p><strong>Anchors:</strong></p>
+                        <ul>
+                            <li><code>^</code> – matches the start of a string</li>
+                            <li><code>$</code> – matches the end of a string</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p><strong>Quantifiers:</strong></p>
+                        <ul>
+                            <li><code>*</code> – matches 0 or more occurrences</li>
+                            <li><code>+</code> – matches 1 or more occurrences</li>
+                            <li><code>?</code> – matches 0 or 1 occurrence</li>
+                            <li><code>{n}</code> – matches exactly <code>n</code> occurrences</li>
+                            <li><code>{n,}</code> – matches <code>n</code> or more occurrences</li>
+                            <li><code>{n,m}</code> – matches between <code>n</code> and <code>m</code> occurrences</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p><strong>Character Classes:</strong></p>
+                        <ul>
+                            <li><code>[abc]</code> – matches any character &#39;a&#39;, &#39;b&#39;, or &#39;c&#39;</li>
+                            <li><code>[^abc]</code> – matches any character except &#39;a&#39;, &#39;b&#39;, or
+                                &#39;c&#39;</li>
+                            <li><code>[a-z]</code> – matches any lowercase letter</li>
+                            <li><code>[A-Z]</code> – matches any uppercase letter</li>
+                            <li><code>[0-9]</code> – matches any digit</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p><strong>Grouping and Capturing:</strong></p>
+                        <ul>
+                            <li><code>(abc)</code> – matches the exact sequence &quot;abc&quot; and captures it for
+                                backreference</li>
+                            <li><code>(?:abc)</code> – matches the exact sequence &quot;abc&quot; but does not capture
+                                it (non-capturing group)</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p><strong>Alternation:</strong></p>
+                        <ul>
+                            <li><code>a|b</code> – matches either &#39;a&#39; or &#39;b&#39;</li>
+                        </ul>
+                    </li>
+                </ol>
+                <h3 id="example-use-case">Example Use Case</h3>
+                <p>Let&#39;s say you want to use a regular expression to validate an email address in JavaScript:</p>
+                <pre><code class="language-javascript">const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+const email = &#39;test@example.com&#39;;
+const isValid = emailRegex.test(email);  // Returns true if valid, false otherwise
+console.log(isValid);
+</code></pre>
+                <p>In this example:</p>
+                <ul>
+                    <li><code>^</code> asserts the start of the string.</li>
+                    <li><code>[a-zA-Z0-9._-]+</code> matches one or more alphanumeric characters or the characters
+                        <code>.</code>, <code>_</code>, or <code>-</code>.</li>
+                    <li><code>@</code> matches the literal &quot;@&quot; symbol.</li>
+                    <li><code>[a-zA-Z0-9.-]+</code> matches one or more alphanumeric characters, dots, or hyphens.</li>
+                    <li><code>\.</code> matches the literal dot.</li>
+                    <li><code>[a-zA-Z]{2,6}</code> matches between 2 and 6 alphabetic characters (to match a valid
+                        domain extension).</li>
+                    <li><code>$</code> asserts the end of the string.</li>
+                </ul>
+                <h3 id="methods-for-working-with-regular-expressions">Methods for Working with Regular Expressions</h3>
+                <ul>
+                    <li>
+                        <p><strong><code>test()</code></strong> – Tests if a pattern exists in a string (returns
+                            <code>true</code> or <code>false</code>).</p>
+                        <pre><code class="language-javascript">const regex = /hello/;
+console.log(regex.test(&quot;hello world&quot;)); // true
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>exec()</code></strong> – Executes a search for a match in a string and returns
+                            an array of matches (or <code>null</code> if no match is found).</p>
+                        <pre><code class="language-javascript">const regex = /hello/;
+const result = regex.exec(&quot;hello world&quot;);
+console.log(result); // [&quot;hello&quot;]
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>match()</code></strong> – A string method that matches a pattern and returns an
+                            array of results.</p>
+                        <pre><code class="language-javascript">const str = &quot;hello world&quot;;
+const result = str.match(/hello/);
+console.log(result); // [&quot;hello&quot;]
+</code></pre>
+                    </li>
+                    <li>
+                        <p><strong><code>replace()</code></strong> – Replaces parts of a string matching a regular
+                            expression.</p>
+                        <pre><code class="language-javascript">const str = &quot;hello world&quot;;
+const newStr = str.replace(/world/, &quot;JavaScript&quot;);
+console.log(newStr); // &quot;hello JavaScript&quot;
+</code></pre>
+                    </li>
+                </ul>
+                <h3 id="example-validate-a-phone-number">Example: Validate a Phone Number</h3>
+                <p>To match a simple phone number format like <code>(123) 456-7890</code>:</p>
+                <pre><code class="language-javascript">const phoneRegex = /^\(\d{3}\) \d{3}-\d{4}$/;
+
+const phoneNumber = &quot;(123) 456-7890&quot;;
+console.log(phoneRegex.test(phoneNumber)); // true
+</code></pre>
+                <p>Here, <code>\d{3}</code> matches exactly three digits, and <code>\(</code> and <code>\)</code> match
+                    the literal parentheses.</p>
+
+            </div>
+        </details>
+
+        <details>
+            <summary>JavaScript Array and Methods</summary>
+            <div class="content">
+                <p>In JavaScript, <strong>arrays</strong> are used to store multiple values in a single variable. They
+                    can hold any type of data, including numbers, strings, objects, or even other arrays.</p>
+                <h3 id="1-array-declaration-and-initialization">1. <strong>Array Declaration and Initialization</strong>
+                </h3>
+                <p>There are several ways to declare and initialize an array in JavaScript.</p>
+                <h4 id="a-using-array-literals-preferred"><strong>a. Using Array Literals (Preferred)</strong></h4>
+                <pre><code class="language-javascript">const fruits = [&#39;Apple&#39;, &#39;Banana&#39;, &#39;Orange&#39;];
+console.log(fruits);  // [&quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;]
+</code></pre>
+                <p>This is the most common and concise way to create an array.</p>
+                <h4 id="b-using-the-new-array-constructor"><strong>b. Using the <code>new Array()</code>
+                        Constructor</strong></h4>
+                <pre><code class="language-javascript">const fruits = new Array(&#39;Apple&#39;, &#39;Banana&#39;, &#39;Orange&#39;);
+console.log(fruits);  // [&quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;]
+</code></pre>
+                <p>Note that this approach is not very commonly used and can be confusing, especially when the argument
+                    is a number (e.g., <code>new Array(5)</code> creates an array of length 5, but without any values).
+                </p>
+                <h4 id="c-empty-array"><strong>c. Empty Array</strong></h4>
+                <pre><code class="language-javascript">const emptyArray = [];
+console.log(emptyArray);  // []
+</code></pre>
+                <p>Or using <code>new Array()</code>:</p>
+                <pre><code class="language-javascript">const emptyArray = new Array();
+console.log(emptyArray);  // []
+</code></pre>
+                <h4 id="d-array-with-a-specific-size"><strong>d. Array with a Specific Size</strong></h4>
+                <p>You can also initialize an array with a certain length, but it will not contain any values initially
+                    (empty slots):</p>
+                <pre><code class="language-javascript">const numbers = new Array(3); // Creates an array of length 3 with empty slots
+console.log(numbers); // [ &lt;3 empty items&gt; ]
+</code></pre>
+                <h3 id="2-accessing-array-elements">2. <strong>Accessing Array Elements</strong></h3>
+                <p>You can access array elements using an index. JavaScript arrays are zero-indexed, meaning the first
+                    element is at index 0.</p>
+                <pre><code class="language-javascript">const fruits = [&#39;Apple&#39;, &#39;Banana&#39;, &#39;Orange&#39;];
+console.log(fruits[0]);  // &quot;Apple&quot;
+console.log(fruits[2]);  // &quot;Orange&quot;
+</code></pre>
+                <h3 id="3-modifying-array-elements">3. <strong>Modifying Array Elements</strong></h3>
+                <p>To modify an element in an array, you can simply access it via its index and assign a new value.</p>
+                <pre><code class="language-javascript">const fruits = [&#39;Apple&#39;, &#39;Banana&#39;, &#39;Orange&#39;];
+fruits[1] = &#39;Grapes&#39;;  // Change &#39;Banana&#39; to &#39;Grapes&#39;
+console.log(fruits);  // [&quot;Apple&quot;, &quot;Grapes&quot;, &quot;Orange&quot;]
+</code></pre>
+                <h3 id="4-array-methods">4. <strong>Array Methods</strong></h3>
+                <h4 id="a-push--add-elements-to-the-end"><strong>a. <code>push()</code> – Add Elements to the
+                        End</strong></h4>
+                <p>The <code>push()</code> method adds one or more elements to the end of an array and returns the new
+                    length of the array.</p>
+                <pre><code class="language-javascript">const fruits = [&#39;Apple&#39;, &#39;Banana&#39;];
+fruits.push(&#39;Orange&#39;);
+console.log(fruits);  // [&quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;]
+</code></pre>
+                <h4 id="b-pop--remove-the-last-element"><strong>b. <code>pop()</code> – Remove the Last Element</strong>
+                </h4>
+                <p>The <code>pop()</code> method removes the last element from an array and returns that element.</p>
+                <pre><code class="language-javascript">const fruits = [&#39;Apple&#39;, &#39;Banana&#39;, &#39;Orange&#39;];
+const lastFruit = fruits.pop();
+console.log(lastFruit);  // &quot;Orange&quot;
+console.log(fruits);     // [&quot;Apple&quot;, &quot;Banana&quot;]
+</code></pre>
+                <h4 id="c-shift--remove-the-first-element"><strong>c. <code>shift()</code> – Remove the First
+                        Element</strong></h4>
+                <p>The <code>shift()</code> method removes the first element from an array and returns that element.</p>
+                <pre><code class="language-javascript">const fruits = [&#39;Apple&#39;, &#39;Banana&#39;, &#39;Orange&#39;];
+const firstFruit = fruits.shift();
+console.log(firstFruit); // &quot;Apple&quot;
+console.log(fruits);     // [&quot;Banana&quot;, &quot;Orange&quot;]
+</code></pre>
+                <h4 id="d-unshift--add-elements-to-the-beginning"><strong>d. <code>unshift()</code> – Add Elements to
+                        the Beginning</strong></h4>
+                <p>The <code>unshift()</code> method adds one or more elements to the beginning of an array and returns
+                    the new length of the array.</p>
+                <pre><code class="language-javascript">const fruits = [&#39;Banana&#39;, &#39;Orange&#39;];
+fruits.unshift(&#39;Apple&#39;);
+console.log(fruits);  // [&quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;]
+</code></pre>
+                <h4 id="e-concat--merge-two-arrays"><strong>e. <code>concat()</code> – Merge Two Arrays</strong></h4>
+                <p>The <code>concat()</code> method is used to merge two or more arrays into a new array.</p>
+                <pre><code class="language-javascript">const fruits = [&#39;Apple&#39;, &#39;Banana&#39;];
+const moreFruits = [&#39;Orange&#39;, &#39;Grapes&#39;];
+const allFruits = fruits.concat(moreFruits);
+console.log(allFruits);  // [&quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;, &quot;Grapes&quot;]
+</code></pre>
+                <h4 id="f-join--convert-array-to-a-string"><strong>f. <code>join()</code> – Convert Array to a
+                        String</strong></h4>
+                <p>The <code>join()</code> method joins all elements of an array into a single string, separated by a
+                    specified delimiter.</p>
+                <pre><code class="language-javascript">const fruits = [&#39;Apple&#39;, &#39;Banana&#39;, &#39;Orange&#39;];
+const fruitString = fruits.join(&#39;, &#39;);
+console.log(fruitString);  // &quot;Apple, Banana, Orange&quot;
+</code></pre>
+                <h4 id="g-slice--extract-part-of-an-array"><strong>g. <code>slice()</code> – Extract Part of an
+                        Array</strong></h4>
+                <p>The <code>slice()</code> method returns a shallow copy of a portion of an array into a new array
+                    object. It doesn&#39;t modify the original array.</p>
+                <pre><code class="language-javascript">const fruits = [&#39;Apple&#39;, &#39;Banana&#39;, &#39;Orange&#39;, &#39;Grapes&#39;];
+const citrusFruits = fruits.slice(1, 3);  // Extract from index 1 to 3 (not including 3)
+console.log(citrusFruits);  // [&quot;Banana&quot;, &quot;Orange&quot;]
+console.log(fruits);        // [&quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;, &quot;Grapes&quot;] (unchanged)
+</code></pre>
+                <h4 id="h-splice--add-or-remove-elements"><strong>h. <code>splice()</code> – Add or Remove
+                        Elements</strong></h4>
+                <p>The <code>splice()</code> method can be used to add or remove elements from an array. It modifies the
+                    original array.</p>
+                <pre><code class="language-javascript">const fruits = [&#39;Apple&#39;, &#39;Banana&#39;, &#39;Orange&#39;, &#39;Grapes&#39;];
+fruits.splice(2, 1, &#39;Pineapple&#39;, &#39;Mango&#39;);  // Starting at index 2, remove 1 element, add 2 new elements
+console.log(fruits);  // [&quot;Apple&quot;, &quot;Banana&quot;, &quot;Pineapple&quot;, &quot;Mango&quot;, &quot;Grapes&quot;]
+</code></pre>
+                <h4 id="i-indexof--find-the-index-of-an-element"><strong>i. <code>indexOf()</code> – Find the Index of
+                        an Element</strong></h4>
+                <p>The <code>indexOf()</code> method returns the first index at which a specified element is found, or
+                    <code>-1</code> if the element is not found.</p>
+                <pre><code class="language-javascript">const fruits = [&#39;Apple&#39;, &#39;Banana&#39;, &#39;Orange&#39;];
+const index = fruits.indexOf(&#39;Banana&#39;);
+console.log(index);  // 1
+</code></pre>
+                <h4 id="j-foreach--execute-a-function-for-each-element"><strong>j. <code>forEach()</code> – Execute a
+                        Function for Each Element</strong></h4>
+                <p>The <code>forEach()</code> method executes a provided function once for each element in the array.
+                </p>
+                <pre><code class="language-javascript">const fruits = [&#39;Apple&#39;, &#39;Banana&#39;, &#39;Orange&#39;];
+fruits.forEach(fruit =&gt; {
+  console.log(fruit);
+});
+// Output:
+// Apple
+// Banana
+// Orange
+</code></pre>
+                <h4 id="k-map--create-a-new-array-by-applying-a-function"><strong>k. <code>map()</code> – Create a New
+                        Array by Applying a Function</strong></h4>
+                <p>The <code>map()</code> method creates a new array populated with the results of calling a provided
+                    function on every element in the calling array.</p>
+                <pre><code class="language-javascript">const numbers = [1, 2, 3, 4];
+const squares = numbers.map(num =&gt; num * num);
+console.log(squares);  // [1, 4, 9, 16]
+</code></pre>
+                <h4 id="l-filter--filter-elements-based-on-a-condition"><strong>l. <code>filter()</code> – Filter
+                        Elements Based on a Condition</strong></h4>
+                <p>The <code>filter()</code> method creates a new array with all elements that pass the test implemented
+                    by the provided function.</p>
+                <pre><code class="language-javascript">const numbers = [1, 2, 3, 4, 5];
+const evenNumbers = numbers.filter(num =&gt; num % 2 === 0);
+console.log(evenNumbers);  // [2, 4]
+</code></pre>
+                <h4 id="m-reduce--reduce-an-array-to-a-single-value"><strong>m. <code>reduce()</code> – Reduce an Array
+                        to a Single Value</strong></h4>
+                <p>The <code>reduce()</code> method applies a function to each element in an array (from left to right)
+                    to reduce it to a single value (e.g., sum, product).</p>
+                <pre><code class="language-javascript">const numbers = [1, 2, 3, 4];
+const sum = numbers.reduce((acc, num) =&gt; acc + num, 0);
+console.log(sum);  // 10
+</code></pre>
+                <h4 id="n-some--check-if-some-elements-pass-a-condition"><strong>n. <code>some()</code> – Check if Some
+                        Elements Pass a Condition</strong></h4>
+                <p>The <code>some()</code> method checks if at least one element in the array passes a condition.</p>
+                <pre><code class="language-javascript">const numbers = [1, 2, 3, 4];
+const hasEven = numbers.some(num =&gt; num % 2 === 0);
+console.log(hasEven);  // true
+</code></pre>
+                <h4 id="o-every--check-if-all-elements-pass-a-condition"><strong>o. <code>every()</code> – Check if All
+                        Elements Pass a Condition</strong></h4>
+                <p>The <code>every()</code> method checks if all elements in the array pass a condition.</p>
+                <pre><code class="language-javascript">const numbers = [2, 4, 6, 8];
+const allEven = numbers.every(num =&gt; num % 2 === 0);
+console.log(allEven);  // true
+</code></pre>
+                <h3 id="5-iterating-through-arrays">5. <strong>Iterating Through Arrays</strong></h3>
+                <p>You can iterate over arrays using a variety of methods:</p>
+                <ul>
+                    <li><code>for</code> loop</li>
+                    <li><code>forEach()</code></li>
+                    <li><code>map()</code></li>
+                    <li><code>for...of</code> loop</li>
+                </ul>
+                <p>Example with <code>for...of</code> loop:</p>
+                <pre><code class="language-javascript">const fruits = [&#39;Apple&#39;, &#39;Banana&#39;, &#39;Orange&#39;];
+for (const fruit of fruits) {
+  console.log(fruit);
+}
+// Output:
+// Apple
+// Banana
+// Orange
+</code></pre>
+                <h3 id="6-summary-of-array-methods">6. <strong>Summary of Array Methods</strong></h3>
+                <ul>
+                    <li><strong>Adding</strong>: <code>push()</code>, <code>unshift()</code></li>
+                    <li><strong>Removing</strong>: <code>pop()</code>, <code>shift()</code></li>
+                    <li><strong>Combining</strong>: <code>concat()</code></li>
+                    <li><strong>Searching</strong>: <code>indexOf()</code>, <code>includes()</code></li>
+                    <li><strong>Modifying</strong>: <code>splice()</code>, <code>slice()</code></li>
+                    <li><strong>Looping</strong>: <code>forEach()</code>, <code>map()</code></li>
+                    <li><strong>Filtering</strong>: <code>filter()</code></li>
+                    <li><strong>Reducing</strong>: <code>reduce()</code></li>
+                    <li><strong>Testing</strong>: <code>some()</code>, <code>every()</code></li>
+                </ul>
+                <p>These methods provide a robust set of tools to work with arrays in JavaScript. Let me know if you
+                    need further details!</p>
+
+            </div>
+        </details>
+
+        <details>
+            <summary>JavaScript String and Methods</summary>
+            <div class="content">
+                <p>In JavaScript, <strong>strings</strong> are used to represent text. A string is a sequence of
+                    characters enclosed in single (<code>&#39;</code>), double (<code>&quot;</code>), or backtick
+                    (<code>`</code>) quotes. </p>
+                <p>Here’s an overview of string declaration, initialization, and the most commonly used methods with
+                    examples.</p>
+                <hr>
+                <h3 id="1-string-declaration-and-initialization">1. <strong>String Declaration and
+                        Initialization</strong></h3>
+                <h4 id="a-using-string-literals"><strong>a. Using String Literals</strong></h4>
+                <pre><code class="language-javascript">const str = &quot;Hello, World!&quot;;
+console.log(str);  // &quot;Hello, World!&quot;
+</code></pre>
+                <h4 id="b-using-the-new-string-constructor"><strong>b. Using the <code>new String()</code>
+                        Constructor</strong></h4>
+                <p>You can also create a string using the <code>new String()</code> constructor, but this is not
+                    commonly recommended as it creates an object instead of a primitive string.</p>
+                <pre><code class="language-javascript">const strObj = new String(&quot;Hello, World!&quot;);
+console.log(strObj);  // [String: &#39;Hello, World!&#39;]
+</code></pre>
+                <p>It’s generally better to use string literals for simplicity and performance.</p>
+                <hr>
+                <h3 id="2-accessing-string-characters">2. <strong>Accessing String Characters</strong></h3>
+                <p>You can access characters in a string using an index. JavaScript strings are
+                    <strong>zero-indexed</strong>, so the first character is at index <code>0</code>.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello&quot;;
+console.log(str[0]);  // &quot;H&quot;
+console.log(str[1]);  // &quot;e&quot;
+</code></pre>
+                <p>Note that strings in JavaScript are <strong>immutable</strong>, meaning you cannot modify a
+                    string&#39;s character directly (like <code>str[0] = &quot;X&quot;</code> won&#39;t work).</p>
+                <hr>
+                <h3 id="3-modifying-strings">3. <strong>Modifying Strings</strong></h3>
+                <p>Since strings are immutable, any modification of a string creates a new string.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello, World!&quot;;
+const newStr = str.replace(&quot;World&quot;, &quot;JavaScript&quot;);
+console.log(newStr);  // &quot;Hello, JavaScript!&quot;
+</code></pre>
+                <hr>
+                <h3 id="4-string-methods">4. <strong>String Methods</strong></h3>
+                <h4 id="a-length--get-the-length-of-a-string"><strong>a. <code>length</code> – Get the Length of a
+                        String</strong></h4>
+                <p>The <code>length</code> property returns the number of characters in a string.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello, World!&quot;;
+console.log(str.length);  // 13
+</code></pre>
+                <h4 id="b-charat--get-the-character-at-a-specific-index"><strong>b. <code>charAt()</code> – Get the
+                        Character at a Specific Index</strong></h4>
+                <p>The <code>charAt()</code> method returns the character at a specified index.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello&quot;;
+console.log(str.charAt(0));  // &quot;H&quot;
+console.log(str.charAt(4));  // &quot;o&quot;
+</code></pre>
+                <h4 id="c-indexof--find-the-index-of-a-substring"><strong>c. <code>indexOf()</code> – Find the Index of
+                        a Substring</strong></h4>
+                <p>The <code>indexOf()</code> method returns the index of the first occurrence of a specified substring,
+                    or <code>-1</code> if it’s not found.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello, World!&quot;;
+console.log(str.indexOf(&quot;World&quot;));  // 7
+console.log(str.indexOf(&quot;JavaScript&quot;));  // -1
+</code></pre>
+                <h4 id="d-includes--check-if-a-substring-exists"><strong>d. <code>includes()</code> – Check if a
+                        Substring Exists</strong></h4>
+                <p>The <code>includes()</code> method checks if a substring is present in the string, returning
+                    <code>true</code> or <code>false</code>.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello, World!&quot;;
+console.log(str.includes(&quot;World&quot;));  // true
+console.log(str.includes(&quot;JavaScript&quot;));  // false
+</code></pre>
+                <h4 id="e-slice--extract-a-part-of-the-string"><strong>e. <code>slice()</code> – Extract a Part of the
+                        String</strong></h4>
+                <p>The <code>slice()</code> method extracts a section of a string and returns a new string. It doesn’t
+                    modify the original string.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello, World!&quot;;
+console.log(str.slice(0, 5));  // &quot;Hello&quot;
+console.log(str.slice(7));     // &quot;World!&quot;
+</code></pre>
+                <h4 id="f-substring--extract-a-substring-between-two-indices"><strong>f. <code>substring()</code> –
+                        Extract a Substring Between Two Indices</strong></h4>
+                <p>The <code>substring()</code> method extracts characters between two indices, but it does not allow
+                    negative indices.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello, World!&quot;;
+console.log(str.substring(0, 5));  // &quot;Hello&quot;
+console.log(str.substring(7, 12)); // &quot;World&quot;
+</code></pre>
+                <h4 id="g-tolowercase--convert-to-lowercase"><strong>g. <code>toLowerCase()</code> – Convert to
+                        Lowercase</strong></h4>
+                <p>The <code>toLowerCase()</code> method converts all characters in a string to lowercase.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello, World!&quot;;
+console.log(str.toLowerCase());  // &quot;hello, world!&quot;
+</code></pre>
+                <h4 id="h-touppercase--convert-to-uppercase"><strong>h. <code>toUpperCase()</code> – Convert to
+                        Uppercase</strong></h4>
+                <p>The <code>toUpperCase()</code> method converts all characters in a string to uppercase.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello, World!&quot;;
+console.log(str.toUpperCase());  // &quot;HELLO, WORLD!&quot;
+</code></pre>
+                <h4 id="i-trim--remove-whitespace-from-both-ends"><strong>i. <code>trim()</code> – Remove Whitespace
+                        from Both Ends</strong></h4>
+                <p>The <code>trim()</code> method removes any leading and trailing whitespace from a string.</p>
+                <pre><code class="language-javascript">const str = &quot;   Hello, World!   &quot;;
+console.log(str.trim());  // &quot;Hello, World!&quot;
+</code></pre>
+                <h4 id="j-replace--replace-a-substring"><strong>j. <code>replace()</code> – Replace a Substring</strong>
+                </h4>
+                <p>The <code>replace()</code> method searches for a substring and replaces it with a new substring. You
+                    can use regular expressions as well.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello, World!&quot;;
+const newStr = str.replace(&quot;World&quot;, &quot;JavaScript&quot;);
+console.log(newStr);  // &quot;Hello, JavaScript!&quot;
+</code></pre>
+                <h4 id="k-split--split-a-string-into-an-array"><strong>k. <code>split()</code> – Split a String into an
+                        Array</strong></h4>
+                <p>The <code>split()</code> method splits a string into an array of substrings based on a specified
+                    delimiter.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello, World!&quot;;
+const arr = str.split(&quot;, &quot;);
+console.log(arr);  // [&quot;Hello&quot;, &quot;World!&quot;]
+</code></pre>
+                <h4 id="l-concat--concatenate-two-or-more-strings"><strong>l. <code>concat()</code> – Concatenate Two or
+                        More Strings</strong></h4>
+                <p>The <code>concat()</code> method combines two or more strings into one.</p>
+                <pre><code class="language-javascript">const str1 = &quot;Hello, &quot;;
+const str2 = &quot;World!&quot;;
+const result = str1.concat(str2);
+console.log(result);  // &quot;Hello, World!&quot;
+</code></pre>
+                <h4 id="m-startswith--check-if-a-string-starts-with-a-substring"><strong>m. <code>startsWith()</code> –
+                        Check if a String Starts with a Substring</strong></h4>
+                <p>The <code>startsWith()</code> method checks if a string starts with a specified substring.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello, World!&quot;;
+console.log(str.startsWith(&quot;Hello&quot;));  // true
+console.log(str.startsWith(&quot;World&quot;));  // false
+</code></pre>
+                <h4 id="n-endswith--check-if-a-string-ends-with-a-substring"><strong>n. <code>endsWith()</code> – Check
+                        if a String Ends with a Substring</strong></h4>
+                <p>The <code>endsWith()</code> method checks if a string ends with a specified substring.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello, World!&quot;;
+console.log(str.endsWith(&quot;World!&quot;));  // true
+console.log(str.endsWith(&quot;Hello&quot;));   // false
+</code></pre>
+                <h4 id="o-repeat--repeat-a-string"><strong>o. <code>repeat()</code> – Repeat a String</strong></h4>
+                <p>The <code>repeat()</code> method creates a new string that repeats the original string a specified
+                    number of times.</p>
+                <pre><code class="language-javascript">const str = &quot;Hello &quot;;
+console.log(str.repeat(3));  // &quot;Hello Hello Hello &quot;
+</code></pre>
+                <h4 id="p-padstart-and-padend--pad-a-string"><strong>p. <code>padStart()</code> and
+                        <code>padEnd()</code> – Pad a String</strong></h4>
+                <p>The <code>padStart()</code> method pads the string from the start, and <code>padEnd()</code> pads the
+                    string from the end, with a specified character until it reaches the given length.</p>
+                <pre><code class="language-javascript">const str = &quot;5&quot;;
+console.log(str.padStart(3, &quot;0&quot;));  // &quot;005&quot;
+console.log(str.padEnd(3, &quot;0&quot;));    // &quot;500&quot;
+</code></pre>
+                <hr>
+                <h3 id="5-string-template-literals-backticks">5. <strong>String Template Literals (Backticks)</strong>
+                </h3>
+                <p>Template literals allow you to embed expressions inside a string. They are enclosed by backticks
+                    (<code>`</code>).</p>
+                <h4 id="a-basic-example"><strong>a. Basic Example:</strong></h4>
+                <pre><code class="language-javascript">const name = &quot;Alice&quot;;
+const greeting = `Hello, ${name}!`;
+console.log(greeting);  // &quot;Hello, Alice!&quot;
+</code></pre>
+                <h4 id="b-multi-line-strings"><strong>b. Multi-line Strings:</strong></h4>
+                <pre><code class="language-javascript">const str = `This is
+a multi-line
+string.`;
+console.log(str);
+// Output:
+// This is
+// a multi-line
+// string.
+</code></pre>
+                <hr>
+                <h3 id="6-summary-of-string-methods">6. <strong>Summary of String Methods</strong></h3>
+                <ul>
+                    <li><strong>Accessing</strong>: <code>charAt()</code>, <code>indexOf()</code>,
+                        <code>includes()</code>, <code>slice()</code>, <code>substring()</code></li>
+                    <li><strong>Modifying</strong>: <code>replace()</code>, <code>concat()</code>,
+                        <code>toLowerCase()</code>, <code>toUpperCase()</code></li>
+                    <li><strong>Trimming</strong>: <code>trim()</code></li>
+                    <li><strong>Splitting</strong>: <code>split()</code></li>
+                    <li><strong>Searching</strong>: <code>startsWith()</code>, <code>endsWith()</code></li>
+                    <li><strong>Repeating</strong>: <code>repeat()</code></li>
+                    <li><strong>Padding</strong>: <code>padStart()</code>, <code>padEnd()</code></li>
+                    <li><strong>Template Literals</strong>: Interpolation, multi-line strings</li>
+                </ul>
+                <p>These are the most commonly used methods to work with strings in JavaScript. Strings are an essential
+                    part of JavaScript, and knowing these methods will help you manipulate and work with them
+                    efficiently.</p>
+                <p>Let me know if you need more details or examples!</p>
+
+            </div>
+        </details>
+
+        <details>
+            <summary>JavaScript Number Properties and Methods</summary>
+            <div class="content">
+                <p>In JavaScript, the <code>Number</code> type represents both integer and floating-point numbers. The
+                    <code>Number</code> object provides useful properties and methods that allow you to manipulate and
+                    work with numerical values.</p>
+                <h3 id="1-number-properties">1. <strong>Number Properties</strong></h3>
+                <h4 id="a-numbermax_value"><strong>a. <code>Number.MAX_VALUE</code></strong></h4>
+                <p>This property represents the largest possible number that JavaScript can handle. It’s approximately
+                    <code>1.7976931348623157e+308</code>.</p>
+                <pre><code class="language-javascript">console.log(Number.MAX_VALUE);  // 1.7976931348623157e+308
+</code></pre>
+                <h4 id="b-numbermin_value"><strong>b. <code>Number.MIN_VALUE</code></strong></h4>
+                <p>This is the smallest positive number greater than 0 that JavaScript can represent, approximately
+                    <code>5e-324</code>.</p>
+                <pre><code class="language-javascript">console.log(Number.MIN_VALUE);  // 5e-324
+</code></pre>
+                <h4 id="c-numbernan"><strong>c. <code>Number.NaN</code></strong></h4>
+                <p>This property represents &quot;Not-a-Number,&quot; which is a special value returned when a
+                    calculation doesn&#39;t result in a valid number.</p>
+                <pre><code class="language-javascript">console.log(Number.NaN);  // NaN
+</code></pre>
+                <h4 id="d-numbernegative_infinity"><strong>d. <code>Number.NEGATIVE_INFINITY</code></strong></h4>
+                <p>This represents negative infinity, a value that&#39;s smaller than all other numbers.</p>
+                <pre><code class="language-javascript">console.log(Number.NEGATIVE_INFINITY);  // -Infinity
+</code></pre>
+                <h4 id="e-numberpositive_infinity"><strong>e. <code>Number.POSITIVE_INFINITY</code></strong></h4>
+                <p>This represents positive infinity, a value that&#39;s larger than all other numbers.</p>
+                <pre><code class="language-javascript">console.log(Number.POSITIVE_INFINITY);  // Infinity
+</code></pre>
+                <h4 id="f-numberepsilon"><strong>f. <code>Number.EPSILON</code></strong></h4>
+                <p>This represents the smallest difference between two representable numbers, often used to check for
+                    floating-point precision issues.</p>
+                <pre><code class="language-javascript">console.log(Number.EPSILON);  // 2.220446049250313e-16
+</code></pre>
+                <h4 id="g-numbermin_safe_integer"><strong>g. <code>Number.MIN_SAFE_INTEGER</code></strong></h4>
+                <p>This is the smallest integer that can be safely represented in JavaScript, which is
+                    <code>-2^53 + 1</code>, or <code>-9007199254740991</code>.</p>
+                <pre><code class="language-javascript">console.log(Number.MIN_SAFE_INTEGER);  // -9007199254740991
+</code></pre>
+                <h4 id="h-numbermax_safe_integer"><strong>h. <code>Number.MAX_SAFE_INTEGER</code></strong></h4>
+                <p>This is the largest integer that can be safely represented in JavaScript, which is
+                    <code>2^53 - 1</code>, or <code>9007199254740991</code>.</p>
+                <pre><code class="language-javascript">console.log(Number.MAX_SAFE_INTEGER);  // 9007199254740991
+</code></pre>
+                <hr>
+                <h3 id="2-number-methods">2. <strong>Number Methods</strong></h3>
+                <h4 id="a-numberisfinite"><strong>a. <code>Number.isFinite()</code></strong></h4>
+                <p>This method determines whether the provided value is a finite number (i.e., not
+                    <code>Infinity</code>, <code>-Infinity</code>, or <code>NaN</code>).</p>
+                <pre><code class="language-javascript">console.log(Number.isFinite(100));  // true
+console.log(Number.isFinite(Infinity));  // false
+console.log(Number.isFinite(NaN));  // false
+</code></pre>
+                <h4 id="b-numberisnan"><strong>b. <code>Number.isNaN()</code></strong></h4>
+                <p>This method checks whether the value is <code>NaN</code>. It’s more reliable than the global
+                    <code>isNaN()</code> function because it only returns <code>true</code> if the value is strictly
+                    <code>NaN</code>, not any other non-numeric values.</p>
+                <pre><code class="language-javascript">console.log(Number.isNaN(NaN));  // true
+console.log(Number.isNaN(&quot;Hello&quot;));  // false
+</code></pre>
+                <h4 id="c-numberisinteger"><strong>c. <code>Number.isInteger()</code></strong></h4>
+                <p>This method checks whether the value is an integer.</p>
+                <pre><code class="language-javascript">console.log(Number.isInteger(4));  // true
+console.log(Number.isInteger(4.5));  // false
+</code></pre>
+                <h4 id="d-numberparseint"><strong>d. <code>Number.parseInt()</code></strong></h4>
+                <p>This method parses a string and returns an integer. It also allows you to specify the base (radix) of
+                    the number system.</p>
+                <pre><code class="language-javascript">console.log(Number.parseInt(&quot;123&quot;));  // 123
+console.log(Number.parseInt(&quot;1011&quot;, 2));  // 11 (binary to decimal)
+</code></pre>
+                <h4 id="e-numberparsefloat"><strong>e. <code>Number.parseFloat()</code></strong></h4>
+                <p>This method parses a string and returns a floating-point number.</p>
+                <pre><code class="language-javascript">console.log(Number.parseFloat(&quot;3.14&quot;));  // 3.14
+console.log(Number.parseFloat(&quot;3.14abc&quot;));  // 3.14
+</code></pre>
+                <h4 id="f-numbertofixed"><strong>f. <code>Number.toFixed()</code></strong></h4>
+                <p>This method formats a number using fixed-point notation (rounding it to a specific number of decimal
+                    places) and returns it as a string.</p>
+                <pre><code class="language-javascript">const num = 3.14159;
+console.log(num.toFixed(2));  // &quot;3.14&quot;
+</code></pre>
+                <h4 id="g-numbertoprecision"><strong>g. <code>Number.toPrecision()</code></strong></h4>
+                <p>This method returns a string representing the number to a specified precision (total number of
+                    digits).</p>
+                <pre><code class="language-javascript">const num = 3.14159;
+console.log(num.toPrecision(3));  // &quot;3.14&quot;
+</code></pre>
+                <h4 id="h-numbertostring"><strong>h. <code>Number.toString()</code></strong></h4>
+                <p>This method converts a number into a string representation. You can also specify a base (radix) for
+                    conversion.</p>
+                <pre><code class="language-javascript">const num = 255;
+console.log(num.toString(16));  // &quot;ff&quot; (hexadecimal representation)
+console.log(num.toString(2));   // &quot;11111111&quot; (binary representation)
+</code></pre>
+                <h4 id="i-numbervalueof"><strong>i. <code>Number.valueOf()</code></strong></h4>
+                <p>This method returns the primitive value of a number (it’s mostly used internally but can be helpful
+                    when dealing with wrapper objects).</p>
+                <pre><code class="language-javascript">const num = new Number(100);
+console.log(num.valueOf());  // 100
+</code></pre>
+                <h4 id="j-numberissafeinteger"><strong>j. <code>Number.isSafeInteger()</code></strong></h4>
+                <p>This method determines whether the provided value is a safe integer (i.e., between
+                    <code>Number.MIN_SAFE_INTEGER</code> and <code>Number.MAX_SAFE_INTEGER</code>).</p>
+                <pre><code class="language-javascript">console.log(Number.isSafeInteger(9007199254740991));  // true
+console.log(Number.isSafeInteger(9007199254740992));  // false
+</code></pre>
+                <hr>
+                <h3 id="3-examples-and-usage">3. <strong>Examples and Usage</strong></h3>
+                <h4 id="a-converting-string-to-number"><strong>a. Converting String to Number</strong></h4>
+                <p>You can use <code>Number()</code>, <code>parseInt()</code>, or <code>parseFloat()</code> to convert
+                    strings into numbers.</p>
+                <pre><code class="language-javascript">console.log(Number(&quot;123&quot;));  // 123 (Number)
+console.log(parseInt(&quot;123abc&quot;));  // 123 (Integer)
+console.log(parseFloat(&quot;3.14abc&quot;));  // 3.14 (Float)
+</code></pre>
+                <h4 id="b-checking-for-nan-and-infinity"><strong>b. Checking for NaN and Infinity</strong></h4>
+                <p>Use <code>Number.isNaN()</code> and <code>Number.isFinite()</code> to validate whether a number is
+                    valid.</p>
+                <pre><code class="language-javascript">console.log(Number.isNaN(&quot;123&quot;));  // false
+console.log(Number.isNaN(NaN));  // true
+console.log(Number.isFinite(100));  // true
+console.log(Number.isFinite(Infinity));  // false
+</code></pre>
+                <h4 id="c-formatting-numbers"><strong>c. Formatting Numbers</strong></h4>
+                <p>You can use <code>toFixed()</code> to format the number to a fixed number of decimal places.</p>
+                <pre><code class="language-javascript">const num = 10.4567;
+console.log(num.toFixed(2));  // &quot;10.46&quot;
+</code></pre>
+                <h4 id="d-checking-for-safe-integers"><strong>d. Checking for Safe Integers</strong></h4>
+                <p>You can use <code>Number.isSafeInteger()</code> to check whether an integer is safe to use in
+                    JavaScript.</p>
+                <pre><code class="language-javascript">console.log(Number.isSafeInteger(123456789));  // true
+console.log(Number.isSafeInteger(9007199254740992));  // false
+</code></pre>
+                <hr>
+                <h3 id="4-summary-of-important-number-methods-and-properties">4. <strong>Summary of Important
+                        <code>Number</code> Methods and Properties</strong></h3>
+                <ul>
+                    <li>
+                        <p><strong>Properties</strong>:</p>
+                        <ul>
+                            <li><code>Number.MAX_VALUE</code>, <code>Number.MIN_VALUE</code></li>
+                            <li><code>Number.NaN</code>, <code>Number.POSITIVE_INFINITY</code>,
+                                <code>Number.NEGATIVE_INFINITY</code></li>
+                            <li><code>Number.MIN_SAFE_INTEGER</code>, <code>Number.MAX_SAFE_INTEGER</code></li>
+                            <li><code>Number.EPSILON</code></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p><strong>Methods</strong>:</p>
+                        <ul>
+                            <li><code>Number.isFinite()</code>, <code>Number.isNaN()</code>,
+                                <code>Number.isInteger()</code>, <code>Number.isSafeInteger()</code></li>
+                            <li><code>Number.parseInt()</code>, <code>Number.parseFloat()</code></li>
+                            <li><code>Number.toFixed()</code>, <code>Number.toPrecision()</code>,
+                                <code>Number.toString()</code></li>
+                            <li><code>Number.valueOf()</code></li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>These properties and methods provide a powerful set of tools for working with numbers in JavaScript,
+                    allowing you to manage and manipulate numerical data effectively.</p>
+                <p>Let me know if you need more information or specific examples!</p>
+
+            </div>
+        </details>
+
+        <details>
+            <summary>JavaScript Math Methods</summary>
+            <div class="content">
+                <p>In JavaScript, the <code>Math</code> object provides a set of mathematical methods and constants that
+                    are useful for performing mathematical operations. These methods can handle basic arithmetic,
+                    advanced mathematical functions, and constants.</p>
+                <h3 id="1-math-constants">1. <strong>Math Constants</strong></h3>
+                <h4 id="a-mathpi"><strong>a. <code>Math.PI</code></strong></h4>
+                <p>This constant represents the value of π (pi), approximately <code>3.141592653589793</code>.</p>
+                <pre><code class="language-javascript">console.log(Math.PI);  // 3.141592653589793
+</code></pre>
+                <h4 id="b-mathe"><strong>b. <code>Math.E</code></strong></h4>
+                <p>This constant represents Euler&#39;s number (e), approximately <code>2.718281828459045</code>.</p>
+                <pre><code class="language-javascript">console.log(Math.E);  // 2.718281828459045
+</code></pre>
+                <h4 id="c-mathln2"><strong>c. <code>Math.LN2</code></strong></h4>
+                <p>This constant represents the natural logarithm of 2, approximately <code>0.6931471805599453</code>.
+                </p>
+                <pre><code class="language-javascript">console.log(Math.LN2);  // 0.6931471805599453
+</code></pre>
+                <h4 id="d-mathln10"><strong>d. <code>Math.LN10</code></strong></h4>
+                <p>This constant represents the natural logarithm of 10, approximately <code>2.302585092994046</code>.
+                </p>
+                <pre><code class="language-javascript">console.log(Math.LN10);  // 2.302585092994046
+</code></pre>
+                <h4 id="e-mathlog2e"><strong>e. <code>Math.LOG2E</code></strong></h4>
+                <p>This constant represents the logarithm of e (Euler&#39;s number) to the base 2, approximately
+                    <code>1.4426950408889634</code>.</p>
+                <pre><code class="language-javascript">console.log(Math.LOG2E);  // 1.4426950408889634
+</code></pre>
+                <h4 id="f-mathlog10e"><strong>f. <code>Math.LOG10E</code></strong></h4>
+                <p>This constant represents the logarithm of e to the base 10, approximately
+                    <code>0.4342944819032518</code>.</p>
+                <pre><code class="language-javascript">console.log(Math.LOG10E);  // 0.4342944819032518
+</code></pre>
+                <h4 id="g-mathsqrt2"><strong>g. <code>Math.SQRT2</code></strong></h4>
+                <p>This constant represents the square root of 2, approximately <code>1.4142135623730951</code>.</p>
+                <pre><code class="language-javascript">console.log(Math.SQRT2);  // 1.4142135623730951
+</code></pre>
+                <h4 id="h-mathsqrt1_2"><strong>h. <code>Math.SQRT1_2</code></strong></h4>
+                <p>This constant represents the square root of 1/2, approximately <code>0.7071067811865476</code>.</p>
+                <pre><code class="language-javascript">console.log(Math.SQRT1_2);  // 0.7071067811865476
+</code></pre>
+                <h4 id="i-mathmax_value"><strong>i. <code>Math.MAX_VALUE</code></strong></h4>
+                <p>This is the largest possible number in JavaScript. It’s approximately
+                    <code>1.7976931348623157e+308</code>.</p>
+                <pre><code class="language-javascript">console.log(Math.MAX_VALUE);  // 1.7976931348623157e+308
+</code></pre>
+                <h4 id="j-mathmin_value"><strong>j. <code>Math.MIN_VALUE</code></strong></h4>
+                <p>This is the smallest positive number greater than 0 in JavaScript. It’s approximately
+                    <code>5e-324</code>.</p>
+                <pre><code class="language-javascript">console.log(Math.MIN_VALUE);  // 5e-324
+</code></pre>
+                <hr>
+                <h3 id="2-math-methods">2. <strong>Math Methods</strong></h3>
+                <h4 id="a-mathabs"><strong>a. <code>Math.abs()</code></strong></h4>
+                <p>This method returns the absolute value of a number (the distance from zero).</p>
+                <pre><code class="language-javascript">console.log(Math.abs(-10));  // 10
+console.log(Math.abs(10));   // 10
+</code></pre>
+                <h4 id="b-mathceil"><strong>b. <code>Math.ceil()</code></strong></h4>
+                <p>This method returns the smallest integer greater than or equal to the given number (rounding up).</p>
+                <pre><code class="language-javascript">console.log(Math.ceil(4.1));  // 5
+console.log(Math.ceil(9.9));  // 10
+</code></pre>
+                <h4 id="c-mathfloor"><strong>c. <code>Math.floor()</code></strong></h4>
+                <p>This method returns the largest integer less than or equal to the given number (rounding down).</p>
+                <pre><code class="language-javascript">console.log(Math.floor(4.9));  // 4
+console.log(Math.floor(9.1));  // 9
+</code></pre>
+                <h4 id="d-mathround"><strong>d. <code>Math.round()</code></strong></h4>
+                <p>This method rounds a number to the nearest integer.</p>
+                <pre><code class="language-javascript">console.log(Math.round(4.5));  // 5
+console.log(Math.round(4.4));  // 4
+</code></pre>
+                <h4 id="e-mathpow"><strong>e. <code>Math.pow()</code></strong></h4>
+                <p>This method returns the base raised to the exponent power, i.e., <code>base^exponent</code>.</p>
+                <pre><code class="language-javascript">console.log(Math.pow(2, 3));  // 8 (2^3)
+console.log(Math.pow(5, 2));  // 25 (5^2)
+</code></pre>
+                <h4 id="f-mathsqrt"><strong>f. <code>Math.sqrt()</code></strong></h4>
+                <p>This method returns the square root of a number.</p>
+                <pre><code class="language-javascript">console.log(Math.sqrt(9));  // 3
+console.log(Math.sqrt(16)); // 4
+</code></pre>
+                <h4 id="g-mathmin"><strong>g. <code>Math.min()</code></strong></h4>
+                <p>This method returns the smallest of the numbers provided as arguments.</p>
+                <pre><code class="language-javascript">console.log(Math.min(1, 2, 3));  // 1
+console.log(Math.min(-1, -2, -3)); // -3
+</code></pre>
+                <h4 id="h-mathmax"><strong>h. <code>Math.max()</code></strong></h4>
+                <p>This method returns the largest of the numbers provided as arguments.</p>
+                <pre><code class="language-javascript">console.log(Math.max(1, 2, 3));  // 3
+console.log(Math.max(-1, -2, -3)); // -1
+</code></pre>
+                <h4 id="i-mathrandom"><strong>i. <code>Math.random()</code></strong></h4>
+                <p>This method returns a pseudo-random number between <code>0</code> (inclusive) and <code>1</code>
+                    (exclusive).</p>
+                <pre><code class="language-javascript">console.log(Math.random());  // A random number between 0 and 1
+</code></pre>
+                <h4 id="j-mathsin"><strong>j. <code>Math.sin()</code></strong></h4>
+                <p>This method returns the sine of a number (in radians).</p>
+                <pre><code class="language-javascript">console.log(Math.sin(Math.PI / 2));  // 1 (sine of 90 degrees or π/2 radians)
+</code></pre>
+                <h4 id="k-mathcos"><strong>k. <code>Math.cos()</code></strong></h4>
+                <p>This method returns the cosine of a number (in radians).</p>
+                <pre><code class="language-javascript">console.log(Math.cos(Math.PI));  // -1 (cosine of 180 degrees or π radians)
+</code></pre>
+                <h4 id="l-mathtan"><strong>l. <code>Math.tan()</code></strong></h4>
+                <p>This method returns the tangent of a number (in radians).</p>
+                <pre><code class="language-javascript">console.log(Math.tan(Math.PI / 4));  // 1 (tangent of 45 degrees or π/4 radians)
+</code></pre>
+                <h4 id="m-mathlog"><strong>m. <code>Math.log()</code></strong></h4>
+                <p>This method returns the natural logarithm (base <code>e</code>) of a number.</p>
+                <pre><code class="language-javascript">console.log(Math.log(10));  // 2.302585092994046 (ln(10))
+</code></pre>
+                <h4 id="n-mathlog10"><strong>n. <code>Math.log10()</code></strong></h4>
+                <p>This method returns the base 10 logarithm of a number.</p>
+                <pre><code class="language-javascript">console.log(Math.log10(100));  // 2 (log10(100))
+</code></pre>
+                <h4 id="o-mathlog2"><strong>o. <code>Math.log2()</code></strong></h4>
+                <p>This method returns the base 2 logarithm of a number.</p>
+                <pre><code class="language-javascript">console.log(Math.log2(8));  // 3 (log2(8))
+</code></pre>
+                <h4 id="p-mathexp"><strong>p. <code>Math.exp()</code></strong></h4>
+                <p>This method returns <code>e</code> raised to the power of a number.</p>
+                <pre><code class="language-javascript">console.log(Math.exp(1));  // 2.718281828459045 (e^1)
+</code></pre>
+                <h4 id="q-mathcbrt"><strong>q. <code>Math.cbrt()</code></strong></h4>
+                <p>This method returns the cube root of a number.</p>
+                <pre><code class="language-javascript">console.log(Math.cbrt(27));  // 3 (cube root of 27)
+</code></pre>
+                <h4 id="r-mathtrunc"><strong>r. <code>Math.trunc()</code></strong></h4>
+                <p>This method returns the integer part of a number by removing the decimal part (truncates the number).
+                </p>
+                <pre><code class="language-javascript">console.log(Math.trunc(4.9));  // 4
+console.log(Math.trunc(-4.9)); // -4
+</code></pre>
+                <h4 id="s-mathimul"><strong>s. <code>Math.imul()</code></strong></h4>
+                <p>This method performs a 32-bit integer multiplication of two numbers.</p>
+                <pre><code class="language-javascript">console.log(Math.imul(2, 3));  // 6
+console.log(Math.imul(100, 200));  // 20000
+</code></pre>
+                <hr>
+                <h3 id="3-common-use-cases-for-math-methods">3. <strong>Common Use Cases for <code>Math</code>
+                        Methods</strong></h3>
+                <h4 id="a-random-integer-between-two-values"><strong>a. Random Integer Between Two Values</strong></h4>
+                <p>To generate a random integer between a given range (inclusive):</p>
+                <pre><code class="language-javascript">const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
+</code></pre>
+                <p>Example to get a random number between 1 and 100:</p>
+                <pre><code class="language-javascript">const min = 1;
+const max = 100;
+const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+console.log(randomNumber);
+</code></pre>
+                <h4 id="b-rounding-to-a-specific-decimal-place"><strong>b. Rounding to a Specific Decimal Place</strong>
+                </h4>
+                <p>To round a number to <code>n</code> decimal places:</p>
+                <pre><code class="language-javascript">const number = 3.14159;
+const rounded = Math.round(number * 100) / 100;  // Rounds to two decimal places
+console.log(rounded);  // 3.14
+</code></pre>
+                <h4 id="c-finding-the-hypotenuse-using-pythagoras-theorem"><strong>c. Finding the Hypotenuse Using
+                        Pythagoras Theorem</strong></h4>
+                <p>Using <code>Math.sqrt()</code> and <code>Math.pow()</code>:</p>
+                <pre><code class="language-javascript">const a = 3;
+const b = 4;
+const hypotenuse = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));  // 5
+console.log(hypotenuse);
+</code></pre>
+                <hr>
+                <h3 id="4-summary-of-math-methods">4. <strong>Summary of Math Methods</strong></h3>
+                <ul>
+                    <li><strong>Basic Arithmetic</strong>: <code>Math.abs()</code>, <code>Math.ceil()</code>,
+                        <code>Math.floor()</code>, <code>Math.round()</code>, <code>Math.pow()</code>,
+                        <code>Math.sqrt()</code></li>
+                    <li><strong>Logarithmic</strong>: <code>Math.log()</code>, <code>Math.log10()</code>,
+                        <code>Math.log2()</code></li>
+                    <li><strong>Trigonometric</strong>: <code>Math.sin()</code>, <code>Math.cos()</code>,
+                        <code>Math.tan()</code></li>
+                    <li><strong>Min/Max/Random</strong>: `Math.min</li>
+                </ul>
+                <p>()<code>, </code>Math.max()<code>, </code>Math.random()`</p>
+                <ul>
+                    <li><strong>Special</strong>: <code>Math.trunc()</code>, <code>Math.cbrt()</code>,
+                        <code>Math.exp()</code>, <code>Math.imul()</code></li>
+                </ul>
+                <p>These methods and constants are vital for performing calculations and manipulating numerical values
+                    in JavaScript. You can combine them in various ways to solve different mathematical problems
+                    efficiently.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>JavaScript Dates</summary>
+            <div class="content">
+                <p>In JavaScript, the <code>Date</code> object is used to handle and manipulate dates and times. It
+                    provides methods to create, access, and modify dates, as well as to perform operations such as date
+                    comparison and formatting.</p>
+                <h3 id="1-creating-date-objects">1. <strong>Creating Date Objects</strong></h3>
+                <h4 id="a-new-date"><strong>a. <code>new Date()</code></strong></h4>
+                <p>This constructor creates a new <code>Date</code> object with the current date and time.</p>
+                <pre><code class="language-javascript">const currentDate = new Date();
+console.log(currentDate);  // Outputs the current date and time
+</code></pre>
+                <h4 id="b-new-datemilliseconds"><strong>b. <code>new Date(milliseconds)</code></strong></h4>
+                <p>Creates a new <code>Date</code> object from a specific number of milliseconds since January 1, 1970,
+                    00:00:00 UTC (the Unix epoch).</p>
+                <pre><code class="language-javascript">const dateFromMilliseconds = new Date(1672531199000);
+console.log(dateFromMilliseconds);  // Corresponds to a specific date
+</code></pre>
+                <h4 id="c-new-datedatestring"><strong>c. <code>new Date(dateString)</code></strong></h4>
+                <p>Creates a new <code>Date</code> object from a date string (e.g.,
+                    <code>&quot;2024-12-25&quot;</code>).</p>
+                <pre><code class="language-javascript">const specificDate = new Date(&quot;2024-12-25&quot;);
+console.log(specificDate);  // Outputs: Wed Dec 25 2024 00:00:00 GMT...
+</code></pre>
+                <h4 id="d-new-dateyear-month-day-hours-minutes-seconds-milliseconds"><strong>d.
+                        <code>new Date(year, month, day, hours, minutes, seconds, milliseconds)</code></strong></h4>
+                <p>Creates a new <code>Date</code> object based on the specified components. The month is 0-indexed (0 =
+                    January, 1 = February, etc.).</p>
+                <pre><code class="language-javascript">const customDate = new Date(2024, 11, 25, 12, 0, 0);  // December 25, 2024 at 12:00:00
+console.log(customDate);  // Outputs: Wed Dec 25 2024 12:00:00 GMT...
+</code></pre>
+                <hr>
+                <h3 id="2-date-methods">2. <strong>Date Methods</strong></h3>
+                <h4 id="a-getdate"><strong>a. <code>getDate()</code></strong></h4>
+                <p>Returns the day of the month (1 to 31) for the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25&quot;);
+console.log(date.getDate());  // 25
+</code></pre>
+                <h4 id="b-getday"><strong>b. <code>getDay()</code></strong></h4>
+                <p>Returns the day of the week (0 for Sunday, 1 for Monday, etc.).</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25&quot;);
+console.log(date.getDay());  // 3 (Wednesday)
+</code></pre>
+                <h4 id="c-getmonth"><strong>c. <code>getMonth()</code></strong></h4>
+                <p>Returns the month (0 for January, 1 for February, etc.).</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25&quot;);
+console.log(date.getMonth());  // 11 (December)
+</code></pre>
+                <h4 id="d-getfullyear"><strong>d. <code>getFullYear()</code></strong></h4>
+                <p>Returns the four-digit year.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25&quot;);
+console.log(date.getFullYear());  // 2024
+</code></pre>
+                <h4 id="e-gethours"><strong>e. <code>getHours()</code></strong></h4>
+                <p>Returns the hour (0 to 23) of the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25T15:30:00&quot;);
+console.log(date.getHours());  // 15
+</code></pre>
+                <h4 id="f-getminutes"><strong>f. <code>getMinutes()</code></strong></h4>
+                <p>Returns the minutes (0 to 59) of the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25T15:30:00&quot;);
+console.log(date.getMinutes());  // 30
+</code></pre>
+                <h4 id="g-getseconds"><strong>g. <code>getSeconds()</code></strong></h4>
+                <p>Returns the seconds (0 to 59) of the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25T15:30:45&quot;);
+console.log(date.getSeconds());  // 45
+</code></pre>
+                <h4 id="h-getmilliseconds"><strong>h. <code>getMilliseconds()</code></strong></h4>
+                <p>Returns the milliseconds (0 to 999) of the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25T15:30:45.123&quot;);
+console.log(date.getMilliseconds());  // 123
+</code></pre>
+                <h4 id="i-gettime"><strong>i. <code>getTime()</code></strong></h4>
+                <p>Returns the time value (in milliseconds since the Unix epoch) for the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25&quot;);
+console.log(date.getTime());  // 1735123200000 (milliseconds since Jan 1, 1970)
+</code></pre>
+                <h4 id="j-gettimezoneoffset"><strong>j. <code>getTimezoneOffset()</code></strong></h4>
+                <p>Returns the difference, in minutes, between the UTC time and the local time.</p>
+                <pre><code class="language-javascript">const date = new Date();
+console.log(date.getTimezoneOffset());  // Example output: -480 (for UTC-8)
+</code></pre>
+                <hr>
+                <h3 id="3-setting-date-components">3. <strong>Setting Date Components</strong></h3>
+                <h4 id="a-setdate"><strong>a. <code>setDate()</code></strong></h4>
+                <p>Sets the day of the month (1 to 31) for the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25&quot;);
+date.setDate(1);  // Set day to 1st
+console.log(date);  // Outputs: Mon Dec 01 2024 00:00:00 GMT...
+</code></pre>
+                <h4 id="b-setmonth"><strong>b. <code>setMonth()</code></strong></h4>
+                <p>Sets the month (0 for January, 1 for February, etc.) for the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25&quot;);
+date.setMonth(0);  // Set month to January
+console.log(date);  // Outputs: Mon Jan 25 2024 00:00:00 GMT...
+</code></pre>
+                <h4 id="c-setfullyear"><strong>c. <code>setFullYear()</code></strong></h4>
+                <p>Sets the four-digit year for the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25&quot;);
+date.setFullYear(2025);  // Set year to 2025
+console.log(date);  // Outputs: Fri Dec 25 2025 00:00:00 GMT...
+</code></pre>
+                <h4 id="d-sethours"><strong>d. <code>setHours()</code></strong></h4>
+                <p>Sets the hour (0 to 23) for the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25T10:30:00&quot;);
+date.setHours(15);  // Set hour to 15:00
+console.log(date);  // Outputs: Thu Dec 25 2024 15:00:00 GMT...
+</code></pre>
+                <h4 id="e-setminutes"><strong>e. <code>setMinutes()</code></strong></h4>
+                <p>Sets the minutes (0 to 59) for the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25T10:30:00&quot;);
+date.setMinutes(45);  // Set minutes to 45
+console.log(date);  // Outputs: Thu Dec 25 2024 10:45:00 GMT...
+</code></pre>
+                <h4 id="f-setseconds"><strong>f. <code>setSeconds()</code></strong></h4>
+                <p>Sets the seconds (0 to 59) for the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25T10:30:00&quot;);
+date.setSeconds(59);  // Set seconds to 59
+console.log(date);  // Outputs: Thu Dec 25 2024 10:30:59 GMT...
+</code></pre>
+                <h4 id="g-setmilliseconds"><strong>g. <code>setMilliseconds()</code></strong></h4>
+                <p>Sets the milliseconds (0 to 999) for the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25T10:30:00.000&quot;);
+date.setMilliseconds(500);  // Set milliseconds to 500
+console.log(date);  // Outputs: Thu Dec 25 2024 10:30:00.500 GMT...
+</code></pre>
+                <hr>
+                <h3 id="4-other-date-methods">4. <strong>Other Date Methods</strong></h3>
+                <h4 id="a-datenow"><strong>a. <code>Date.now()</code></strong></h4>
+                <p>Returns the current timestamp (milliseconds since the Unix epoch).</p>
+                <pre><code class="language-javascript">console.log(Date.now());  // 1672531199000 (current timestamp)
+</code></pre>
+                <h4 id="b-dateparse"><strong>b. <code>Date.parse()</code></strong></h4>
+                <p>Parses a date string and returns the corresponding timestamp (milliseconds since the Unix epoch).</p>
+                <pre><code class="language-javascript">console.log(Date.parse(&quot;2024-12-25&quot;));  // 1735123200000 (timestamp)
+</code></pre>
+                <h4 id="c-dateutc"><strong>c. <code>Date.UTC()</code></strong></h4>
+                <p>Creates a date object from the specified components, returning the timestamp (milliseconds since the
+                    Unix epoch) based on UTC.</p>
+                <pre><code class="language-javascript">const utcTimestamp = Date.UTC(2024, 11, 25, 10, 30, 0);  // December 25, 2024, 10:30 UTC
+console.log(utcTimestamp);  // 1735134600000
+</code></pre>
+                <h4 id="d-tostring"><strong>d. <code>toString()</code></strong></h4>
+                <p>Returns a string representing the specified date.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25&quot;);
+console.log(date.toString());  // &quot;Wed Dec 25 2024 00:00:00 GMT...&quot;
+</code></pre>
+                <h4 id="e-tolocaledatestring"><strong>e. <code>toLocaleDateString()</code></strong></h4>
+                <p>Returns a string representing the date portion of the specified date, formatted according to the
+                    local settings.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25&quot;);
+console.log(date.toLocaleDateString());  // &quot;12/25/2024&quot; (for US locale)
+</code></pre>
+                <h4 id="f-tolocaletimestring"><strong>f. <code>toLocaleTimeString()</code></strong></h4>
+                <p>Returns a string representing the time portion of the specified date, formatted according to the
+                    local settings.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25T10:30:00&quot;);
+console.log(date.toLocaleTimeString());  // &quot;10:30:00 AM&quot; (for US locale)
+</code></pre>
+                <h4 id="g-toisostring"><strong>g. <code>toISOString()</code></strong></h4>
+                <p>Returns a string representing the date in ISO 8601 format.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25&quot;);
+console.log(date.toISOString());  // &quot;2024-12-25T00:00:00.000Z&quot;
+</code></pre>
+                <h4 id="h-toutcstring"><strong>h. <code>toUTCString()</code></strong></h4>
+                <p>Returns</p>
+                <p> a string representing the date in UTC time zone.</p>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25&quot;);
+console.log(date.toUTCString());  // &quot;Wed, 25 Dec 2024 00:00:00 GMT&quot;
+</code></pre>
+                <hr>
+                <h3 id="5-common-use-cases">5. <strong>Common Use Cases</strong></h3>
+                <h4 id="a-getting-the-current-date-and-time"><strong>a. Getting the Current Date and Time</strong></h4>
+                <pre><code class="language-javascript">const now = new Date();
+console.log(now);  // Current date and time
+</code></pre>
+                <h4 id="b-formatting-dates"><strong>b. Formatting Dates</strong></h4>
+                <pre><code class="language-javascript">const date = new Date(&quot;2024-12-25&quot;);
+const formattedDate = date.toLocaleDateString(&quot;en-US&quot;);  // Format as MM/DD/YYYY
+console.log(formattedDate);  // &quot;12/25/2024&quot;
+</code></pre>
+                <h4 id="c-calculating-time-difference"><strong>c. Calculating Time Difference</strong></h4>
+                <p>To calculate the difference in days between two dates:</p>
+                <pre><code class="language-javascript">const date1 = new Date(&quot;2024-12-25&quot;);
+const date2 = new Date(&quot;2024-12-30&quot;);
+const diffTime = Math.abs(date2 - date1);
+const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));  // Convert to days
+console.log(diffDays);  // 5
+</code></pre>
+                <hr>
+                <h3 id="6-summary-of-date-methods">6. <strong>Summary of Date Methods</strong></h3>
+                <ul>
+                    <li><strong>Creating Date</strong>: <code>new Date()</code>, <code>new Date(milliseconds)</code>,
+                        <code>new Date(dateString)</code>,
+                        <code>new Date(year, month, day, hours, minutes, seconds, milliseconds)</code></li>
+                    <li><strong>Getting Date Components</strong>: <code>getDate()</code>, <code>getDay()</code>,
+                        <code>getMonth()</code>, <code>getFullYear()</code>, <code>getHours()</code>,
+                        <code>getMinutes()</code>, <code>getSeconds()</code>, <code>getMilliseconds()</code>,
+                        <code>getTime()</code>, <code>getTimezoneOffset()</code></li>
+                    <li><strong>Setting Date Components</strong>: <code>setDate()</code>, <code>setMonth()</code>,
+                        <code>setFullYear()</code>, <code>setHours()</code>, <code>setMinutes()</code>,
+                        <code>setSeconds()</code>, <code>setMilliseconds()</code></li>
+                    <li><strong>Other Methods</strong>: <code>Date.now()</code>, <code>Date.parse()</code>,
+                        <code>Date.UTC()</code>, <code>toString()</code>, <code>toLocaleDateString()</code>,
+                        <code>toLocaleTimeString()</code>, <code>toISOString()</code>, <code>toUTCString()</code></li>
+                </ul>
+                <p>The <code>Date</code> object is incredibly versatile and can be used to handle time-based tasks in
+                    JavaScript. It provides methods for everything from simple date manipulation to advanced formatting
+                    and conversion.</p>
+
+            </div>
+        </details>
+
+        <details>
+            <summary>JavaScript Web Workers API</summary>
+            <div class="content">
+                <p>The <strong>Web Workers API</strong> in JavaScript provides a way to run scripts in the background on a separate thread, outside the main execution thread (UI thread). This enables your web applications to perform tasks like data processing, complex calculations, or network requests without blocking the UI, ensuring that the application remains responsive.</p>
+<h3 id="1-why-use-web-workers">1. <strong>Why Use Web Workers?</strong></h3>
+<p>Web Workers allow you to:</p>
+<ul>
+<li>Offload intensive tasks to a separate thread.</li>
+<li>Prevent UI freezing when performing long-running operations.</li>
+<li>Handle background tasks, such as data processing or large computations, without affecting the user interface.</li>
+</ul>
+<h3 id="2-creating-a-web-worker">2. <strong>Creating a Web Worker</strong></h3>
+<p>Web Workers are created using the <code>Worker</code> constructor, which requires a script (usually a separate JavaScript file) to be executed in the worker thread.</p>
+<h4 id="example-creating-a-simple-worker">Example: Creating a Simple Worker</h4>
+<p><strong>1. Create a Worker Script (worker.js):</strong></p>
+<pre><code class="language-javascript">// worker.js
+onmessage = function(event) {
+  const number = event.data;
+  const result = number * 2;  // Some background computation
+  postMessage(result);  // Send result back to the main thread
+};
+</code></pre>
+<p><strong>2. Main Thread (index.js):</strong></p>
+<pre><code class="language-javascript">// index.js
+const worker = new Worker(&#39;worker.js&#39;);  // Create a new worker instance
+
+// Listen for messages from the worker
+worker.onmessage = function(event) {
+  const result = event.data;
+  console.log(&#39;Result from worker: &#39;, result);  // Output: Result from worker: 4
+};
+
+// Send data to the worker
+worker.postMessage(2);  // Send a number to the worker for computation
+</code></pre>
+<p>In this example:</p>
+<ul>
+<li>The worker script (<code>worker.js</code>) listens for messages using <code>onmessage</code> and sends a result back to the main thread using <code>postMessage</code>.</li>
+<li>The main script (<code>index.js</code>) creates a new worker instance, sends data (<code>2</code>), and listens for the result via <code>onmessage</code>.</li>
+</ul>
+<h3 id="3-worker-lifecycle">3. <strong>Worker Lifecycle</strong></h3>
+<p>A Web Worker goes through the following stages:</p>
+<ol>
+<li><strong>Creation</strong>: The <code>Worker</code> object is created.</li>
+<li><strong>Execution</strong>: The worker executes its script in a separate thread.</li>
+<li><strong>Communication</strong>: The worker and the main thread communicate via messages (using <code>postMessage()</code> and <code>onmessage</code>).</li>
+<li><strong>Termination</strong>: The worker is terminated either by the main thread or by itself.</li>
+</ol>
+<h4 id="stopping-a-worker">Stopping a Worker</h4>
+<ul>
+<li><strong>From the main thread</strong>: You can terminate the worker explicitly using <code>terminate()</code>.</li>
+</ul>
+<pre><code class="language-javascript">worker.terminate();  // Stop the worker immediately
+</code></pre>
+<ul>
+<li><strong>From the worker thread</strong>: The worker can terminate itself using <code>close()</code>.</li>
+</ul>
+<pre><code class="language-javascript">// Inside worker.js
+close();  // Terminates the worker
+</code></pre>
+<h3 id="4-communication-between-main-thread-and-worker">4. <strong>Communication Between Main Thread and Worker</strong></h3>
+<p>Communication between the main thread and the worker is done through <strong>message passing</strong>. The main thread sends data to the worker using <code>postMessage()</code>, and the worker sends data back using <code>postMessage()</code>.</p>
+<h4 id="example-sending-complex-data">Example: Sending Complex Data</h4>
+<p>You can pass more complex data, such as objects and arrays, between the main thread and the worker.</p>
+<pre><code class="language-javascript">// main thread (index.js)
+const worker = new Worker(&#39;worker.js&#39;);
+
+worker.onmessage = function(event) {
+  const result = event.data;
+  console.log(&#39;Processed data:&#39;, result);
+};
+
+const data = { a: 10, b: 20 };
+worker.postMessage(data);  // Send object to worker
+</code></pre>
+<p><strong>worker.js</strong>:</p>
+<pre><code class="language-javascript">onmessage = function(event) {
+  const data = event.data;
+  const sum = data.a + data.b;
+  postMessage(sum);  // Send result back to main thread
+};
+</code></pre>
+<p>This allows the worker to process the data and return a result to the main thread.</p>
+<h3 id="5-error-handling-in-web-workers">5. <strong>Error Handling in Web Workers</strong></h3>
+<p>Errors that occur inside a worker thread do not propagate to the main thread. You need to explicitly handle them using <code>onerror</code> in both the main thread and worker thread.</p>
+<h4 id="example-error-handling-in-the-worker">Example: Error Handling in the Worker</h4>
+<p><strong>Main thread (index.js):</strong></p>
+<pre><code class="language-javascript">const worker = new Worker(&#39;worker.js&#39;);
+
+worker.onerror = function(error) {
+  console.error(&#39;Error in worker:&#39;, error.message);
+};
+
+worker.onmessage = function(event) {
+  console.log(&#39;Result:&#39;, event.data);
+};
+</code></pre>
+<p><strong>Worker script (worker.js):</strong></p>
+<pre><code class="language-javascript">onmessage = function() {
+  throw new Error(&quot;Something went wrong in the worker!&quot;);
+};
+</code></pre>
+<p>When the error occurs, the main thread will log it using the <code>onerror</code> handler.</p>
+<h3 id="6-using-web-workers-with-shared-memory-sharedarraybuffer">6. <strong>Using Web Workers with Shared Memory (SharedArrayBuffer)</strong></h3>
+<p>For more advanced use cases, workers can share memory using <code>SharedArrayBuffer</code> and <code>Atomics</code>. This is helpful for managing large datasets without needing to copy data back and forth between threads.</p>
+<pre><code class="language-javascript">// Main thread
+const buffer = new SharedArrayBuffer(1024);  // Create shared memory buffer
+const worker = new Worker(&#39;worker.js&#39;);
+worker.postMessage(buffer);  // Send shared buffer to worker
+</code></pre>
+<p>In the worker, you can access the shared buffer:</p>
+<pre><code class="language-javascript">// Worker thread
+onmessage = function(event) {
+  const buffer = event.data;
+  const int32View = new Int32Array(buffer);
+  int32View[0] = 42;  // Modify shared memory directly
+};
+</code></pre>
+<h3 id="7-limitations-of-web-workers">7. <strong>Limitations of Web Workers</strong></h3>
+<p>While Web Workers are powerful, they have some limitations:</p>
+<ul>
+<li>Workers run in a separate thread and cannot directly access the DOM.</li>
+<li>They can only communicate with the main thread via message passing.</li>
+<li>Web Workers cannot access certain global objects like <code>localStorage</code> and <code>document</code>.</li>
+</ul>
+<h3 id="8-web-worker-example-with-settimeout">8. <strong>Web Worker Example with setTimeout</strong></h3>
+<p>You can use <code>setTimeout</code> or <code>setInterval</code> in a worker just as you would in the main thread. However, these timers are isolated to the worker thread.</p>
+<pre><code class="language-javascript">// worker.js
+setTimeout(function() {
+  postMessage(&quot;Worker has finished!&quot;);
+}, 2000);  // Delayed message
+</code></pre>
+<p>In the main thread:</p>
+<pre><code class="language-javascript">const worker = new Worker(&#39;worker.js&#39;);
+worker.onmessage = function(event) {
+  console.log(event.data);  // &quot;Worker has finished!&quot; after 2 seconds
+};
+</code></pre>
+<h3 id="9-types-of-web-workers">9. <strong>Types of Web Workers</strong></h3>
+<p>There are three types of workers in JavaScript:</p>
+<ol>
+<li><strong>Dedicated Workers</strong>: These are standard workers (created using the <code>Worker</code> constructor) that only communicate with the thread that created them.</li>
+<li><strong>Shared Workers</strong>: These workers can be accessed by multiple scripts or browser windows/tabs. They use a <code>SharedWorker</code> constructor and communicate using <code>port</code> objects.</li>
+<li><strong>Service Workers</strong>: Special workers that act as intermediaries between the web application, the browser, and network requests, typically used for offline functionality and caching.</li>
+</ol>
+<h3 id="example-shared-worker">Example: Shared Worker</h3>
+<p>A <code>SharedWorker</code> is useful when you want multiple windows or tabs to share a worker.</p>
+<pre><code class="language-javascript">// sharedWorker.js
+let counter = 0;
+onconnect = function(event) {
+  const port = event.ports[0];
+  port.postMessage(counter);
+  
+  port.onmessage = function(e) {
+    counter += e.data;
+    port.postMessage(counter);
+  };
+};
+</code></pre>
+<pre><code class="language-javascript">// main.js
+const sharedWorker = new SharedWorker(&#39;sharedWorker.js&#39;);
+sharedWorker.port.start();
+
+sharedWorker.port.onmessage = function(event) {
+  console.log(&#39;Counter:&#39;, event.data);  // Logs counter value from the shared worker
+};
+
+sharedWorker.port.postMessage(1);  // Send data to worker
+</code></pre>
+<h3 id="10-conclusion">10. <strong>Conclusion</strong></h3>
+<p>Web Workers provide a powerful mechanism for handling background tasks in JavaScript, keeping the UI responsive by offloading intensive work to separate threads. However, they have some limitations (like not being able to directly manipulate the DOM or use certain browser APIs). For complex tasks, like background calculations, data processing, or handling concurrent operations, Web Workers are a great choice to improve the performance and responsiveness of your web applications.</p>
+
+            </div>
+        </details>
+
+        <details>
+            <summary>JavaScript Symbol</summary>
+            <div class="content">
+                <p>In JavaScript, a <strong>Symbol</strong> is a primitive data type introduced in ECMAScript 6 (ES6). It is used to create unique, immutable identifiers for object properties. Symbols are often used in situations where you want to avoid property name collisions, or to create private properties for objects.</p>
+<h3 id="key-characteristics-of-symbols">Key Characteristics of Symbols:</h3>
+<ol>
+<li><strong>Uniqueness</strong>: Each Symbol is guaranteed to be unique. Even if two Symbols have the same description, they are not equal.</li>
+<li><strong>Immutability</strong>: Once a Symbol is created, its value cannot be changed.</li>
+<li><strong>Not enumerable</strong>: Symbols are not included in object property enumerations (like in <code>for...in</code> loops or <code>Object.keys()</code>).</li>
+<li><strong>Global registry</strong>: Symbols can be registered globally with a unique name, making them accessible from different parts of the application.</li>
+</ol>
+<h3 id="syntax">Syntax:</h3>
+<p>To create a Symbol, you use the <code>Symbol()</code> function.</p>
+<pre><code class="language-javascript">let symbol = Symbol();
+</code></pre>
+<p>You can also provide a description (for debugging purposes) when creating a Symbol.</p>
+<pre><code class="language-javascript">let symbolWithDescription = Symbol(&#39;description&#39;);
+</code></pre>
+<h3 id="example-usage">Example Usage:</h3>
+<h4 id="1-creating-symbols">1. Creating Symbols:</h4>
+<pre><code class="language-javascript">let symbol1 = Symbol(&#39;foo&#39;);
+let symbol2 = Symbol(&#39;foo&#39;);
+
+console.log(symbol1 === symbol2);  // false, because each Symbol is unique
+</code></pre>
+<h4 id="2-using-symbols-as-object-properties">2. Using Symbols as Object Properties:</h4>
+<p>Symbols can be used as unique keys for object properties, helping to avoid conflicts:</p>
+<pre><code class="language-javascript">let sym = Symbol(&#39;id&#39;);
+let obj = {
+    [sym]: 123
+};
+
+console.log(obj[sym]);  // 123
+</code></pre>
+<h4 id="3-symbols-in-object-methods">3. Symbols in Object Methods:</h4>
+<p>You can use Symbols to define methods that are not part of the normal enumeration of object properties:</p>
+<pre><code class="language-javascript">let obj = {
+    [Symbol(&#39;method&#39;)]: function() {
+        console.log(&#39;This is a unique method&#39;);
+    }
+};
+
+obj[Object.getOwnPropertySymbols(obj)[0]]();  // This is a unique method
+</code></pre>
+<h4 id="4-symbolfor---global-symbol-registry">4. Symbol.for() - Global Symbol Registry:</h4>
+<p>Symbols can also be created in a global registry using <code>Symbol.for()</code>. If a symbol with the same key already exists, it returns the same symbol.</p>
+<pre><code class="language-javascript">let globalSymbol1 = Symbol.for(&#39;global&#39;);
+let globalSymbol2 = Symbol.for(&#39;global&#39;);
+
+console.log(globalSymbol1 === globalSymbol2);  // true, because they are the same symbol from the global registry
+</code></pre>
+<h4 id="5-well-known-symbols">5. Well-known Symbols:</h4>
+<p>JavaScript has a set of built-in &quot;well-known symbols&quot; that correspond to certain behavior in the language. For example:</p>
+<ul>
+<li><code>Symbol.iterator</code>: Defines the default iterator for an object.</li>
+<li><code>Symbol.toStringTag</code>: Specifies the default string description for an object.</li>
+<li><code>Symbol.hasInstance</code>: Determines whether an object is an instance of a class.</li>
+</ul>
+<p>Example using <code>Symbol.iterator</code>:</p>
+<pre><code class="language-javascript">let obj = {
+    *[Symbol.iterator]() {
+        yield 1;
+        yield 2;
+        yield 3;
+    }
+};
+
+for (let value of obj) {
+    console.log(value);  // 1, 2, 3
+}
+</code></pre>
+<h3 id="why-use-symbols">Why Use Symbols?</h3>
+<ul>
+<li><strong>Avoiding property name collisions</strong>: Since symbols are unique, they ensure that property names won&#39;t conflict, even if you don&#39;t know what other properties an object might have.</li>
+<li><strong>Private properties</strong>: You can simulate private properties by using Symbols, as they don&#39;t show up in most object property enumerations (e.g., <code>for...in</code> or <code>Object.keys()</code>).</li>
+</ul>
+<p>In summary, <strong>Symbols</strong> provide a way to create unique, immutable identifiers, helping to solve problems with name conflicts and offering more control over object properties.</p>
+
+            </div>
+        </details>
+
+        <details>
+            <summary>Javascript Set</summary>
+            <div class="congtent">
+                <p>In JavaScript, a <strong>Set</strong> is a built-in collection type that allows you to store unique values of any type, whether they are primitive values or object references. A Set automatically eliminates duplicate values, making it a convenient tool for managing collections of data where uniqueness is important.</p>
+<h3 id="key-characteristics-of-a-set">Key Characteristics of a Set:</h3>
+<ol>
+<li><strong>Unique values</strong>: A Set automatically removes duplicate values. If you try to add a duplicate value, it will be ignored.</li>
+<li><strong>Ordered collection</strong>: Sets store values in the order they were inserted. You can iterate over the values in insertion order.</li>
+<li><strong>No index-based access</strong>: Unlike arrays, you cannot access Set elements by index (e.g., <code>set[0]</code> would not work).</li>
+<li><strong>Iterable</strong>: Sets are iterable, meaning you can use loops (like <code>for...of</code>) to iterate over their values.</li>
+</ol>
+<h3 id="syntax">Syntax:</h3>
+<p>You can create a Set using the <code>Set()</code> constructor.</p>
+<pre><code class="language-javascript">let mySet = new Set();
+</code></pre>
+<p>You can also initialize a Set with an iterable (like an array) to populate it with values:</p>
+<pre><code class="language-javascript">let mySet = new Set([1, 2, 3]);
+</code></pre>
+<h3 id="operations-on-a-set">Operations on a Set:</h3>
+<h4 id="1-adding-elements">1. Adding Elements:</h4>
+<p>You can add elements to a Set using the <code>.add()</code> method.</p>
+<pre><code class="language-javascript">let mySet = new Set();
+mySet.add(1);  // Set {1}
+mySet.add(2);  // Set {1, 2}
+mySet.add(1);  // Set {1, 2} (1 is not added again)
+</code></pre>
+<h4 id="2-checking-for-existence">2. Checking for Existence:</h4>
+<p>You can check if a value exists in a Set using the <code>.has()</code> method.</p>
+<pre><code class="language-javascript">let mySet = new Set([1, 2, 3]);
+console.log(mySet.has(2));  // true
+console.log(mySet.has(4));  // false
+</code></pre>
+<h4 id="3-removing-elements">3. Removing Elements:</h4>
+<p>You can remove elements from a Set using the <code>.delete()</code> method.</p>
+<pre><code class="language-javascript">let mySet = new Set([1, 2, 3]);
+mySet.delete(2);  // Set {1, 3}
+console.log(mySet.has(2));  // false
+</code></pre>
+<h4 id="4-clearing-all-elements">4. Clearing All Elements:</h4>
+<p>You can remove all elements from a Set using the <code>.clear()</code> method.</p>
+<pre><code class="language-javascript">let mySet = new Set([1, 2, 3]);
+mySet.clear();  // Set {}
+console.log(mySet.size);  // 0
+</code></pre>
+<h4 id="5-size-of-a-set">5. Size of a Set:</h4>
+<p>You can get the number of elements in a Set using the <code>.size</code> property.</p>
+<pre><code class="language-javascript">let mySet = new Set([1, 2, 3]);
+console.log(mySet.size);  // 3
+</code></pre>
+<h3 id="iterating-over-a-set">Iterating Over a Set:</h3>
+<p>You can iterate over the elements of a Set using the <code>for...of</code> loop or the <code>.forEach()</code> method.</p>
+<pre><code class="language-javascript">let mySet = new Set([1, 2, 3]);
+
+// Using for...of
+for (let value of mySet) {
+    console.log(value);  // 1, 2, 3
+}
+
+// Using forEach
+mySet.forEach((value) =&gt; {
+    console.log(value);  // 1, 2, 3
+});
+</code></pre>
+<h3 id="example-using-set-to-eliminate-duplicates">Example: Using Set to Eliminate Duplicates</h3>
+<p>A common use case for a Set is removing duplicates from an array:</p>
+<pre><code class="language-javascript">let numbers = [1, 2, 2, 3, 4, 4, 5];
+let uniqueNumbers = new Set(numbers);
+console.log(uniqueNumbers);  // Set {1, 2, 3, 4, 5}
+</code></pre>
+<h3 id="why-use-a-set">Why Use a Set?</h3>
+<ul>
+<li><strong>Eliminating duplicates</strong>: Sets automatically handle duplicates, making them useful for scenarios where you need to ensure uniqueness (like filtering repeated values).</li>
+<li><strong>Efficient lookup</strong>: Checking if an element exists in a Set (<code>has()</code>) is generally more efficient than in an array, especially when dealing with large collections.</li>
+<li><strong>Preserving insertion order</strong>: Sets maintain the order in which elements are added, which is useful when you need to iterate over values in the same sequence.</li>
+</ul>
+<h3 id="example-set-with-mixed-data-types">Example: Set with Mixed Data Types</h3>
+<p>A Set can store values of any type (primitive types like numbers, strings, and objects).</p>
+<pre><code class="language-javascript">let mixedSet = new Set([1, &#39;hello&#39;, { a: 1 }, [1, 2]]);
+mixedSet.add(1);  // Duplicate, will not be added
+mixedSet.add(&#39;world&#39;);
+console.log(mixedSet);
+// Set { 1, &#39;hello&#39;, { a: 1 }, [1, 2], &#39;world&#39; }
+</code></pre>
+<h3 id="limitations-of-set">Limitations of Set:</h3>
+<ol>
+<li><strong>No index-based access</strong>: You cannot access Set elements by an index like you can with arrays.</li>
+<li><strong>No key-value pairs</strong>: Sets only store values, not key-value pairs (if you need key-value mapping, consider using a <code>Map</code>).</li>
+</ol>
+<h3 id="conclusion">Conclusion:</h3>
+<p>In summary, a <strong>Set</strong> is a built-in collection in JavaScript that provides a way to store unique values with efficient operations. It&#39;s useful for scenarios where you need uniqueness or need to prevent duplicate values from being added to a collection. However, Sets do not support index-based access or store key-value pairs, so they are best suited for cases where only values need to be stored and managed.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Javascript Map</summary>
+            <div class="congtent">
+                <p>In JavaScript, a <strong>Map</strong> is a built-in collection type that stores key-value pairs, where both the <strong>keys</strong> and <strong>values</strong> can be of any type (primitive or objects). A <strong>Map</strong> is similar to an object, but it provides more flexibility and useful features, especially when working with non-string keys.</p>
+<h3 id="key-characteristics-of-a-map">Key Characteristics of a Map:</h3>
+<ol>
+<li><strong>Key-Value Pairs</strong>: A Map holds data in pairs, where each key is unique and associated with a value.</li>
+<li><strong>Any Data Type as Keys and Values</strong>: Unlike objects (which only allow strings and symbols as keys), Maps can use any data type (e.g., numbers, objects, functions) as keys.</li>
+<li><strong>Insertion Order</strong>: Maps maintain the order of key-value pairs as they were inserted. When iterating over a Map, the keys are returned in the order they were added.</li>
+<li><strong>Iterability</strong>: Maps are iterable, meaning you can loop through them using <code>for...of</code> or <code>.forEach()</code>.</li>
+<li><strong>Efficient Lookups</strong>: Map provides better performance for frequent additions, deletions, and lookups compared to objects.</li>
+</ol>
+<h3 id="creating-a-map">Creating a Map:</h3>
+<p>You can create a Map using the <code>new Map()</code> constructor.</p>
+<pre><code class="language-javascript">let myMap = new Map();
+</code></pre>
+<p>You can also initialize a Map with key-value pairs:</p>
+<pre><code class="language-javascript">let myMap = new Map([
+    [&#39;name&#39;, &#39;Alice&#39;],
+    [&#39;age&#39;, 25],
+    [&#39;country&#39;, &#39;USA&#39;]
+]);
+</code></pre>
+<h3 id="operations-on-a-map">Operations on a Map:</h3>
+<h4 id="1-adding-elements">1. Adding Elements:</h4>
+<p>You can add key-value pairs to a Map using the <code>.set()</code> method.</p>
+<pre><code class="language-javascript">let myMap = new Map();
+myMap.set(&#39;name&#39;, &#39;Alice&#39;);
+myMap.set(&#39;age&#39;, 25);
+
+console.log(myMap);  // Map { &#39;name&#39; =&gt; &#39;Alice&#39;, &#39;age&#39; =&gt; 25 }
+</code></pre>
+<h4 id="2-retrieving-values">2. Retrieving Values:</h4>
+<p>You can retrieve a value associated with a key using the <code>.get()</code> method.</p>
+<pre><code class="language-javascript">let myMap = new Map([[&#39;name&#39;, &#39;Alice&#39;], [&#39;age&#39;, 25]]);
+console.log(myMap.get(&#39;name&#39;));  // &#39;Alice&#39;
+console.log(myMap.get(&#39;age&#39;));   // 25
+</code></pre>
+<h4 id="3-checking-for-a-key">3. Checking for a Key:</h4>
+<p>You can check if a key exists in the Map using the <code>.has()</code> method.</p>
+<pre><code class="language-javascript">let myMap = new Map([[&#39;name&#39;, &#39;Alice&#39;], [&#39;age&#39;, 25]]);
+console.log(myMap.has(&#39;name&#39;));  // true
+console.log(myMap.has(&#39;gender&#39;)); // false
+</code></pre>
+<h4 id="4-removing-elements">4. Removing Elements:</h4>
+<p>You can remove a key-value pair from a Map using the <code>.delete()</code> method.</p>
+<pre><code class="language-javascript">let myMap = new Map([[&#39;name&#39;, &#39;Alice&#39;], [&#39;age&#39;, 25]]);
+myMap.delete(&#39;age&#39;);  // Removes the &#39;age&#39; key-value pair
+console.log(myMap);  // Map { &#39;name&#39; =&gt; &#39;Alice&#39; }
+</code></pre>
+<h4 id="5-clearing-all-elements">5. Clearing All Elements:</h4>
+<p>You can remove all key-value pairs from a Map using the <code>.clear()</code> method.</p>
+<pre><code class="language-javascript">let myMap = new Map([[&#39;name&#39;, &#39;Alice&#39;], [&#39;age&#39;, 25]]);
+myMap.clear();  // Removes all entries
+console.log(myMap.size);  // 0
+</code></pre>
+<h4 id="6-getting-the-size">6. Getting the Size:</h4>
+<p>You can get the number of key-value pairs in a Map using the <code>.size</code> property.</p>
+<pre><code class="language-javascript">let myMap = new Map([[&#39;name&#39;, &#39;Alice&#39;], [&#39;age&#39;, 25]]);
+console.log(myMap.size);  // 2
+</code></pre>
+<h3 id="iterating-over-a-map">Iterating Over a Map:</h3>
+<p>You can iterate over a Map using various methods.</p>
+<h4 id="1-using-forof-loop">1. Using <code>for...of</code> Loop:</h4>
+<p>You can use a <code>for...of</code> loop to iterate over the key-value pairs in a Map.</p>
+<pre><code class="language-javascript">let myMap = new Map([[&#39;name&#39;, &#39;Alice&#39;], [&#39;age&#39;, 25]]);
+for (let [key, value] of myMap) {
+    console.log(key, value);  // Outputs &#39;name Alice&#39; and &#39;age 25&#39;
+}
+</code></pre>
+<h4 id="2-using-foreach-method">2. Using <code>.forEach()</code> Method:</h4>
+<p>You can also use the <code>.forEach()</code> method to iterate over the Map.</p>
+<pre><code class="language-javascript">let myMap = new Map([[&#39;name&#39;, &#39;Alice&#39;], [&#39;age&#39;, 25]]);
+myMap.forEach((value, key) =&gt; {
+    console.log(key, value);  // Outputs &#39;name Alice&#39; and &#39;age 25&#39;
+});
+</code></pre>
+<h3 id="key-differences-between-map-and-object">Key Differences Between Map and Object:</h3>
+<ul>
+<li><strong>Key Types</strong>: Objects only allow strings (or symbols) as keys, while Maps can use any type (objects, functions, numbers, etc.) as keys.</li>
+<li><strong>Order</strong>: Maps preserve the insertion order of key-value pairs, whereas objects do not guarantee order (although modern JavaScript engines tend to maintain the order of string keys).</li>
+<li><strong>Iteration</strong>: Maps are inherently iterable, while objects are not directly iterable over their keys or values.</li>
+<li><strong>Performance</strong>: Maps tend to have better performance for adding, deleting, and checking for keys, especially when dealing with large data sets.</li>
+</ul>
+<h3 id="example-map-with-non-string-keys">Example: Map with Non-String Keys</h3>
+<p>Maps can use various types of keys, such as objects and functions:</p>
+<pre><code class="language-javascript">let objKey = { id: 1 };
+let funcKey = function() {};
+
+let myMap = new Map();
+myMap.set(objKey, &#39;Object Value&#39;);
+myMap.set(funcKey, &#39;Function Value&#39;);
+
+console.log(myMap.get(objKey));  // &#39;Object Value&#39;
+console.log(myMap.get(funcKey)); // &#39;Function Value&#39;
+</code></pre>
+<h3 id="example-using-map-for-counting-occurrences">Example: Using Map for Counting Occurrences</h3>
+<p>A common use case for Maps is counting the occurrences of values.</p>
+<pre><code class="language-javascript">let words = [&#39;apple&#39;, &#39;banana&#39;, &#39;apple&#39;, &#39;orange&#39;, &#39;banana&#39;, &#39;banana&#39;];
+let wordCount = new Map();
+
+words.forEach(word =&gt; {
+    if (wordCount.has(word)) {
+        wordCount.set(word, wordCount.get(word) + 1);
+    } else {
+        wordCount.set(word, 1);
+    }
+});
+
+console.log(wordCount);
+// Map { &#39;apple&#39; =&gt; 2, &#39;banana&#39; =&gt; 3, &#39;orange&#39; =&gt; 1 }
+</code></pre>
+<h3 id="conclusion">Conclusion:</h3>
+<p>In summary, <strong>Map</strong> is a powerful and flexible collection type in JavaScript that allows you to store key-value pairs. It provides a better alternative to objects in scenarios where:</p>
+<ul>
+<li>You need to use any type of value as keys (not just strings or symbols).</li>
+<li>You need guaranteed insertion order.</li>
+<li>You need more efficient lookups, additions, and deletions.</li>
+</ul>
+<p>Maps are highly useful in many real-world JavaScript applications, including data storage, caching, and maintaining relationships between different pieces of data.</p>
+
+            </div>
+        </details>
+
+    </div>
+
+    <div class="home-link">
+        <a class="btn btn-primary" href="../../index.html">Home</a>
+    </div>
+    <script src="../../assests//js/bootstrap.bundle.min.js"></script>
+    <script src="../../assests//js/prism.min.js"></script>
+    <script src="../../assests//js/prism-java.min.js"></script>
+    <script src="../../assests//js/script.js"></script>
+</body>
+
+</html>
